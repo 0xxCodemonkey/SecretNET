@@ -78,45 +78,46 @@ The wallet will use per default an secure storage which protects the sensitive d
 | iOS / macOS | uses the Keychain | 
 | Windows | DataProtectionProvider is used to encrypt values securely on Windows devices. | 
 
-Never store the private key or mnemonic phrase permanent in a variable (or somewhere else than in SecureStore) or output them in a log! 
+:warning: **Never store the private key or mnemonic phrase permanent in a variable (or somewhere else than in SecureStore) or output them in a log!**
+**Only store them in a secure storage like the default implementation.**
 
-Only store them in a secure storage like the default implementation.
-
-Importing account from mnemonic phrase
+### Importing account from mnemonic phrase
 Simply use the mnemonic phrase in the Wallet.Create method (and use the wallet in the constructor of the SecretNetworkClient:) like this
 
-
+```  csharp
 var wallet = await SecretNET.Wallet.Create("detect unique diary skate horse hockey gain naive approve rabbit act lift");
-Importing private key
+```
+### Importing private key
 Simply use the private key in the Wallet.Create method (and use the wallet in the constructor of the SecretNetworkClient:) like this
-
-
+```  csharp
 var walletFromSeed = await SecretNET.Wallet.Create(** byte[] private key **);
-Import via Keplr QR (coming soon)
-Generating a random account
+```
+### Import via Keplr QR (coming soon)
+### Generating a random account
 To generate a complete new random wallet just use the Wallet.Create method without a parameter (default wordlist is english), or specify another Wordlist.
-
-
+```  csharp
 var newRandomWallet = await SecretNET.Wallet.Create();
-Attaching the wallet to the SecretNetworkClient (required for signing transactions)
+```
+### Attaching the wallet to the SecretNetworkClient (required for signing transactions)
 In the constructor:
-
-
+```  csharp
 var secretNetworkClient = new SecretNetworkClient("https://pulsar-2.api.trivium.network:9091", "pulsar-2", wallet);
+```
 Later via prop:
-
-
+```  csharp
 secretNetworkClient.Wallet = wallet;
-Sending Queries
-Broadcasting Transactions
-Uploading and initialize Smart Contract
-Calling a Smart Contract
-Interacting with an Token Contract (SNIP20)
-Interacting with an NFT Contract (SNIP721)
-SecretNetworkClient
-Full API »
+```
+## Sending Queries
+## Broadcasting Transactions
+## Uploading and initialize Smart Contract
+## Calling a Smart Contract
+## Interacting with an Token Contract (SNIP20)
+## Interacting with an NFT Contract (SNIP721)
+# SecretNetworkClient
+**Full API »**
 
-Querier
-A querier client can only send queries and get chain information. Access to all query types can be done via SecretNetworkClient.Query.
+## Querier
+The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.
 
-Transactions
+## Transactions
+Use ```SecretNetworkClient.Tx``` to broadcast transactions.
