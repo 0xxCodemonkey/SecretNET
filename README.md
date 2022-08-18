@@ -20,28 +20,28 @@ In addition to the SecretNET Core Library, the following complementary packages 
 - UI Package (coming soon), which contains typical MAUI controls such as Confirm Transaction, or Wallet Setup.
 
 # Table of Contents
-- Key Features
-  - Additional packages
-- Table of Contents
-- Usage 
-  - Installation
-    - Additional packages
-- Examples
-   - Creating / Initializing the Wallet
-      - Importing account from mnemonic phrase
-      - Importing private key
-      - Import via Keplr QR (coming soon)
-      - Generating a random account
-      - Attaching the wallet to the SecretNetworkClient (required for signing transactions)
-  - Sending Queries
-  - Broadcasting Transactions
-  - Uploading and initialize Smart Contract
-  - Calling a Smart Contract
-  - Interacting with an Token Contract (SNIP20)
-  - Interacting with an NFT Contract (SNIP721)
-- SecretNetworkClient
-  - Querier
-  - Transactions
+- [Key Features](#key-features)
+  - [Additional packages](#additional-packages)
+- [Table of Contents](#table-of-contents)
+- [Usage](#usage)
+  - [Installation](#installation)
+    - [Additional packages](#)
+- [Examples](#examples)
+   - [Creating / Initializing the Wallet](#creating-/-initializing-the-wallet)
+      - [Importing account from mnemonic phrase](#importing-account-from-mnemonic-phrase)
+      - [Importing private key](#importing-private-key)
+      - [Import via Keplr QR](#import-via-keplr-qr)
+      - [Generating a new account](#generating-a-new-account)
+      - [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#)
+  - [Sending Queries](#)
+  - [Broadcasting Transactions](#)
+  - [Uploading and initialize Smart Contract](#)
+  - [Calling a Smart Contract](#)
+  - [Interacting with an Token Contract (SNIP20)](#)
+  - [Interacting with an NFT Contract (SNIP721)](#)
+- [SecretNetworkClient](#)
+  - [Querier](#)
+  - [Transactions](#)
 
 # Usage 
 ## Installation
@@ -69,7 +69,7 @@ Install-Package SecretNET.SNIP721
 Install-Package SecretNET.UI (coming soon)
 ```
 # Examples
-## Creating / Initializing the Wallet
+## Creating / Initializing the wallet
 The wallet will use per default an secure storage which protects the sensitive data in a platform-specific manner:
 
 | Plattform | Info |
@@ -92,8 +92,9 @@ Simply use the private key in the Wallet.Create method (and use the wallet in th
 ```  csharp
 var walletFromSeed = await SecretNET.Wallet.Create(** byte[] private key **);
 ```
-### Import via Keplr QR (coming soon)
-### Generating a random account
+### Import via Keplr QR
+- coming soon...
+### Generating a new account
 To generate a complete new random wallet just use the Wallet.Create method without a parameter (default wordlist is english), or specify another Wordlist.
 ```  csharp
 var newRandomWallet = await SecretNET.Wallet.Create();
