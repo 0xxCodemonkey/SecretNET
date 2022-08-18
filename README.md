@@ -78,29 +78,29 @@ The wallet will use per default an secure storage which protects the sensitive d
 | Plattform | Info |
 | ------------- | -------------  |
 | Android | Data is encrypted with the Android EncryptedSharedPreference Class, and the secure storage value is encrypted with AES-256 GCM. |
-| iOS / macOS | The iOS Keychain is used to store values securely | 
+| iOS / macOS | The iOS Keychain is used to store values securely. | 
 | Windows | DataProtectionProvider is used to encrypt values securely on Windows devices. | 
 
-:warning: **Never store the private key or mnemonic phrase permanent in a variable (or somewhere else than in SecureStore) or output them in a log!**
+:warning: **Never store the private key or mnemonic phrase permanent in a variable (or somewhere else than in a secure storage) or output them in a log!**
 **Only store them in a secure storage like the default implementation.**
 
 ### Importing account from mnemonic phrase
-Simply use the mnemonic phrase in the Wallet.Create method (and use the wallet in the constructor of the SecretNetworkClient:) like this
+Simply use the mnemonic phrase in the ```Wallet.Create``` method (and use the wallet in the constructor of the SecretNetworkClient:) like this
 
 ```  csharp
-var wallet = await SecretNET.Wallet.Create("detect unique diary skate horse hockey gain naive approve rabbit act lift");
+var walletFromMnemonic = await SecretNET.Wallet.Create("detect unique diary skate horse hockey gain naive approve rabbit act lift");
 ```
 ### Importing private key
-Simply use the private key in the Wallet.Create method (and use the wallet in the constructor of the SecretNetworkClient:) like this
+Simply use the private key in the ```Wallet.Create``` method (and use the wallet in the constructor of the SecretNetworkClient:) like this
 ```  csharp
 var walletFromSeed = await SecretNET.Wallet.Create(** byte[] private key **);
 ```
 ### Import via Keplr QR
 - coming soon...
 ### Generating a new account
-To generate a complete new random wallet just use the Wallet.Create method without a parameter (default wordlist is english), or specify another Wordlist.
+To generate a complete new random wallet just use the ```Wallet.Create``` method without a parameter (default wordlist is english), or specify another Wordlist (also supported: chinese_simplified, chinese_traditional, japanese, spanish, french, portuguese_brazil and czech).
 ```  csharp
-var newRandomWallet = await SecretNET.Wallet.Create();
+var newRandomWallet = await SecretNET.Wallet.Create(Wordlist.English);
 ```
 ### Attaching the wallet to the SecretNetworkClient (required for signing transactions)
 In the constructor:
@@ -109,7 +109,7 @@ var secretNetworkClient = new SecretNetworkClient("https://pulsar-2.api.trivium.
 ```
 Later via prop:
 ```  csharp
-secretNetworkClient.Wallet = wallet;
+secretNetworkClient.Wallet = walletFromMnemonic;
 ```
 ## Sending Queries
 ## Broadcasting Transactions
