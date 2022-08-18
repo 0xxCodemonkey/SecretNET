@@ -18,7 +18,7 @@ SecretNET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client
 In addition to the SecretNET Core Library, the following complementary packages are available:
 - [**Full SNIP-20 (Token) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP20), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
 - [**Full SNIP-721 / SNIP-722 (NFT) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP721), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
-- UI Package (coming soon), which contains typical MAUI controls such as Confirm Transaction, or Wallet Setup.
+- UI Package (coming soon), which contains typical MAUI controls such as Confirm Transaction, Wallet Setup, Scan Keplr QR, etc.
 
 # Table of Contents
 - [Key Features](#key-features)
