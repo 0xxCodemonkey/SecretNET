@@ -78,7 +78,7 @@ The wallet will use per default an secure storage which protects the sensitive d
 | Plattform | Info |
 | ------------- | -------------  |
 | Android | Data is encrypted with the Android EncryptedSharedPreference Class, and the secure storage value is encrypted with AES-256 GCM. |
-| iOS / macOS | uses the Keychain | 
+| iOS / macOS | The iOS Keychain is used to store values securely | 
 | Windows | DataProtectionProvider is used to encrypt values securely on Windows devices. | 
 
 :warning: **Never store the private key or mnemonic phrase permanent in a variable (or somewhere else than in SecureStore) or output them in a log!**
