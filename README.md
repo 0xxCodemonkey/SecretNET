@@ -44,6 +44,24 @@ In addition to the SecretNET Core Library, the following complementary packages 
   - [Querier](#querier)
   - [Transactions](#transactions)
 
+# General information
+The rough structure of the SecretNET client, from the user's perspective, is divided into the following areas:
+- **Queries** (accessible via ```Query``` property), to get informations from the blockchain or an smart contract.
+- **Transactions** (accessible via ```Tx``` property), to interact activly with the blockchain e.g. sending funds or calling smart contract methods.
+- **Permits** (accessible via ```Permit``` property) for requesting protected informations in a query, without the need for a separate transaction.
+
+**Queries** cost no fees, are executed "immediately" and do not require a wallet.
+
+**Transactions** are broadcast to the blockchain in encrypted form and have to be processed. Therefore, they cost fees and the messages must be signed by the sender. A wallet is required for signing the transactions.
+
+All transactions can also be simulated via ``Tx.Simulate`` to determine the estimated fees.
+
+**Permits** can be signed with the ```Permit.Sign``` method.
+
+**All types and methods are documented and eases programming:**
+
+![](resources/VS_IntelliSense.png)
+
 # Usage 
 ## Installation
 The SecretNET Core Libray can be easily installed via Nuget: 
