@@ -52,7 +52,7 @@ The rough structure of the SecretNET client, from the user's perspective, is div
 
 **Queries** cost no fees, are executed "immediately" and do not require a wallet.
 
-**Transactions** are broadcast to the blockchain in encrypted form and have to be processed. Therefore, they cost fees and the messages must be signed by the sender. A wallet is required for signing the transactions.
+**Transactions** are broadcast to the blockchain in encrypted form and have to be processed. Therefore, they cost fees and the messages must be signed by the sender and a wallet is required for signing the transactions.
 
 All transactions can also be simulated via ``Tx.Simulate`` to determine the estimated fees.
 
