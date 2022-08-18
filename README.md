@@ -1,4 +1,5 @@
 
+# SecretNET Core Library
 SecretNET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is an .NET SDK for writing applications that interact with the [Secret Network blockchain](https://scrt.network/).
 
 # Key Features
