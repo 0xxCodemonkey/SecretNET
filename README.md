@@ -24,6 +24,7 @@ In addition to the SecretNET Core Library, the following complementary packages 
 - [Key Features](#key-features)
   - [Additional packages](#additional-packages)
 - [Table of Contents](#table-of-contents)
+- [General information](#general-information)
 - [Usage](#usage)
   - [Installation](#installation)
     - [Additional packages](#additional-packages)
