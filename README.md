@@ -47,6 +47,7 @@ In addition to the SecretNET Core Library, the following complementary packages 
 # Usage 
 ## Installation
 The SecretNET Core Libray can be easily installed via Nuget: 
+
 ``` nuget.exe ``` -CLI:
 ``` bash 
 nuget install SecretNET
