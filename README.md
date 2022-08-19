@@ -20,9 +20,13 @@ In addition to the SecretNET Core Library, the following complementary packages 
 - [**Full SNIP-721 / SNIP-722 (NFT) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP721), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
 - **UI Package** (coming soon), which contains typical MAUI controls such as Confirm Transaction, Wallet Setup, Scan Keplr QR, etc.
 
+## Full API-documentation
+You can find the **full API-documentation** here => [https://0xxcodemonkey.github.io/SecretNET](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
+
 # Table of Contents
 - [Key Features](#key-features)
   - [Additional packages](#additional-packages)
+  - [Full API-documentation](#full-api-documentation)
 - [Table of Contents](#table-of-contents)
 - [General information](#general-information)
 - [Usage](#usage)
