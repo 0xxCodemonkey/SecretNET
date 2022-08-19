@@ -183,11 +183,11 @@
   <HelpKINode Title="CancelSoftwareUpgradeProposal field" Url="html/F-SecretNET.Tx.ProposalType.CancelSoftwareUpgradeProposal.htm" />
   <HelpKINode Title="Certificate property" Url="html/P-SecretNET.Tx.RaAuthenticate.Certificate.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.AccessControl.Permit_Params.ChainId.htm" />
-  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.ISignerData.ChainID.htm" />
-  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
-  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Api.StdSignDoc.ChainId.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Common.CreateClientOptions.ChainId.htm" />
+  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
+  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
+  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.ISignerData.ChainID.htm" />
   <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.SignerData.ChainID.htm" />
   <HelpKINode Title="Channel method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.Channel.htm" />
   <HelpKINode Title="ChannelClientState method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.ChannelClientState.htm" />
@@ -548,7 +548,7 @@
   <HelpKINode Title="Deposits method" Url="html/M-SecretNET.Query.GovQueryClient.Deposits.htm" />
   <HelpKINode Title="Derivate method" Url="html/M-SecretNET.Crypto.Key.Derivate.htm" />
   <HelpKINode Title="Derivate method" Url="html/M-SecretNET.Crypto.PubKey.Derivate.htm" />
-  <HelpKINode Title="DeriveKey method" Url="html/Overload-HkdfStandard.Hkdf.DeriveKey.htm" />
+  <HelpKINode Title="DeriveKey method" Url="html/Overload-SecretNET.Crypto.Hkdf.DeriveKey.htm" />
   <HelpKINode Title="DeriveSeed method" Url="html/M-SecretNET.Crypto.BIP39.Mnemonic.DeriveSeed.htm" />
   <HelpKINode Title="Description property" Url="html/P-SecretNET.Tx.MsgCreateValidator.Description.htm" />
   <HelpKINode Title="Description property" Url="html/P-SecretNET.Tx.MsgEditValidator.Description.htm" />
@@ -778,10 +778,10 @@
   <HelpKINode Title="Exceptions property" Url="html/P-SecretNET.Tx.SecretTx.Exceptions.htm" />
   <HelpKINode Title="Exec method" Url="html/M-SecretNET.Tx.AuthzTx.Exec.htm" />
   <HelpKINode Title="Exec method" Url="html/M-SecretNET.Tx.AuthzTxSimulate.Exec.htm" />
-  <HelpKINode Title="Expand method" Url="html/Overload-HkdfStandard.Hkdf.Expand.htm" />
+  <HelpKINode Title="Expand method" Url="html/Overload-SecretNET.Crypto.Hkdf.Expand.htm" />
   <HelpKINode Title="Expiration property" Url="html/P-SecretNET.Tx.MsgGrant.Expiration.htm" />
   <HelpKINode Title="ExplicitSignerData property" Url="html/P-SecretNET.Tx.TxOptions.ExplicitSignerData.htm" />
-  <HelpKINode Title="Extract method" Url="html/Overload-HkdfStandard.Hkdf.Extract.htm" />
+  <HelpKINode Title="Extract method" Url="html/Overload-SecretNET.Crypto.Hkdf.Extract.htm" />
   <HelpKINode Title="FE structure" Url="html/AllMembers.T-SecretNET.Crypto.Secp256k1.FE.htm" />
   <HelpKINode Title="FE structure" Url="html/T-SecretNET.Crypto.Secp256k1.FE.htm" />
   <HelpKINode Title="FE structure">
@@ -1159,19 +1159,16 @@
   <HelpKINode Title="HistoricalInfo method" Url="html/M-SecretNET.Query.StakingQueryClient.HistoricalInfo.htm" />
   <HelpKINode Title="History enumeration member" Url="html/T-SecretNET.AccessControl.PermissionType.htm" />
   <HelpKINode Title="History field" Url="html/F-SecretNET.AccessControl.PermissionType.History.htm" />
-  <HelpKINode Title="Hkdf class" Url="html/AllMembers.T-HkdfStandard.Hkdf.htm" />
-  <HelpKINode Title="Hkdf class" Url="html/T-HkdfStandard.Hkdf.htm" />
+  <HelpKINode Title="Hkdf class" Url="html/AllMembers.T-SecretNET.Crypto.Hkdf.htm" />
+  <HelpKINode Title="Hkdf class" Url="html/T-SecretNET.Crypto.Hkdf.htm" />
   <HelpKINode Title="Hkdf class">
-    <HelpKINode Title="about Hkdf class" Url="html/T-HkdfStandard.Hkdf.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-HkdfStandard.Hkdf.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-HkdfStandard.Hkdf.htm" />
+    <HelpKINode Title="about Hkdf class" Url="html/T-SecretNET.Crypto.Hkdf.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Crypto.Hkdf.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.Hkdf.htm" />
   </HelpKINode>
-  <HelpKINode Title="Hkdf.DeriveKey method" Url="html/Overload-HkdfStandard.Hkdf.DeriveKey.htm" />
-  <HelpKINode Title="Hkdf.Expand method" Url="html/Overload-HkdfStandard.Hkdf.Expand.htm" />
-  <HelpKINode Title="Hkdf.Extract method" Url="html/Overload-HkdfStandard.Hkdf.Extract.htm" />
-  <HelpKINode Title="HkdfStandard namespace" Url="html/N-HkdfStandard.htm" />
-  <HelpKINode Title="HkdfStandard.Hkdf class" Url="html/AllMembers.T-HkdfStandard.Hkdf.htm" />
-  <HelpKINode Title="HkdfStandard.Hkdf class" Url="html/T-HkdfStandard.Hkdf.htm" />
+  <HelpKINode Title="Hkdf.DeriveKey method" Url="html/Overload-SecretNET.Crypto.Hkdf.DeriveKey.htm" />
+  <HelpKINode Title="Hkdf.Expand method" Url="html/Overload-SecretNET.Crypto.Hkdf.Expand.htm" />
+  <HelpKINode Title="Hkdf.Extract method" Url="html/Overload-SecretNET.Crypto.Hkdf.Extract.htm" />
   <HelpKINode Title="HMACSHA256 class" Url="html/AllMembers.T-SecretNET.Crypto.Secp256k1.HMACSHA256.htm" />
   <HelpKINode Title="HMACSHA256 class" Url="html/T-SecretNET.Crypto.Secp256k1.HMACSHA256.htm" />
   <HelpKINode Title="HMACSHA256 class">
@@ -2574,36 +2571,34 @@
   <HelpKINode Title="PROPOSAL_STATUS_VOTING_PERIOD field" Url="html/F-SecretNET.Tx.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD.htm" />
   <HelpKINode Title="Proposer property" Url="html/P-SecretNET.Tx.MsgSubmitProposal.Proposer.htm" />
   <HelpKINode Title="PubKey class" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
-  <HelpKINode Title="PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
-  <HelpKINode Title="PubKey class">
-    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pubkey class" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
-  <HelpKINode Title="Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
-  <HelpKINode Title="PubKey class">
-    <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
-  </HelpKINode>
   <HelpKINode Title="Pubkey class">
-    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Api.Pubkey.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
   </HelpKINode>
   <HelpKINode Title="PubKey class">
     <HelpKINode Title="about PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
   </HelpKINode>
   <HelpKINode Title="Pubkey class">
-    <HelpKINode Title="about Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
-    <HelpKINode Title="constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="PubKey class">
-    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Crypto.PubKey.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pubkey class">
     <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
   </HelpKINode>
+  <HelpKINode Title="PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
+  <HelpKINode Title="PubKey class">
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
+  <HelpKINode Title="Pubkey class" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
+  <HelpKINode Title="Pubkey class">
+    <HelpKINode Title="about Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Api.Pubkey.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PubKey class">
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Crypto.PubKey.htm" />
+  </HelpKINode>
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Api.StdSignature.PubKey.htm" />
-  <HelpKINode Title="Pubkey property" Url="html/P-SecretNET.Tx.MsgCreateValidator.Pubkey.htm" />
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Api.StdSignatureAmino.PubKey.htm" />
+  <HelpKINode Title="Pubkey property" Url="html/P-SecretNET.Tx.MsgCreateValidator.Pubkey.htm" />
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Crypto.Key.PubKey.htm" />
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Crypto.KeyPair.PubKey.htm" />
   <HelpKINode Title="Pubkey.AsBase64 property" Url="html/P-SecretNET.Api.Pubkey.AsBase64.htm" />
@@ -2959,6 +2954,8 @@
   <HelpKINode Title="SecretNET.Crypto.BIP39.Wordlist class" Url="html/T-SecretNET.Crypto.BIP39.Wordlist.htm" />
   <HelpKINode Title="SecretNET.Crypto.Hashes class" Url="html/AllMembers.T-SecretNET.Crypto.Hashes.htm" />
   <HelpKINode Title="SecretNET.Crypto.Hashes class" Url="html/T-SecretNET.Crypto.Hashes.htm" />
+  <HelpKINode Title="SecretNET.Crypto.Hkdf class" Url="html/AllMembers.T-SecretNET.Crypto.Hkdf.htm" />
+  <HelpKINode Title="SecretNET.Crypto.Hkdf class" Url="html/T-SecretNET.Crypto.Hkdf.htm" />
   <HelpKINode Title="SecretNET.Crypto.IPubKey interface" Url="html/T-SecretNET.Crypto.IPubKey.htm" />
   <HelpKINode Title="SecretNET.Crypto.IRandom interface" Url="html/AllMembers.T-SecretNET.Crypto.IRandom.htm" />
   <HelpKINode Title="SecretNET.Crypto.IRandom interface" Url="html/T-SecretNET.Crypto.IRandom.htm" />
