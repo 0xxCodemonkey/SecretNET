@@ -13,12 +13,13 @@ Secret.NET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Clien
 - Custom APIs / clients for specific smart contracts can be easily created (see packages for tokens / SNIP20 or NFT / SNIP721).
 
 :information_source: This library is still in beta (as secret.js), APIs may break. Beta testers are welcome!
+See [project board](https://github.com/users/0xxCodemonkey/projects/1/views/1) for list of existing/missing features.
 
 ## Additional packages
 In addition to the Secret.NET Core Library, the following complementary packages are available:
 - [**Full SNIP-20 (Token) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP20), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
 - [**Full SNIP-721 / SNIP-722 (NFT) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP721), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
-- **UI Package** (coming soon), which contains typical MAUI controls such as Confirm Transaction, Wallet Setup, Scan Keplr QR, etc.
+- **UI Package** (coming soon), which contains typical MAUI controls such as Confirm Transaction, Wallet Setup, Scan Keplr QR, etc. 
 
 ## Full API-documentation
 You can find the **full API-documentation** here => [https://0xxcodemonkey.github.io/SecretNET](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
