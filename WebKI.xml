@@ -35,6 +35,18 @@
   <HelpKINode Title="AddressToBytes method" Url="html/M-SecretNET.SecretNetworkClient.AddressToBytes.htm" />
   <HelpKINode Title="AddVariable method" Url="html/Overload-SecretNET.Crypto.Secp256k1.GEJ.AddVariable.htm" />
   <HelpKINode Title="AddZInvVariable method" Url="html/M-SecretNET.Crypto.Secp256k1.GEJ.AddZInvVariable.htm" />
+  <HelpKINode Title="AesDecryptFile method" Url="html/M-SecretNET.Common.Utils.AesDecryptFile.htm" />
+  <HelpKINode Title="AesEncryptedFileStorage class" Url="html/AllMembers.T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+  <HelpKINode Title="AesEncryptedFileStorage class" Url="html/T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+  <HelpKINode Title="AesEncryptedFileStorage class">
+    <HelpKINode Title="about AesEncryptedFileStorage class" Url="html/T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Common.Storage.AesEncryptedFileStorage.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AesEncryptedFileStorage.AesEncryptedFileStorage constructor" Url="html/Overload-SecretNET.Common.Storage.AesEncryptedFileStorage.-ctor.htm" />
+  <HelpKINode Title="AesEncryptToFile method" Url="html/M-SecretNET.Common.Utils.AesEncryptToFile.htm" />
   <HelpKINode Title="AllEvidence method" Url="html/M-SecretNET.Query.EvidenceQueryClient.AllEvidence.htm" />
   <HelpKINode Title="Allowance enumeration member" Url="html/T-SecretNET.AccessControl.PermissionType.htm" />
   <HelpKINode Title="Allowance field" Url="html/F-SecretNET.AccessControl.PermissionType.Allowance.htm" />
@@ -168,8 +180,6 @@
   <HelpKINode Title="BeginRedelegate method" Url="html/M-SecretNET.Tx.StakingTxSimulate.BeginRedelegate.htm" />
   <HelpKINode Title="BIP32Hash method" Url="html/Overload-SecretNET.Crypto.Hashes.BIP32Hash.htm" />
   <HelpKINode Title="BlockHeight property" Url="html/P-SecretNET.Query.AbsoluteTxPosition.BlockHeight.htm" />
-  <HelpKINode Title="Broadcast method" Url="html/Overload-SecretNET.ISecretNetworkClient.Broadcast.htm" />
-  <HelpKINode Title="Broadcast method" Url="html/Overload-SecretNET.SecretNetworkClient.Broadcast.htm" />
   <HelpKINode Title="Broadcast method" Url="html/Overload-SecretNET.Tx.TxClient.Broadcast.htm" />
   <HelpKINode Title="BroadcastCheckIntervalMs property" Url="html/P-SecretNET.Tx.TxOptions.BroadcastCheckIntervalMs.htm" />
   <HelpKINode Title="BroadcastMode property" Url="html/P-SecretNET.Tx.TxOptions.BroadcastMode.htm" />
@@ -187,8 +197,8 @@
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Common.CreateClientOptions.ChainId.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
-  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.ISignerData.ChainID.htm" />
   <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.SignerData.ChainID.htm" />
+  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.ISignerData.ChainID.htm" />
   <HelpKINode Title="Channel method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.Channel.htm" />
   <HelpKINode Title="ChannelClientState method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.ChannelClientState.htm" />
   <HelpKINode Title="ChannelConsensusState method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.ChannelConsensusState.htm" />
@@ -637,8 +647,8 @@
   <HelpKINode Title="Encrypt method" Url="html/Overload-SecretNET.Crypto.PubKey.Encrypt.htm" />
   <HelpKINode Title="EncryptedResponse property" Url="html/P-SecretNET.Tx.SecretTx.EncryptedResponse.htm" />
   <HelpKINode Title="EncryptedSeed method" Url="html/M-SecretNET.Query.RegistrationQueryClient.EncryptedSeed.htm" />
-  <HelpKINode Title="EncryptionMethod property" Url="html/P-SecretNET.Common.IPrivateKeyStorage.EncryptionMethod.htm" />
-  <HelpKINode Title="EncryptionMethod property" Url="html/P-SecretNET.Common.LocalFileStorage.EncryptionMethod.htm" />
+  <HelpKINode Title="EncryptionMethod property" Url="html/P-SecretNET.Common.Storage.HotPrivateKeyStorageBase.EncryptionMethod.htm" />
+  <HelpKINode Title="EncryptionMethod property" Url="html/P-SecretNET.Common.Storage.IPrivateKeyStorage.EncryptionMethod.htm" />
   <HelpKINode Title="EncryptionSeed property" Url="html/P-SecretNET.Common.CreateClientOptions.EncryptionSeed.htm" />
   <HelpKINode Title="EncryptionSeed property" Url="html/P-SecretNET.SecretNetworkClient.EncryptionSeed.htm" />
   <HelpKINode Title="EncryptionUtils property" Url="html/P-SecretNET.Common.CreateClientOptions.EncryptionUtils.htm" />
@@ -1005,14 +1015,14 @@
   <HelpKINode Title="GetBytes method" Url="html/Overload-SecretNET.Crypto.RandomNumberGeneratorRandom.GetBytes.htm" />
   <HelpKINode Title="GetBytes method" Url="html/Overload-SecretNET.Crypto.RandomUtils.GetBytes.htm" />
   <HelpKINode Title="GetByteStringFromBase64 method" Url="html/M-SecretNET.Api.SecretUtils.GetByteStringFromBase64.htm" />
-  <HelpKINode Title="GetCodeHash method" Url="html/M-SecretNET.ISecretNetworkClient.GetCodeHash.htm" />
   <HelpKINode Title="GetCodeHash method" Url="html/M-SecretNET.Query.ComputeQueryClient.GetCodeHash.htm" />
-  <HelpKINode Title="GetCodeHash method" Url="html/M-SecretNET.SecretNetworkClient.GetCodeHash.htm" />
-  <HelpKINode Title="GetCodeHashByCodeId method" Url="html/M-SecretNET.ISecretNetworkClient.GetCodeHashByCodeId.htm" />
   <HelpKINode Title="GetCodeHashByCodeId method" Url="html/M-SecretNET.Query.ComputeQueryClient.GetCodeHashByCodeId.htm" />
-  <HelpKINode Title="GetCodeHashByCodeId method" Url="html/M-SecretNET.SecretNetworkClient.GetCodeHashByCodeId.htm" />
   <HelpKINode Title="GetDefault method" Url="html/M-SecretNET.Api.StdFee.GetDefault.htm" />
   <HelpKINode Title="GetDefault method" Url="html/M-SecretNET.Api.StdFeeAmino.GetDefault.htm" />
+  <HelpKINode Title="GetFirstKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetFirstKey.htm" />
+  <HelpKINode Title="GetFirstKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetFirstKey.htm" />
+  <HelpKINode Title="GetFirstMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetFirstMnemonic.htm" />
+  <HelpKINode Title="GetFirstMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetFirstMnemonic.htm" />
   <HelpKINode Title="GetHashCode method" Url="html/M-SecretNET.Common.Utils.GetHashCode.htm" />
   <HelpKINode Title="GetHashCode method" Url="html/M-SecretNET.Crypto.Key.GetHashCode.htm" />
   <HelpKINode Title="GetHashCode method" Url="html/M-SecretNET.Crypto.PubKey.GetHashCode.htm" />
@@ -1030,12 +1040,12 @@
   <HelpKINode Title="GetLow64 method" Url="html/M-SecretNET.Crypto.uint160.GetLow64.htm" />
   <HelpKINode Title="GetLow64 method" Url="html/M-SecretNET.Crypto.uint256.GetLow64.htm" />
   <HelpKINode Title="GetMissingCodeHashWarning method" Url="html/M-SecretNET.Tx.MsgExecuteContractBase.GetMissingCodeHashWarning.htm" />
-  <HelpKINode Title="GetMnemonic method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.GetMnemonic.htm" />
-  <HelpKINode Title="GetMnemonic method" Url="html/M-SecretNET.Common.LocalFileStorage.GetMnemonic.htm" />
+  <HelpKINode Title="GetMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetMnemonic.htm" />
+  <HelpKINode Title="GetMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetMnemonic.htm" />
   <HelpKINode Title="GetNodeInfo method" Url="html/M-SecretNET.Query.TendermintQueryClient.GetNodeInfo.htm" />
   <HelpKINode Title="GetNodeInfo method" Url="html/M-SecretNET.Query.UpgradeQueryClient.GetNodeInfo.htm" />
-  <HelpKINode Title="GetPrivateKey method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.GetPrivateKey.htm" />
-  <HelpKINode Title="GetPrivateKey method" Url="html/M-SecretNET.Common.LocalFileStorage.GetPrivateKey.htm" />
+  <HelpKINode Title="GetPrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetPrivateKey.htm" />
+  <HelpKINode Title="GetPrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetPrivateKey.htm" />
   <HelpKINode Title="GetResponseJson method" Url="html/M-SecretNET.Tx.SecretTx.GetResponseJson.htm" />
   <HelpKINode Title="GetResponseMsg(Of T) method" Url="html/M-SecretNET.Tx.SecretTx.GetResponseMsg--1.htm" />
   <HelpKINode Title="GetResponseMsg&lt;T&gt; method" Url="html/M-SecretNET.Tx.SecretTx.GetResponseMsg--1.htm" />
@@ -1043,6 +1053,10 @@
   <HelpKINode Title="GetSerializeSize method" Url="html/M-SecretNET.Crypto.uint160.GetSerializeSize.htm" />
   <HelpKINode Title="GetSerializeSize method" Url="html/M-SecretNET.Crypto.uint256.GetSerializeSize.htm" />
   <HelpKINode Title="GetSharedPubkey method" Url="html/M-SecretNET.Crypto.PubKey.GetSharedPubkey.htm" />
+  <HelpKINode Title="GetStoredKeyAdressList method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetStoredKeyAdressList.htm" />
+  <HelpKINode Title="GetStoredKeyAdressList method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetStoredKeyAdressList.htm" />
+  <HelpKINode Title="GetStoredMnemonicAdressList method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetStoredMnemonicAdressList.htm" />
+  <HelpKINode Title="GetStoredMnemonicAdressList method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetStoredMnemonicAdressList.htm" />
   <HelpKINode Title="GetSubaccount method" Url="html/M-SecretNET.Wallet.GetSubaccount.htm" />
   <HelpKINode Title="GetSyncing method" Url="html/M-SecretNET.Query.TendermintQueryClient.GetSyncing.htm" />
   <HelpKINode Title="GetTx method" Url="html/M-SecretNET.Tx.TxClient.GetTx.htm" />
@@ -1151,8 +1165,10 @@
   <HelpKINode Title="Hashes.SHA256 method" Url="html/Overload-SecretNET.Crypto.Hashes.SHA256.htm" />
   <HelpKINode Title="Hashes.SHA512 method" Url="html/Overload-SecretNET.Crypto.Hashes.SHA512.htm" />
   <HelpKINode Title="Hashes.SipHash method" Url="html/M-SecretNET.Crypto.Hashes.SipHash.htm" />
-  <HelpKINode Title="HasPrivateKey method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.HasPrivateKey.htm" />
-  <HelpKINode Title="HasPrivateKey method" Url="html/M-SecretNET.Common.LocalFileStorage.HasPrivateKey.htm" />
+  <HelpKINode Title="HasMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.HasMnemonic.htm" />
+  <HelpKINode Title="HasMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.HasMnemonic.htm" />
+  <HelpKINode Title="HasPrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.HasPrivateKey.htm" />
+  <HelpKINode Title="HasPrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.HasPrivateKey.htm" />
   <HelpKINode Title="HasQuadYVariable property" Url="html/P-SecretNET.Crypto.Secp256k1.GEJ.HasQuadYVariable.htm" />
   <HelpKINode Title="HdAccountIndex property" Url="html/P-SecretNET.Common.CreateWalletOptions.HdAccountIndex.htm" />
   <HelpKINode Title="Height property" Url="html/P-SecretNET.Tx.SecretTx.Height.htm" />
@@ -1184,6 +1200,30 @@
   <HelpKINode Title="HMACSHA256.Initialize method" Url="html/M-SecretNET.Crypto.Secp256k1.HMACSHA256.Initialize.htm" />
   <HelpKINode Title="HMACSHA256.Write32 method" Url="html/M-SecretNET.Crypto.Secp256k1.HMACSHA256.Write32.htm" />
   <HelpKINode Title="HMACSHA512 method" Url="html/Overload-SecretNET.Crypto.Hashes.HMACSHA512.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase class" Url="html/AllMembers.T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase class" Url="html/T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase class">
+    <HelpKINode Title="about HotPrivateKeyStorageBase class" Url="html/T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+  </HelpKINode>
+  <HelpKINode Title="HotPrivateKeyStorageBase.EncryptionMethod property" Url="html/P-SecretNET.Common.Storage.HotPrivateKeyStorageBase.EncryptionMethod.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.GetFirstKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetFirstKey.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.GetFirstMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetFirstMnemonic.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.GetMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetMnemonic.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.GetPrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetPrivateKey.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.GetStoredKeyAdressList method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetStoredKeyAdressList.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.GetStoredMnemonicAdressList method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetStoredMnemonicAdressList.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.HasMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.HasMnemonic.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.HasPrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.HasPrivateKey.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.HotPrivateKeyStorageBase constructor" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.-ctor.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.Remove method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.Remove.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.RemoveMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.RemoveMnemonic.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.RemovePrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.RemovePrivateKey.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.SaveMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.SaveMnemonic.htm" />
+  <HelpKINode Title="HotPrivateKeyStorageBase.SavePrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.SavePrivateKey.htm" />
   <HelpKINode Title="IAminoSigner interface" Url="html/AllMembers.T-SecretNET.IAminoSigner.htm" />
   <HelpKINode Title="IAminoSigner interface" Url="html/T-SecretNET.IAminoSigner.htm" />
   <HelpKINode Title="IAminoSigner interface">
@@ -1300,6 +1340,18 @@
   <HelpKINode Title="InitialDeposit property" Url="html/P-SecretNET.Tx.MsgSubmitProposal.InitialDeposit.htm" />
   <HelpKINode Title="Initialize method" Url="html/M-SecretNET.Crypto.Secp256k1.HMACSHA256.Initialize.htm" />
   <HelpKINode Title="InitWallet method" Url="html/M-SecretNET.Wallet.InitWallet.htm" />
+  <HelpKINode Title="InMemory enumeration member" Url="html/T-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.htm" />
+  <HelpKINode Title="InMemory field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.InMemory.htm" />
+  <HelpKINode Title="InMemoryOnlyStorage class" Url="html/AllMembers.T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+  <HelpKINode Title="InMemoryOnlyStorage class" Url="html/T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+  <HelpKINode Title="InMemoryOnlyStorage class">
+    <HelpKINode Title="about InMemoryOnlyStorage class" Url="html/T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.Storage.InMemoryOnlyStorage.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+  </HelpKINode>
+  <HelpKINode Title="InMemoryOnlyStorage.InMemoryOnlyStorage constructor" Url="html/M-SecretNET.Common.Storage.InMemoryOnlyStorage.-ctor.htm" />
   <HelpKINode Title="Input class" Url="html/AllMembers.T-SecretNET.Tx.Input.htm" />
   <HelpKINode Title="Input class" Url="html/T-SecretNET.Tx.Input.htm" />
   <HelpKINode Title="Input class">
@@ -1332,20 +1384,28 @@
   <HelpKINode Title="InverseAllVariable method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.InverseAllVariable.htm" />
   <HelpKINode Title="InverseVariable method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.InverseVariable.htm" />
   <HelpKINode Title="InverseVariable method" Url="html/M-SecretNET.Crypto.Secp256k1.Scalar.InverseVariable.htm" />
-  <HelpKINode Title="IPrivateKeyStorage interface" Url="html/AllMembers.T-SecretNET.Common.IPrivateKeyStorage.htm" />
-  <HelpKINode Title="IPrivateKeyStorage interface" Url="html/T-SecretNET.Common.IPrivateKeyStorage.htm" />
+  <HelpKINode Title="IPrivateKeyStorage interface" Url="html/AllMembers.T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
+  <HelpKINode Title="IPrivateKeyStorage interface" Url="html/T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
   <HelpKINode Title="IPrivateKeyStorage interface">
-    <HelpKINode Title="about IPrivateKeyStorage interface" Url="html/T-SecretNET.Common.IPrivateKeyStorage.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.IPrivateKeyStorage.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Common.IPrivateKeyStorage.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.IPrivateKeyStorage.htm" />
+    <HelpKINode Title="about IPrivateKeyStorage interface" Url="html/T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
   </HelpKINode>
-  <HelpKINode Title="IPrivateKeyStorage.EncryptionMethod property" Url="html/P-SecretNET.Common.IPrivateKeyStorage.EncryptionMethod.htm" />
-  <HelpKINode Title="IPrivateKeyStorage.GetMnemonic method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.GetMnemonic.htm" />
-  <HelpKINode Title="IPrivateKeyStorage.GetPrivateKey method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.GetPrivateKey.htm" />
-  <HelpKINode Title="IPrivateKeyStorage.HasPrivateKey method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.HasPrivateKey.htm" />
-  <HelpKINode Title="IPrivateKeyStorage.SaveMnemonic method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.SaveMnemonic.htm" />
-  <HelpKINode Title="IPrivateKeyStorage.SavePrivateKey method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.SavePrivateKey.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.EncryptionMethod property" Url="html/P-SecretNET.Common.Storage.IPrivateKeyStorage.EncryptionMethod.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.GetFirstKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetFirstKey.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.GetFirstMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetFirstMnemonic.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.GetMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetMnemonic.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.GetPrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetPrivateKey.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.GetStoredKeyAdressList method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetStoredKeyAdressList.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.GetStoredMnemonicAdressList method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetStoredMnemonicAdressList.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.HasMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.HasMnemonic.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.HasPrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.HasPrivateKey.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.Remove method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.Remove.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.RemoveMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.RemoveMnemonic.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.RemovePrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.RemovePrivateKey.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.SaveMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.SaveMnemonic.htm" />
+  <HelpKINode Title="IPrivateKeyStorage.SavePrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.SavePrivateKey.htm" />
   <HelpKINode Title="IPubKey interface" Url="html/T-SecretNET.Crypto.IPubKey.htm" />
   <HelpKINode Title="IPubKey interface">
     <HelpKINode Title="about IPubKey interface" Url="html/T-SecretNET.Crypto.IPubKey.htm" />
@@ -1377,16 +1437,12 @@
     <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.ISecretNetworkClient.htm" />
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.ISecretNetworkClient.htm" />
   </HelpKINode>
-  <HelpKINode Title="ISecretNetworkClient.Broadcast method" Url="html/Overload-SecretNET.ISecretNetworkClient.Broadcast.htm" />
   <HelpKINode Title="ISecretNetworkClient.ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="ISecretNetworkClient.EncryptionUtils property" Url="html/P-SecretNET.ISecretNetworkClient.EncryptionUtils.htm" />
-  <HelpKINode Title="ISecretNetworkClient.GetCodeHash method" Url="html/M-SecretNET.ISecretNetworkClient.GetCodeHash.htm" />
-  <HelpKINode Title="ISecretNetworkClient.GetCodeHashByCodeId method" Url="html/M-SecretNET.ISecretNetworkClient.GetCodeHashByCodeId.htm" />
   <HelpKINode Title="ISecretNetworkClient.GrpcWebUrl property" Url="html/P-SecretNET.ISecretNetworkClient.GrpcWebUrl.htm" />
   <HelpKINode Title="ISecretNetworkClient.PrepareAndSign method" Url="html/M-SecretNET.ISecretNetworkClient.PrepareAndSign.htm" />
   <HelpKINode Title="ISecretNetworkClient.Sign method" Url="html/M-SecretNET.ISecretNetworkClient.Sign.htm" />
   <HelpKINode Title="ISecretNetworkClient.SignDirect method" Url="html/M-SecretNET.ISecretNetworkClient.SignDirect.htm" />
-  <HelpKINode Title="ISecretNetworkClient.Simulate method" Url="html/Overload-SecretNET.ISecretNetworkClient.Simulate.htm" />
   <HelpKINode Title="ISecretNetworkClient.Wallet property" Url="html/P-SecretNET.ISecretNetworkClient.Wallet.htm" />
   <HelpKINode Title="ISecretNetworkClient.WalletAddress property" Url="html/P-SecretNET.ISecretNetworkClient.WalletAddress.htm" />
   <HelpKINode Title="IsEven property" Url="html/P-SecretNET.Crypto.Secp256k1.Scalar.IsEven.htm" />
@@ -1435,7 +1491,6 @@
   <HelpKINode Title="IWallet.Address property" Url="html/P-SecretNET.IWallet.Address.htm" />
   <HelpKINode Title="IWallet.PublicKey property" Url="html/P-SecretNET.IWallet.PublicKey.htm" />
   <HelpKINode Title="IWallet.SignDirect method" Url="html/M-SecretNET.IWallet.SignDirect.htm" />
-  <HelpKINode Title="IWallet.StorageProvider property" Url="html/P-SecretNET.IWallet.StorageProvider.htm" />
   <HelpKINode Title="IWallet.WalletSignType property" Url="html/P-SecretNET.IWallet.WalletSignType.htm" />
   <HelpKINode Title="IWordlistSource interface" Url="html/AllMembers.T-SecretNET.Crypto.BIP39.IWordlistSource.htm" />
   <HelpKINode Title="IWordlistSource interface" Url="html/T-SecretNET.Crypto.BIP39.IWordlistSource.htm" />
@@ -1511,23 +1566,17 @@
   <HelpKINode Title="Load method" Url="html/M-SecretNET.Crypto.BIP39.HardcodedWordlistSource.Load.htm" />
   <HelpKINode Title="Load method" Url="html/M-SecretNET.Crypto.BIP39.IWordlistSource.Load.htm" />
   <HelpKINode Title="LoadWordList method" Url="html/Overload-SecretNET.Crypto.BIP39.Wordlist.LoadWordList.htm" />
-  <HelpKINode Title="LocalFileStorage class" Url="html/AllMembers.T-SecretNET.Common.LocalFileStorage.htm" />
-  <HelpKINode Title="LocalFileStorage class" Url="html/T-SecretNET.Common.LocalFileStorage.htm" />
-  <HelpKINode Title="LocalFileStorage class">
-    <HelpKINode Title="about LocalFileStorage class" Url="html/T-SecretNET.Common.LocalFileStorage.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.LocalFileStorage.htm" />
-    <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.LocalFileStorage.-ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Common.LocalFileStorage.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.LocalFileStorage.htm" />
-  </HelpKINode>
-  <HelpKINode Title="LocalFileStorage.EncryptionMethod property" Url="html/P-SecretNET.Common.LocalFileStorage.EncryptionMethod.htm" />
-  <HelpKINode Title="LocalFileStorage.GetMnemonic method" Url="html/M-SecretNET.Common.LocalFileStorage.GetMnemonic.htm" />
-  <HelpKINode Title="LocalFileStorage.GetPrivateKey method" Url="html/M-SecretNET.Common.LocalFileStorage.GetPrivateKey.htm" />
-  <HelpKINode Title="LocalFileStorage.HasPrivateKey method" Url="html/M-SecretNET.Common.LocalFileStorage.HasPrivateKey.htm" />
-  <HelpKINode Title="LocalFileStorage.LocalFileStorage constructor" Url="html/M-SecretNET.Common.LocalFileStorage.-ctor.htm" />
-  <HelpKINode Title="LocalFileStorage.SaveMnemonic method" Url="html/M-SecretNET.Common.LocalFileStorage.SaveMnemonic.htm" />
-  <HelpKINode Title="LocalFileStorage.SavePrivateKey method" Url="html/M-SecretNET.Common.LocalFileStorage.SavePrivateKey.htm" />
   <HelpKINode Title="magnitude field" Url="html/F-SecretNET.Crypto.Secp256k1.FE.magnitude.htm" />
+  <HelpKINode Title="MauiSecureStorage class" Url="html/AllMembers.T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+  <HelpKINode Title="MauiSecureStorage class" Url="html/T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+  <HelpKINode Title="MauiSecureStorage class">
+    <HelpKINode Title="about MauiSecureStorage class" Url="html/T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.Storage.MauiSecureStorage.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MauiSecureStorage.MauiSecureStorage constructor" Url="html/M-SecretNET.Common.Storage.MauiSecureStorage.-ctor.htm" />
   <HelpKINode Title="MaxLength field" Url="html/F-SecretNET.Crypto.Secp256k1.SecpECDSASignature.MaxLength.htm" />
   <HelpKINode Title="MaxTokens property" Url="html/P-SecretNET.Tx.StakeAuthorization.MaxTokens.htm" />
   <HelpKINode Title="Memo property" Url="html/P-SecretNET.Api.StdSignDoc.Memo.htm" />
@@ -2414,9 +2463,7 @@
   <HelpKINode Title="Negate method" Url="html/M-SecretNET.Crypto.Secp256k1.GEJ.Negate.htm" />
   <HelpKINode Title="Negate method" Url="html/M-SecretNET.Crypto.Secp256k1.Scalar.Negate.htm" />
   <HelpKINode Title="NextSequenceReceive method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.NextSequenceReceive.htm" />
-  <HelpKINode Title="None enumeration member" Url="html/T-SecretNET.Common.PrivateKeyStorageEncryptionEnum.htm" />
   <HelpKINode Title="None enumeration member" Url="html/T-SecretNET.Tx.ProposalType.htm" />
-  <HelpKINode Title="None field" Url="html/F-SecretNET.Common.PrivateKeyStorageEncryptionEnum.None.htm" />
   <HelpKINode Title="None field" Url="html/F-SecretNET.Tx.ProposalType.None.htm" />
   <HelpKINode Title="Normalize method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.Normalize.htm" />
   <HelpKINode Title="normalized field" Url="html/F-SecretNET.Crypto.Secp256k1.FE.normalized.htm" />
@@ -2431,8 +2478,6 @@
   <HelpKINode Title="One property" Url="html/P-SecretNET.Crypto.uint160.One.htm" />
   <HelpKINode Title="One property" Url="html/P-SecretNET.Crypto.uint256.One.htm" />
   <HelpKINode Title="Open method" Url="html/M-SecretNET.Crypto.Miscreant.ISIVLike.Open.htm" />
-  <HelpKINode Title="OperatingSystem enumeration member" Url="html/T-SecretNET.Common.PrivateKeyStorageEncryptionEnum.htm" />
-  <HelpKINode Title="OperatingSystem field" Url="html/F-SecretNET.Common.PrivateKeyStorageEncryptionEnum.OperatingSystem.htm" />
   <HelpKINode Title="Option property" Url="html/P-SecretNET.Tx.MsgVote.Option.htm" />
   <HelpKINode Title="Options property" Url="html/P-SecretNET.Tx.MsgVoteWeighted.Options.htm" />
   <HelpKINode Title="op_Multiply operator" Url="html/Overload-SecretNET.Crypto.Secp256k1.FE.op_Multiply.htm" />
@@ -2478,8 +2523,8 @@
   <HelpKINode Title="ParamsQueryClient.Params method" Url="html/M-SecretNET.Query.ParamsQueryClient.Params.htm" />
   <HelpKINode Title="Parse method" Url="html/M-SecretNET.Crypto.uint160.Parse.htm" />
   <HelpKINode Title="Parse method" Url="html/M-SecretNET.Crypto.uint256.Parse.htm" />
-  <HelpKINode Title="Password enumeration member" Url="html/T-SecretNET.Common.PrivateKeyStorageEncryptionEnum.htm" />
-  <HelpKINode Title="Password field" Url="html/F-SecretNET.Common.PrivateKeyStorageEncryptionEnum.Password.htm" />
+  <HelpKINode Title="Password enumeration member" Url="html/T-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.htm" />
+  <HelpKINode Title="Password field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.Password.htm" />
   <HelpKINode Title="Payload property" Url="html/P-SecretNET.AccessControl.CreateViewingKeyRequest.Payload.htm" />
   <HelpKINode Title="Payload property" Url="html/P-SecretNET.AccessControl.SetViewingKeyRequest.Payload.htm" />
   <HelpKINode Title="Payload property" Url="html/P-SecretNET.AccessControl.WithPermitRequest.Payload.htm" />
@@ -2531,10 +2576,10 @@
   <HelpKINode Title="PortugueseBrazil property" Url="html/P-SecretNET.Crypto.BIP39.Wordlist.PortugueseBrazil.htm" />
   <HelpKINode Title="PrepareAndSign method" Url="html/M-SecretNET.ISecretNetworkClient.PrepareAndSign.htm" />
   <HelpKINode Title="PrepareAndSign method" Url="html/M-SecretNET.SecretNetworkClient.PrepareAndSign.htm" />
-  <HelpKINode Title="PrivateKeyStorageEncryptionEnum enumeration" Url="html/T-SecretNET.Common.PrivateKeyStorageEncryptionEnum.htm" />
-  <HelpKINode Title="PrivateKeyStorageEncryptionEnum.None field" Url="html/F-SecretNET.Common.PrivateKeyStorageEncryptionEnum.None.htm" />
-  <HelpKINode Title="PrivateKeyStorageEncryptionEnum.OperatingSystem field" Url="html/F-SecretNET.Common.PrivateKeyStorageEncryptionEnum.OperatingSystem.htm" />
-  <HelpKINode Title="PrivateKeyStorageEncryptionEnum.Password field" Url="html/F-SecretNET.Common.PrivateKeyStorageEncryptionEnum.Password.htm" />
+  <HelpKINode Title="PrivateKeyStorageEncryptionEnum enumeration" Url="html/T-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.htm" />
+  <HelpKINode Title="PrivateKeyStorageEncryptionEnum.InMemory field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.InMemory.htm" />
+  <HelpKINode Title="PrivateKeyStorageEncryptionEnum.Password field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.Password.htm" />
+  <HelpKINode Title="PrivateKeyStorageEncryptionEnum.SecureStorage field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.SecureStorage.htm" />
   <HelpKINode Title="Proposal method" Url="html/M-SecretNET.Query.GovQueryClient.Proposal.htm" />
   <HelpKINode Title="ProposalId property" Url="html/P-SecretNET.Tx.MsgDeposit.ProposalId.htm" />
   <HelpKINode Title="ProposalId property" Url="html/P-SecretNET.Tx.MsgVote.ProposalId.htm" />
@@ -2572,34 +2617,34 @@
   <HelpKINode Title="Proposer property" Url="html/P-SecretNET.Tx.MsgSubmitProposal.Proposer.htm" />
   <HelpKINode Title="PubKey class" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
   <HelpKINode Title="Pubkey class">
+    <HelpKINode Title="about Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
     <HelpKINode Title="constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="PubKey class">
-    <HelpKINode Title="about PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pubkey class">
-    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
   </HelpKINode>
   <HelpKINode Title="PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
   <HelpKINode Title="PubKey class">
+    <HelpKINode Title="about PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
     <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
     <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
   </HelpKINode>
-  <HelpKINode Title="Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
-  <HelpKINode Title="Pubkey class" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
   <HelpKINode Title="Pubkey class">
-    <HelpKINode Title="about Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Api.Pubkey.htm" />
   </HelpKINode>
+  <HelpKINode Title="PubKey class">
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Pubkey class" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
+  <HelpKINode Title="Pubkey class">
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
   <HelpKINode Title="PubKey class">
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Crypto.PubKey.htm" />
   </HelpKINode>
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Api.StdSignature.PubKey.htm" />
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Api.StdSignatureAmino.PubKey.htm" />
-  <HelpKINode Title="Pubkey property" Url="html/P-SecretNET.Tx.MsgCreateValidator.Pubkey.htm" />
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Crypto.Key.PubKey.htm" />
+  <HelpKINode Title="Pubkey property" Url="html/P-SecretNET.Tx.MsgCreateValidator.Pubkey.htm" />
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Crypto.KeyPair.PubKey.htm" />
   <HelpKINode Title="Pubkey.AsBase64 property" Url="html/P-SecretNET.Api.Pubkey.AsBase64.htm" />
   <HelpKINode Title="PubKey.CompareTo method" Url="html/M-SecretNET.Crypto.PubKey.CompareTo.htm" />
@@ -2717,6 +2762,12 @@
   <HelpKINode Title="RegistrationQueryClient.EncryptedSeed method" Url="html/M-SecretNET.Query.RegistrationQueryClient.EncryptedSeed.htm" />
   <HelpKINode Title="RegistrationQueryClient.RegistrationKey method" Url="html/M-SecretNET.Query.RegistrationQueryClient.RegistrationKey.htm" />
   <HelpKINode Title="RegistrationQueryClient.TxKey method" Url="html/M-SecretNET.Query.RegistrationQueryClient.TxKey.htm" />
+  <HelpKINode Title="Remove method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.Remove.htm" />
+  <HelpKINode Title="Remove method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.Remove.htm" />
+  <HelpKINode Title="RemoveMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.RemoveMnemonic.htm" />
+  <HelpKINode Title="RemoveMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.RemoveMnemonic.htm" />
+  <HelpKINode Title="RemovePrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.RemovePrivateKey.htm" />
+  <HelpKINode Title="RemovePrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.RemovePrivateKey.htm" />
   <HelpKINode Title="Rescale method" Url="html/M-SecretNET.Crypto.Secp256k1.GEJ.Rescale.htm" />
   <HelpKINode Title="Response property" Url="html/P-SecretNET.Query.SecretQueryContractResult-1.Response.htm" />
   <HelpKINode Title="Response property" Url="html/P-SecretNET.Tx.SingleSecretTx-1.Response.htm" />
@@ -2730,10 +2781,10 @@
   <HelpKINode Title="RIPEMD160 method" Url="html/Overload-SecretNET.Crypto.Hashes.RIPEMD160.htm" />
   <HelpKINode Title="s field" Url="html/F-SecretNET.Crypto.Secp256k1.SecpECDSASignature.s.htm" />
   <HelpKINode Title="SanityCheck method" Url="html/Overload-SecretNET.Crypto.PubKey.SanityCheck.htm" />
-  <HelpKINode Title="SaveMnemonic method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.SaveMnemonic.htm" />
-  <HelpKINode Title="SaveMnemonic method" Url="html/M-SecretNET.Common.LocalFileStorage.SaveMnemonic.htm" />
-  <HelpKINode Title="SavePrivateKey method" Url="html/M-SecretNET.Common.IPrivateKeyStorage.SavePrivateKey.htm" />
-  <HelpKINode Title="SavePrivateKey method" Url="html/M-SecretNET.Common.LocalFileStorage.SavePrivateKey.htm" />
+  <HelpKINode Title="SaveMnemonic method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.SaveMnemonic.htm" />
+  <HelpKINode Title="SaveMnemonic method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.SaveMnemonic.htm" />
+  <HelpKINode Title="SavePrivateKey method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.SavePrivateKey.htm" />
+  <HelpKINode Title="SavePrivateKey method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.SavePrivateKey.htm" />
   <HelpKINode Title="Scalar structure" Url="html/AllMembers.T-SecretNET.Crypto.Secp256k1.Scalar.htm" />
   <HelpKINode Title="Scalar structure" Url="html/T-SecretNET.Crypto.Secp256k1.Scalar.htm" />
   <HelpKINode Title="Scalar structure">
@@ -2931,13 +2982,20 @@
   <HelpKINode Title="SecretNET.Common.CreateWalletOptions class" Url="html/AllMembers.T-SecretNET.Common.CreateWalletOptions.htm" />
   <HelpKINode Title="SecretNET.Common.CreateWalletOptions class" Url="html/T-SecretNET.Common.CreateWalletOptions.htm" />
   <HelpKINode Title="SecretNET.Common.GprcBase class" Url="html/T-SecretNET.Common.GprcBase.htm" />
-  <HelpKINode Title="SecretNET.Common.IPrivateKeyStorage interface" Url="html/AllMembers.T-SecretNET.Common.IPrivateKeyStorage.htm" />
-  <HelpKINode Title="SecretNET.Common.IPrivateKeyStorage interface" Url="html/T-SecretNET.Common.IPrivateKeyStorage.htm" />
-  <HelpKINode Title="SecretNET.Common.LocalFileStorage class" Url="html/AllMembers.T-SecretNET.Common.LocalFileStorage.htm" />
-  <HelpKINode Title="SecretNET.Common.LocalFileStorage class" Url="html/T-SecretNET.Common.LocalFileStorage.htm" />
-  <HelpKINode Title="SecretNET.Common.PrivateKeyStorageEncryptionEnum enumeration" Url="html/T-SecretNET.Common.PrivateKeyStorageEncryptionEnum.htm" />
   <HelpKINode Title="SecretNET.Common.SecretEncryptionUtils class" Url="html/AllMembers.T-SecretNET.Common.SecretEncryptionUtils.htm" />
   <HelpKINode Title="SecretNET.Common.SecretEncryptionUtils class" Url="html/T-SecretNET.Common.SecretEncryptionUtils.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage namespace" Url="html/N-SecretNET.Common.Storage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.AesEncryptedFileStorage class" Url="html/AllMembers.T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.AesEncryptedFileStorage class" Url="html/T-SecretNET.Common.Storage.AesEncryptedFileStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.HotPrivateKeyStorageBase class" Url="html/AllMembers.T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.HotPrivateKeyStorageBase class" Url="html/T-SecretNET.Common.Storage.HotPrivateKeyStorageBase.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.InMemoryOnlyStorage class" Url="html/AllMembers.T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.InMemoryOnlyStorage class" Url="html/T-SecretNET.Common.Storage.InMemoryOnlyStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.IPrivateKeyStorage interface" Url="html/AllMembers.T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.IPrivateKeyStorage interface" Url="html/T-SecretNET.Common.Storage.IPrivateKeyStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.MauiSecureStorage class" Url="html/AllMembers.T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.MauiSecureStorage class" Url="html/T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
+  <HelpKINode Title="SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum enumeration" Url="html/T-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.htm" />
   <HelpKINode Title="SecretNET.Common.Utils class" Url="html/AllMembers.T-SecretNET.Common.Utils.htm" />
   <HelpKINode Title="SecretNET.Common.Utils class" Url="html/T-SecretNET.Common.Utils.htm" />
   <HelpKINode Title="SecretNET.Crypto namespace" Url="html/N-SecretNET.Crypto.htm" />
@@ -3246,13 +3304,10 @@
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.SecretNetworkClient.htm" />
   </HelpKINode>
   <HelpKINode Title="SecretNetworkClient.AddressToBytes method" Url="html/M-SecretNET.SecretNetworkClient.AddressToBytes.htm" />
-  <HelpKINode Title="SecretNetworkClient.Broadcast method" Url="html/Overload-SecretNET.SecretNetworkClient.Broadcast.htm" />
   <HelpKINode Title="SecretNetworkClient.BytesToAddress method" Url="html/M-SecretNET.SecretNetworkClient.BytesToAddress.htm" />
   <HelpKINode Title="SecretNetworkClient.ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="SecretNetworkClient.EncryptionSeed property" Url="html/P-SecretNET.SecretNetworkClient.EncryptionSeed.htm" />
   <HelpKINode Title="SecretNetworkClient.EncryptionUtils property" Url="html/P-SecretNET.SecretNetworkClient.EncryptionUtils.htm" />
-  <HelpKINode Title="SecretNetworkClient.GetCodeHash method" Url="html/M-SecretNET.SecretNetworkClient.GetCodeHash.htm" />
-  <HelpKINode Title="SecretNetworkClient.GetCodeHashByCodeId method" Url="html/M-SecretNET.SecretNetworkClient.GetCodeHashByCodeId.htm" />
   <HelpKINode Title="SecretNetworkClient.GrpcWebUrl property" Url="html/P-SecretNET.SecretNetworkClient.GrpcWebUrl.htm" />
   <HelpKINode Title="SecretNetworkClient.Permit property" Url="html/P-SecretNET.SecretNetworkClient.Permit.htm" />
   <HelpKINode Title="SecretNetworkClient.PrepareAndSign method" Url="html/M-SecretNET.SecretNetworkClient.PrepareAndSign.htm" />
@@ -3261,7 +3316,6 @@
   <HelpKINode Title="SecretNetworkClient.Sign method" Url="html/M-SecretNET.SecretNetworkClient.Sign.htm" />
   <HelpKINode Title="SecretNetworkClient.SignAmino method" Url="html/M-SecretNET.SecretNetworkClient.SignAmino.htm" />
   <HelpKINode Title="SecretNetworkClient.SignDirect method" Url="html/M-SecretNET.SecretNetworkClient.SignDirect.htm" />
-  <HelpKINode Title="SecretNetworkClient.Simulate method" Url="html/Overload-SecretNET.SecretNetworkClient.Simulate.htm" />
   <HelpKINode Title="SecretNetworkClient.Tx property" Url="html/P-SecretNET.SecretNetworkClient.Tx.htm" />
   <HelpKINode Title="SecretNetworkClient.Wallet property" Url="html/P-SecretNET.SecretNetworkClient.Wallet.htm" />
   <HelpKINode Title="SecretNetworkClient.WalletAddress property" Url="html/P-SecretNET.SecretNetworkClient.WalletAddress.htm" />
@@ -3332,6 +3386,8 @@
   <HelpKINode Title="SecretUtils.IsBase64String method" Url="html/M-SecretNET.Api.SecretUtils.IsBase64String.htm" />
   <HelpKINode Title="SecretUtils.IsGzip method" Url="html/M-SecretNET.Api.SecretUtils.IsGzip.htm" />
   <HelpKINode Title="SecretUtils.IsProtoType method" Url="html/Overload-SecretNET.Api.SecretUtils.IsProtoType.htm" />
+  <HelpKINode Title="SecureStorage enumeration member" Url="html/T-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.htm" />
+  <HelpKINode Title="SecureStorage field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.SecureStorage.htm" />
   <HelpKINode Title="Send method" Url="html/M-SecretNET.Tx.BankTx.Send.htm" />
   <HelpKINode Title="Send method" Url="html/M-SecretNET.Tx.BankTxSimulate.Send.htm" />
   <HelpKINode Title="SendAuthorization class" Url="html/AllMembers.T-SecretNET.Tx.SendAuthorization.htm" />
@@ -3427,8 +3483,6 @@
   <HelpKINode Title="SigningInfos method" Url="html/M-SecretNET.Query.SlashingQueryClient.SigningInfos.htm" />
   <HelpKINode Title="Simple enumeration member" Url="html/T-SecretNET.Crypto.Secp256k1.ECMultiImplementation.htm" />
   <HelpKINode Title="Simple field" Url="html/F-SecretNET.Crypto.Secp256k1.ECMultiImplementation.Simple.htm" />
-  <HelpKINode Title="Simulate method" Url="html/Overload-SecretNET.ISecretNetworkClient.Simulate.htm" />
-  <HelpKINode Title="Simulate method" Url="html/Overload-SecretNET.SecretNetworkClient.Simulate.htm" />
   <HelpKINode Title="Simulate method" Url="html/Overload-SecretNET.Tx.TxClient.Simulate.htm" />
   <HelpKINode Title="Simulate property" Url="html/P-SecretNET.Tx.AuthzTx.Simulate.htm" />
   <HelpKINode Title="Simulate property" Url="html/P-SecretNET.Tx.BankTx.Simulate.htm" />
@@ -3664,7 +3718,6 @@
   <HelpKINode Title="StdSignDoc.Memo property" Url="html/P-SecretNET.Api.StdSignDoc.Memo.htm" />
   <HelpKINode Title="StdSignDoc.Msgs property" Url="html/P-SecretNET.Api.StdSignDoc.Msgs.htm" />
   <HelpKINode Title="StdSignDoc.Sequence property" Url="html/P-SecretNET.Api.StdSignDoc.Sequence.htm" />
-  <HelpKINode Title="StorageProvider property" Url="html/P-SecretNET.IWallet.StorageProvider.htm" />
   <HelpKINode Title="StorageProvider property" Url="html/P-SecretNET.Wallet.StorageProvider.htm" />
   <HelpKINode Title="StoreCode method" Url="html/M-SecretNET.Tx.ComputeTx.StoreCode.htm" />
   <HelpKINode Title="StoreCode method" Url="html/M-SecretNET.Tx.ComputeTxSimulate.StoreCode.htm" />
@@ -4010,6 +4063,8 @@
   </HelpKINode>
   <HelpKINode Title="Utils.AddOrReplace(Of TKey, TValue) method" Url="html/M-SecretNET.Common.Utils.AddOrReplace--2.htm" />
   <HelpKINode Title="Utils.AddOrReplace&lt;TKey, TValue&gt; method" Url="html/M-SecretNET.Common.Utils.AddOrReplace--2.htm" />
+  <HelpKINode Title="Utils.AesDecryptFile method" Url="html/M-SecretNET.Common.Utils.AesDecryptFile.htm" />
+  <HelpKINode Title="Utils.AesEncryptToFile method" Url="html/M-SecretNET.Common.Utils.AesEncryptToFile.htm" />
   <HelpKINode Title="Utils.DateTimeToUnixTime method" Url="html/M-SecretNET.Common.Utils.DateTimeToUnixTime.htm" />
   <HelpKINode Title="Utils.GetHashCode method" Url="html/M-SecretNET.Common.Utils.GetHashCode.htm" />
   <HelpKINode Title="Utils.Slice(Of T) method" Url="html/M-SecretNET.Common.Utils.Slice--1.htm" />
