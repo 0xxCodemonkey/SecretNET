@@ -1,6 +1,6 @@
 
-# SecretNET Core Library
-SecretNET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is an .NET SDK for writing applications that interact with the [Secret Network blockchain](https://scrt.network/).
+# Secret.NET Core Library
+Secret.NET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is an .NET SDK for writing applications that interact with the [Secret Network blockchain](https://scrt.network/).
 
 # Key Features
 - Written in .NET 6 including MAUI Support.
@@ -15,7 +15,7 @@ SecretNET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client
 :information_source: This library is still in beta (as secret.js), APIs may break. Beta testers are welcome!
 
 ## Additional packages
-In addition to the SecretNET Core Library, the following complementary packages are available:
+In addition to the Secret.NET Core Library, the following complementary packages are available:
 - [**Full SNIP-20 (Token) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP20), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
 - [**Full SNIP-721 / SNIP-722 (NFT) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP721), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
 - **UI Package** (coming soon), which contains typical MAUI controls such as Confirm Transaction, Wallet Setup, Scan Keplr QR, etc.
@@ -50,7 +50,7 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
   - [Transactions](#transactions)
 
 # General information
-The rough structure of the SecretNET client, from the user's perspective, is divided into the following areas:
+The rough structure of the Secret.NET client, from the user's perspective, is divided into the following areas:
 - **Queries** (accessible via ```Query``` property), to get informations from the blockchain or an smart contract.
 - **Transactions** (accessible via ```Tx``` property), to interact activly with the blockchain e.g. sending funds or calling smart contract methods.
 - **Permits** (accessible via ```Permit``` property) for requesting protected informations in a query, without the need for a separate transaction.
@@ -69,7 +69,7 @@ All transactions can also be simulated via ``Tx.Simulate`` to determine the esti
 
 # Usage 
 ## Installation
-The SecretNET Core Libray can be easily installed via Nuget: 
+The Secret.NET Core Libray can be easily installed via Nuget: 
 
 ``` nuget.exe ``` -CLI:
 ``` bash 
