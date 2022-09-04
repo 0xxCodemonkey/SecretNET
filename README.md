@@ -12,7 +12,7 @@ Secret.NET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Clien
 - The SDK has a wallet built in and does not currently require / support external wallets.
 - Custom APIs / clients for specific smart contracts can be easily created (see packages for tokens / SNIP20 or NFT / SNIP721).
 
-:information_source: This library is still in beta (as secret.js), APIs may break. Beta testers are welcome!
+:information_source: This library is still in beta (as [secret.js](https://github.com/scrtlabs/secret.js)), APIs may break. Beta testers are welcome!
 See [project board](https://github.com/users/0xxCodemonkey/projects/1/views/1) for list of existing/missing features.
 
 ## Additional packages
