@@ -36,6 +36,7 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
    - [Creating / Initializing the Wallet](#creating--initializing-the-wallet)
       - [Importing account from mnemonic phrase](#importing-account-from-mnemonic-phrase)
       - [Importing private key](#importing-private-key)
+      - [Use previously saved wallet](#use-previously-saved-wallet)
       - [Import via Keplr QR](#import-via-keplr-qr)
       - [Generating a new account](#generating-a-new-account)
       - [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#attaching-the-wallet-to-the-secretnetworkclient-required-for-signing-transactions)
@@ -96,7 +97,17 @@ Install-Package SecretNET.UI (coming soon)
 ```
 # Examples
 ## Creating / Initializing the wallet
-The wallet will use per default an secure storage which protects the sensitive data in a platform-specific manner:
+When initializing a wallet, you must pass an *IPrivateKeyStorage* provider where the private key and mnemonic phrase will be stored (default = MauiSecureStorage). 
+The following providers are available out of the box:
+
+- **MauiSecureStorage**
+Utilized the [Microsoft.Maui.Storage.SecureStorage](https://docs.microsoft.com/en-us/dotnet/maui/platform-integration/storage/secure-storage) to securely save data (can only be used in MAUI apps).
+- **AesEncryptedFileStorage**
+AesEncryptedFileStorage encryptes data to the local file system (not recommended in MAUI Apps since password is stored in memory).
+- **InMemoryOnlyStorage**
+Stores the data ONLY (unencrypted!) in memory.
+
+The .NET MAUI SecureStorage uses the OS capabilities as follows to store the data securely:
 
 | Plattform | Info |
 | ------------- | -------------  |
@@ -114,10 +125,25 @@ Simply use the mnemonic phrase in the ```Wallet.Create``` method (and use the wa
 var walletFromMnemonic = await SecretNET.Wallet.Create("detect unique diary skate horse hockey gain naive approve rabbit act lift");
 ```
 ### Importing private key
-Simply use the private key in the ```Wallet.Create``` method (and use the wallet in the constructor of the SecretNetworkClient:) like this
+Simply use the private key in the ```Wallet.Create``` method (and use the wallet in the constructor of the SecretNetworkClient) like this:
 ```  csharp
 var walletFromSeed = await SecretNET.Wallet.Create(** byte[] private key **);
 ```
+
+### Use previously saved wallet
+
+```csharp
+var secureLocalStorageProvider = new MauiSecureStorage();
+var securewalletOptions = new SecretNET.Common.CreateWalletOptions(secureLocalStorageProvider);
+
+Wallet secureWallet = null;
+if (await secureLocalStorageProvider.HasPrivateKey())
+{
+    var storedMnemonic = await secureLocalStorageProvider.GetFirstMnemonic();
+    secureWallet = await SecretNET.Wallet.Create(storedMnemonic, options: securewalletOptions);
+}
+```
+
 ### Import via Keplr QR
 - coming soon...
 ### Generating a new account
@@ -141,7 +167,7 @@ secretNetworkClient.Wallet = walletFromMnemonic;
 ## Interacting with an Token Contract (SNIP20)
 ## Interacting with an NFT Contract (SNIP721)
 # SecretNetworkClient
-**Full API »**
+[**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
 
 ## Querier
 The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.

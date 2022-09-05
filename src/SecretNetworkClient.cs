@@ -94,7 +94,7 @@ public class SecretNetworkClient : ISecretNetworkClient
             grpcChannelOptions.HttpHandler = new GrpcWebHandler(new HttpClientHandler());
         }
 
-        this._grpcChannel = GrpcChannel.ForAddress("https://pulsar-2.api.trivium.network:9091", grpcChannelOptions);
+        this._grpcChannel = GrpcChannel.ForAddress(options.GrpcWebUrl, grpcChannelOptions);
         if (grpcMessageInterceptor != null)
         {
             this._rpcMessageInterceptor = this._grpcChannel.Intercept(grpcMessageInterceptor);
