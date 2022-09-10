@@ -65,12 +65,12 @@ public class ComputeQueryClient : GprcBase
                 var nonce = new ArraySegment<byte>(encryptedQuery, 0, 32).ToArray();
                 try
                 {
-                    var request = new Secret.Compute.V1Beta1.QuerySmartContractStateRequest()
+                    var request = new Secret.Compute.V1Beta1.QuerySecretContractRequest()
                     {
-                        Address = AddressToBytes(contractAddress).GetByteStringFromBase64(),
-                        QueryData = encryptedQuery.GetByteStringFromBase64()
+                        ContractAddress = contractAddress,
+                        Query = encryptedQuery.GetByteStringFromBase64()
                     };
-                    var queryResponse = await client.SmartContractStateAsync(request);
+                    var queryResponse = await client.QuerySecretContractAsync(request);
 
                     if (queryResponse != null)
                     {
@@ -196,7 +196,7 @@ public class ComputeQueryClient : GprcBase
     /// <returns></returns>
     public async Task<SecretCodeInfo> Code(ulong codeId)
     {
-        var request = new Secret.Compute.V1Beta1.QueryCodeRequest()
+        var request = new Secret.Compute.V1Beta1.QueryByCodeIDRequest
         {
             CodeId = codeId
         };
@@ -216,9 +216,9 @@ public class ComputeQueryClient : GprcBase
     /// <returns></returns>
     public async Task<SecretContractInfo> ContractInfo(string contractAddress)
     {
-        var request = new Secret.Compute.V1Beta1.QueryContractInfoRequest()
+        var request = new Secret.Compute.V1Beta1.QueryByContractAddressRequest
         {
-            Address = ByteString.FromBase64(Convert.ToBase64String(AddressToBytes(contractAddress)))
+            ContractAddress = contractAddress
         };
         var result = await client.ContractInfoAsync(request);
         if (result?.ContractInfo != null)
@@ -237,11 +237,11 @@ public class ComputeQueryClient : GprcBase
     /// <returns></returns>
     public async Task<List<SecretContractInfo>> ContractsByCode(ulong codeId)
     {
-        var request = new Secret.Compute.V1Beta1.QueryContractsByCodeRequest()
+        var request = new Secret.Compute.V1Beta1.QueryByCodeIDRequest
         {
             CodeId = codeId
         };
-        var result = await client.ContractsByCodeAsync(request);
+        var result = await client.ContractsByCodeIDAsync(request);
         if ((result?.ContractInfos?.Any()).GetValueOrDefault())
         {
             var resultList = new List<SecretContractInfo>();
@@ -324,7 +324,7 @@ public class ComputeQueryClient : GprcBase
         if (contractInfo?.ContractInfo != null)
         {
             var parsedInfo = ParseContractInfo(contractInfo.ContractInfo);
-            parsedInfo.Address = contractInfo.Address.ToStringUtf8();
+            parsedInfo.Address = contractInfo.ContractAddress;
             return parsedInfo;
         }
         return null;
@@ -342,8 +342,8 @@ public class ComputeQueryClient : GprcBase
             return new SecretCodeInfo()
             {
                 CodeId = codeInfo.CodeId,
-                CreatorAddress = SecretNetworkClient.BytesToAddress(codeInfo.Creator.ToByteArray()),
-                CodeHash = Convert.ToHexString(codeInfo.DataHash.ToByteArray()).ToLower(),
+                CreatorAddress = codeInfo.Creator,
+                CodeHash = codeInfo.CodeHash,
                 Builder = codeInfo.Builder,
                 Source = codeInfo.Source
             };
