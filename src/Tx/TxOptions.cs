@@ -30,6 +30,12 @@ namespace SecretNET.Tx
         public string FeeDenom { get; set; } = "uscrt";
 
         /// <summary>
+        /// Address of the fee granter from which to charge gas fees.
+        /// </summary>
+        /// <value>The fee granter.</value>
+        public string FeeGranter { get; set; }
+
+        /// <summary>
         /// Defaults to "".
         /// </summary>
         /// <value>The memo.</value>

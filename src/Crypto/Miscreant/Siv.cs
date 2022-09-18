@@ -63,7 +63,7 @@ internal class Siv : ISIVLike
     /// <returns>System.Byte[].</returns>
     /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="NotImplementedException"></exception>
-    public byte[] Seal(byte[] plaintext, byte[][]? associatedData = null)
+    public byte[] Seal(byte[] plaintext, byte[][] associatedData = null)
     {
         associatedData = new byte[][] { new byte[0] };
         if (associatedData.Length > MAX_ASSOCIATED_DATA)
@@ -89,9 +89,12 @@ internal class Siv : ISIVLike
     /// <summary>
     /// Decrypt and authenticate data using AES-SIV
     /// </summary>
-    /// <param name="plaintext">The plaintext.</param>
+    /// <param name="sealedText">The sealed text.</param>
     /// <param name="associatedData">The associated data.</param>
     /// <returns>System.Byte[].</returns>
+    /// <exception cref="Exception">AES-SIV: too many associated data items</exception>
+    /// <exception cref="Exception">AES-SIV: ciphertext is truncated</exception>
+    /// <exception cref="Exception">AES-SIV: ciphertext verification failure!</exception>
     /// <exception cref="NotImplementedException"></exception>
     public byte[] Open(byte[] sealedText, byte[][]? associatedData = null)
     {

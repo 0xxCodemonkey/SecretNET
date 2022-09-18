@@ -43,15 +43,16 @@ public class ComputeQueryClient : GprcBase
     /// Query a Secret Contract
     /// </summary>
     /// <typeparam name="R"></typeparam>
-    /// <param name="contractAddress"></param>
-    /// <param name="queryMsg"></param>
+    /// <param name="contractAddress">The contract address.</param>
+    /// <param name="queryMsg">The query MSG.</param>
     /// <param name="codeHash">codehash is optional but makes the first call way faster (after that the hash is cached in the client)</param>
-    /// <returns></returns>
-    public async Task<SecretQueryContractResult<R>> QueryContract<R>(string contractAddress, object queryMsg, string codeHash = null) where R : class
+    /// <param name="metadata">The metadata.</param>
+    /// <returns>SecretQueryContractResult&lt;R&gt;.</returns>
+    public async Task<SecretQueryContractResult<R>> QueryContract<R>(string contractAddress, object queryMsg, string codeHash = null, Metadata metadata = null) where R : class
     {
         if (string.IsNullOrEmpty(codeHash))
         {
-            codeHash = await GetCodeHash(contractAddress);
+            codeHash = await GetCodeHash(contractAddress, metadata);
         }
 
         SecretQueryContractResult<R> result = null;
@@ -70,7 +71,7 @@ public class ComputeQueryClient : GprcBase
                         ContractAddress = contractAddress,
                         Query = encryptedQuery.GetByteStringFromBase64()
                     };
-                    var queryResponse = await client.QuerySecretContractAsync(request);
+                    var queryResponse = await client.QuerySecretContractAsync(request, metadata);
 
                     if (queryResponse != null)
                     {
@@ -134,9 +135,10 @@ public class ComputeQueryClient : GprcBase
     /// <summary>
     /// Get codeHash of a Secret Contract
     /// </summary>
-    /// <param name="contractAddress"></param>
-    /// <returns></returns>
-    public async Task<string> GetCodeHash(string contractAddress)
+    /// <param name="contractAddress">The contract address.</param>
+    /// <param name="metadata">The metadata.</param>
+    /// <returns>System.String.</returns>
+    public async Task<string> GetCodeHash(string contractAddress, Metadata metadata = null)
     {
         // Cache => via Provider Hashes je chainId speichern
         if (_codeHashCache.ContainsKey(contractAddress))
@@ -144,18 +146,17 @@ public class ComputeQueryClient : GprcBase
             return _codeHashCache[contractAddress];
         }
 
-        string codeHash = null;
-        var codeInfoResult = await ContractInfo(contractAddress);
+        var codeInfoResult = await ContractInfo(contractAddress, metadata);
         if (codeInfoResult != null && codeInfoResult.CodeId > 0)
         {
-            var code = await Code(codeInfoResult.CodeId);
-            if (code != null && !String.IsNullOrEmpty(code.CodeHash))
+            var code = await Code(codeInfoResult.CodeId, metadata);
+            if (code.CodeInfo != null && !String.IsNullOrEmpty(code.CodeInfo?.CodeHash))
             {
                 if (!_codeHashCache.ContainsKey(contractAddress))
                 {
-                    _codeHashCache.TryAdd(contractAddress, code.CodeHash);
+                    _codeHashCache.TryAdd(contractAddress, code.CodeInfo?.CodeHash);
                 }
-                return code.CodeHash;
+                return code.CodeInfo?.CodeHash;
             }
         }
 
@@ -165,9 +166,10 @@ public class ComputeQueryClient : GprcBase
     /// <summary>
     /// Get codeHash from a code id
     /// </summary>
-    /// <param name="codeId"></param>
-    /// <returns></returns>
-    public async Task<string> GetCodeHashByCodeId(ulong codeId)
+    /// <param name="codeId">The code identifier.</param>
+    /// <param name="metadata">The metadata.</param>
+    /// <returns>System.String.</returns>
+    public async Task<string> GetCodeHashByCodeId(ulong codeId, Metadata metadata = null)
     {
         // Cache => via Provider Hashes je chainId speichern
         if (_codeHashCacheByCodeId.ContainsKey(codeId))
@@ -175,15 +177,14 @@ public class ComputeQueryClient : GprcBase
             return _codeHashCacheByCodeId[codeId];
         }
 
-        string codeHash = null;
-        var code = await Code(codeId);
-        if (code != null && !String.IsNullOrEmpty(code.CodeHash))
+        var code = await Code(codeId, metadata);
+        if (code.CodeInfo != null && !String.IsNullOrEmpty(code.CodeInfo.CodeHash))
         {
             if (!_codeHashCacheByCodeId.ContainsKey(codeId))
             {
-                _codeHashCacheByCodeId.TryAdd(codeId, code.CodeHash);
+                _codeHashCacheByCodeId.TryAdd(codeId, code.CodeInfo.CodeHash);
             }
-            return code.CodeHash;
+            return code.CodeInfo.CodeHash;
         }
 
         return null;
@@ -192,35 +193,37 @@ public class ComputeQueryClient : GprcBase
     /// <summary>
     /// Get WASM bytecode and metadata for a code id
     /// </summary>
-    /// <param name="codeId"></param>
-    /// <returns></returns>
-    public async Task<SecretCodeInfo> Code(ulong codeId)
+    /// <param name="codeId">The code identifier.</param>
+    /// <param name="metadata">The metadata.</param>
+    /// <returns>SecretCodeInfo.</returns>
+    public async Task<(SecretCodeInfo CodeInfo, byte[] WasmBytes)> Code(ulong codeId, Metadata metadata = null)
     {
         var request = new Secret.Compute.V1Beta1.QueryByCodeIDRequest
         {
             CodeId = codeId
         };
-        var result = await client.CodeAsync(request);
+        var result = await client.CodeAsync(request, metadata);
         if (result?.CodeInfo != null)
         {
             var parsedInfo = ParseCodeInfo(result.CodeInfo);
-            return parsedInfo;
+            return (parsedInfo, result.Wasm.ToByteArray());
         }
-        return null;
+        return (null, null);
     }
 
     /// <summary>
     /// Get metadata of a Secret Contract
     /// </summary>
-    /// <param name="contractAddress"></param>
-    /// <returns></returns>
-    public async Task<SecretContractInfo> ContractInfo(string contractAddress)
+    /// <param name="contractAddress">The contract address.</param>
+    /// <param name="metadata">The metadata.</param>
+    /// <returns>SecretContractInfo.</returns>
+    public async Task<SecretContractInfo> ContractInfo(string contractAddress, Metadata metadata = null)
     {
         var request = new Secret.Compute.V1Beta1.QueryByContractAddressRequest
         {
             ContractAddress = contractAddress
         };
-        var result = await client.ContractInfoAsync(request);
+        var result = await client.ContractInfoAsync(request, metadata);
         if (result?.ContractInfo != null)
         {
             var parsedInfo = ParseContractInfo(result.ContractInfo);
@@ -233,15 +236,16 @@ public class ComputeQueryClient : GprcBase
     /// <summary>
     /// Get all contracts that were instantiated from a code id.
     /// </summary>
-    /// <param name="codeId"></param>
-    /// <returns></returns>
-    public async Task<List<SecretContractInfo>> ContractsByCode(ulong codeId)
+    /// <param name="codeId">The code identifier.</param>
+    /// <param name="metadata">The metadata.</param>
+    /// <returns>List&lt;SecretContractInfo&gt;.</returns>
+    public async Task<List<SecretContractInfo>> ContractsByCode(ulong codeId, Metadata metadata = null)
     {
         var request = new Secret.Compute.V1Beta1.QueryByCodeIDRequest
         {
             CodeId = codeId
         };
-        var result = await client.ContractsByCodeIDAsync(request);
+        var result = await client.ContractsByCodeIDAsync(request, metadata);
         if ((result?.ContractInfos?.Any()).GetValueOrDefault())
         {
             var resultList = new List<SecretContractInfo>();
@@ -261,10 +265,11 @@ public class ComputeQueryClient : GprcBase
     /// <summary>
     /// Query all codes on chain.
     /// </summary>
-    /// <returns></returns>
-    public async Task<List<SecretCodeInfo>> Codes()
+    /// <param name="metadata">The metadata.</param>
+    /// <returns>List&lt;SecretCodeInfo&gt;.</returns>
+    public async Task<List<SecretCodeInfo>> Codes(Metadata metadata = null)
     {
-        var result = await client.CodesAsync(new Empty());
+        var result = await client.CodesAsync(new Empty(), metadata);
 
         if ((result?.CodeInfos?.Any()).GetValueOrDefault())
         {
@@ -299,7 +304,7 @@ public class ComputeQueryClient : GprcBase
                 CodeId = contractInfo.CodeId,
                 CreatorAddress = SecretNetworkClient.BytesToAddress(contractInfo.Creator.ToByteArray()),
                 Label = contractInfo.Label,
-                
+                IbcPortId = contractInfo.IbcPortId                
             };
             if (contractInfo.Created != null)
             {
@@ -339,6 +344,11 @@ public class ComputeQueryClient : GprcBase
     {
         if (codeInfo != null)
         {
+            if (!_codeHashCacheByCodeId.ContainsKey(codeInfo.CodeId))
+            {
+                _codeHashCacheByCodeId.TryAdd(codeInfo.CodeId, codeInfo.CodeHash);
+            }
+
             return new SecretCodeInfo()
             {
                 CodeId = codeInfo.CodeId,

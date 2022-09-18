@@ -40,7 +40,7 @@ public class MsgSubmitMisbehaviour : MsgBase
 /// </summary>
 public class MsgCreateClient : MsgBase
 {
-    public override string MsgType { get; } = MsgGrantAuthorization.MsgTimeoutOnClose;
+    public override string MsgType { get; } = MsgGrantAuthorization.MsgCreateClient;
 
     public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
     {

@@ -166,14 +166,14 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>System.ValueTuple&lt;System.Byte[], ComputeMsgToNonce&gt;.</returns>
-    public async Task<(byte[] TxBytes, ComputeMsgToNonce Nonces)> PrepareAndSign(MsgBase[] messages, TxOptions? txOptions = null)
+    public async Task<byte[]> PrepareAndSign(MsgBase[] messages, TxOptions? txOptions = null)
     {
         txOptions = txOptions ?? new TxOptions();
 
         var signResult = await Sign(messages, StdFee.FromTxOptions(txOptions), txOptions.Memo, txOptions.ExplicitSignerData);
-        var txBytes = signResult.TxRaw.Encode();
+        var txBytes = signResult.Encode();
 
-        return (txBytes, signResult.Nonces);
+        return txBytes;
     }
 
     /// <summary>
@@ -184,7 +184,7 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// <param name="memo">The memo.</param>
     /// <param name="explicitSignerData">The explicit signer data.</param>
     /// <returns>System.ValueTuple&lt;TxRaw, ComputeMsgToNonce&gt;.</returns>
-    public async Task<(TxRaw TxRaw, ComputeMsgToNonce Nonces)> Sign(MsgBase[] messages, StdFee fee, string? memo = null, SignerData? explicitSignerData = null)
+    public async Task<TxRaw> Sign(MsgBase[] messages, StdFee fee, string? memo = null, SignerData? explicitSignerData = null)
     {
         if (Wallet == null)
         {
@@ -229,7 +229,8 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// <param name="signerData">The signer data.</param>
     /// <param name="memo">The memo.</param>
     /// <returns>System.ValueTuple&lt;TxRaw, ComputeMsgToNonce&gt;.</returns>
-    public async Task<(TxRaw TxRaw, ComputeMsgToNonce Nonces)> SignDirect(MsgBase[] messages, StdFee fee, SignerData signerData, string? memo = null)
+    /// <exception cref="Exception">Failed to retrieve account from signer</exception>
+    public async Task<TxRaw> SignDirect(MsgBase[] messages, StdFee fee, SignerData signerData, string? memo = null)
     {
         if (Wallet == null)
         {
@@ -244,7 +245,7 @@ public class SecretNetworkClient : ISecretNetworkClient
             var msg = messages[i];
             await PopulateCodeHash(msg);
             var protoMsg = await msg.ToProto(EncryptionUtils);
-            encryptionNonces.Add(i, ExtractNonce(protoMsg));
+            encryptionNonces.TryAdd(i, ExtractNonce(protoMsg));
 
             var any = Any.Pack(protoMsg,"");
 
@@ -253,7 +254,7 @@ public class SecretNetworkClient : ISecretNetworkClient
 
         var txBodyBytes = txBody.Encode();
         var pubKey = EncodePubkey(EncodeSecp256k1Pubkey(Wallet.PublicKey));
-        var authInfoBytes = MakeAuthInfoBytes(pubKey, signerData.Sequence, fee.Amount, ulong.Parse(fee.Gas), SignMode.Direct);
+        var authInfoBytes = MakeAuthInfoBytes(pubKey, signerData.Sequence, fee.Amount, ulong.Parse(fee.Gas), SignMode.Direct, fee.FeeGranter);
         var signDoc = MakeSignDocProto(txBodyBytes, authInfoBytes, ChainId, signerData.AccountNumber);
         var walletSign = await Wallet.SignDirect(signDoc, Wallet.Address);
 
@@ -262,7 +263,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         txRaw.AuthInfoBytes = signDoc.AuthInfoBytes;
         txRaw.Signatures.Add(ByteString.FromBase64(walletSign.Signature));
 
-        return (txRaw, encryptionNonces);
+        return txRaw;
     }
 
     /// <summary>
@@ -273,7 +274,8 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// <param name="signerData">The signer data.</param>
     /// <param name="memo">The memo.</param>
     /// <returns>System.ValueTuple&lt;TxRaw, ComputeMsgToNonce&gt;.</returns>
-    public async Task<(TxRaw TxRaw, ComputeMsgToNonce Nonces)> SignAmino(MsgBase[] messages, StdFee fee, SignerData signerData, string? memo = null)
+    /// <exception cref="Exception">Failed to retrieve account from signer</exception>
+    public async Task<TxRaw> SignAmino(MsgBase[] messages, StdFee fee, SignerData signerData, string? memo = null)
     {
         if (Wallet == null)
         {
@@ -297,7 +299,7 @@ public class SecretNetworkClient : ISecretNetworkClient
             var msg = messages[i];
             await PopulateCodeHash(msg);
             var protoMsg = await msg.ToProto(EncryptionUtils);
-            encryptionNonces.Add(i, ExtractNonce(protoMsg));
+            encryptionNonces.TryAdd(i, ExtractNonce(protoMsg));
 
             var any = Any.Pack(protoMsg, "");
 
@@ -313,7 +315,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         txRaw.AuthInfoBytes = ByteString.FromBase64(Convert.ToBase64String(authInfoBytes));
         txRaw.Signatures.Add(ByteString.FromBase64(walletSign.Signature));
 
-        return (txRaw, encryptionNonces);
+        return txRaw;
     }
 
     // static
@@ -387,7 +389,7 @@ public class SecretNetworkClient : ISecretNetworkClient
 
     }
 
-    internal static byte[] MakeAuthInfoBytes(Any encodedPubKey, ulong sequence, Cosmos.Base.V1Beta1.Coin[] feeAmount, ulong gasLimit, SignMode signMode = SignMode.Direct)
+    internal static byte[] MakeAuthInfoBytes(Any encodedPubKey, ulong sequence, Cosmos.Base.V1Beta1.Coin[] feeAmount, ulong gasLimit, SignMode signMode = SignMode.Direct, string feeGranter = null)
     {
         var signers = new Dictionary<Any, ulong>();
         signers.Add(encodedPubKey, sequence);
@@ -395,7 +397,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         return MakeAuthInfoBytes(signers, feeAmount, gasLimit, signMode);
     }
 
-    internal static byte[] MakeAuthInfoBytes(Dictionary<Any, ulong> signers, Cosmos.Base.V1Beta1.Coin[] feeAmount, ulong gasLimit, SignMode signMode = SignMode.Direct)
+    internal static byte[] MakeAuthInfoBytes(Dictionary<Any, ulong> signers, Cosmos.Base.V1Beta1.Coin[] feeAmount, ulong gasLimit, SignMode signMode = SignMode.Direct, string feeGranter = null)
     {
         var authInfo = new AuthInfo();
         var signerInfos = MakeSignerInfos(signers, signMode);
@@ -405,6 +407,10 @@ public class SecretNetworkClient : ISecretNetworkClient
             GasLimit = gasLimit
         };
         authInfo.Fee.Amount.Add(feeAmount);
+        if (!String.IsNullOrWhiteSpace(feeGranter))
+        {
+            authInfo.Fee.Granter = feeGranter;
+        }        
 
         return authInfo.Encode();
     }
@@ -470,6 +476,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         {
             var msg = (Secret.Compute.V1Beta1.MsgInstantiateContract)protoMsg;
             var slice = new ArraySegment<byte>(msg.InitMsg.Span.ToArray(), 0, 32).ToArray();
+            Console.WriteLine("ExtractNonce nonce: " + slice.ToHexString());
             return slice;
         }
         return new byte[0];

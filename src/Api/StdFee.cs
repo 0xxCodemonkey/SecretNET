@@ -13,14 +13,18 @@ public class StdFee
     [JsonProperty("gas")]
     public string Gas { get; set; }
 
-    public StdFee(Cosmos.Base.V1Beta1.Coin coin, string gas): this(new[] { coin }, gas)
+    [JsonProperty("granter")]
+    public string FeeGranter { get; set; }
+
+    public StdFee(Cosmos.Base.V1Beta1.Coin coin, string gas, string feeGranter = null) : this(new[] { coin }, gas, feeGranter)
     {
     }
 
-    public StdFee(Cosmos.Base.V1Beta1.Coin[] coins, string gas)
+    public StdFee(Cosmos.Base.V1Beta1.Coin[] coins, string gas, string feeGranter = null)
     {
         Amount = coins;
         Gas = gas;
+        FeeGranter = feeGranter;
     }
 
     public static StdFee GetDefault(){
@@ -34,7 +38,7 @@ public class StdFee
             Denom = txOptions.FeeDenom 
         };
 
-        return new StdFee(new Cosmos.Base.V1Beta1.Coin[] { coin }, txOptions.GasLimit.ToString());
+        return new StdFee(new Cosmos.Base.V1Beta1.Coin[] { coin }, txOptions.GasLimit.ToString(), txOptions.FeeGranter);
     }
 
     public StdFeeAmino ConvertToStdFeeAmino()
@@ -56,20 +60,24 @@ public class StdFeeAmino
     [JsonProperty("gas")]
     public string Gas { get; set; }
 
-    public StdFeeAmino(Tx.Coin coin, string gas) : this(new[] { coin }, gas)
+    [JsonProperty("granter")]
+    public string FeeGranter { get; set; }
+
+    public StdFeeAmino(Tx.Coin coin, string gas, string feeGranter = null) : this(new[] { coin }, gas, feeGranter)
     {
     }
 
-    public StdFeeAmino(Tx.Coin[] coins, string gas)
+    public StdFeeAmino(Tx.Coin[] coins, string gas, string feeGranter = null)
     {
         Amount = coins;
         Gas = gas;
+        FeeGranter = feeGranter;
     }
 
     public StdFee ConvertToStdFee()
     {
         var coins = Amount.Select(c => new Cosmos.Base.V1Beta1.Coin() { Amount = c.Amount, Denom = c.Denom }).ToArray();
-        var result = new StdFee(coins, Gas);
+        var result = new StdFee(coins, Gas, FeeGranter);
         return result;
     }
 
@@ -86,7 +94,7 @@ public class StdFeeAmino
             Denom = txOptions.FeeDenom
         };
 
-        return new StdFeeAmino(new Tx.Coin[] { coin }, txOptions.GasLimit.ToString());
+        return new StdFeeAmino(new Tx.Coin[] { coin }, txOptions.GasLimit.ToString(), txOptions.FeeGranter);
     }
 
 }

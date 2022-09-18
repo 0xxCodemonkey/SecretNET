@@ -85,5 +85,4 @@ public static class MsgTypeNames
     public const string GenericAuthorization =                  "cosmos.authz.v1beta1.GenericAuthorization";
     public const string RaAuthenticate =                        "secret.registration.v1beta1.RaAuthenticate";
     public const string MsgCreateVestingAccount =               "cosmos.vesting.v1beta1.MsgCreateVestingAccount";
-    public const string MsgSnip20Send =                         "MsgSnip20Send";
 }

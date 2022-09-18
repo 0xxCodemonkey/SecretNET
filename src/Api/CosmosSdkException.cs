@@ -1,4 +1,6 @@
-﻿namespace SecretNET.Api;
+﻿using Cosmos.Base.Abci.V1Beta1;
+
+namespace SecretNET.Api;
 
 /// <summary>
 /// Class CosmosSdkException.
@@ -23,7 +25,7 @@ public class CosmosSdkException : Exception
     /// Gets the get tx response.
     /// </summary>
     /// <value>The get tx response.</value>
-    public GetTxResponse GetTxResponse { get; private set; }
+    public TxResponse TxResponse { get; private set; }
 
     /// <summary>
     /// Gets the raw log.
@@ -36,9 +38,9 @@ public class CosmosSdkException : Exception
             {
                 return BroadcastTxResponse?.TxResponse?.RawLog;
             }
-            if (GetTxResponse?.TxResponse?.RawLog != null)
+            if (TxResponse?.RawLog != null)
             {
-                return GetTxResponse?.TxResponse?.RawLog;
+                return TxResponse?.RawLog;
             }
             return null;
         } 
@@ -60,10 +62,10 @@ public class CosmosSdkException : Exception
     /// </summary>
     /// <param name="cosmosSdkErrorEnum">The cosmos SDK error enum.</param>
     /// <param name="response">The response.</param>
-    public CosmosSdkException(CosmosSdkErrorEnum cosmosSdkErrorEnum, GetTxResponse response) : base(SetErrorMessage(cosmosSdkErrorEnum))
+    public CosmosSdkException(CosmosSdkErrorEnum cosmosSdkErrorEnum, TxResponse response) : base(SetErrorMessage(cosmosSdkErrorEnum))
     {
         CosmosSdkErrorEnum = cosmosSdkErrorEnum;
-        GetTxResponse = response;
+        TxResponse = response;
     }
 
     // https://github.com/cosmos/cosmos-sdk/blob/main/types/errors/errors.go

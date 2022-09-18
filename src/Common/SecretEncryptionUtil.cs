@@ -67,7 +67,13 @@ public partial class SecretEncryptionUtils
     /// <returns>System.Byte[].</returns>
     public async Task<byte[]> Decrypt(byte[] ciphertext, byte[] nonce)
     {
+        if ((ciphertext?.Length).GetValueOrDefault() == 0)
+        {
+            return new byte[0];
+        }
+
         var txEncryptionKey = await GetTxEncryptionKey(nonce);
+
         var siv = Siv.ImportKey(txEncryptionKey);
         var plaintext = siv.Open(ciphertext);
 
@@ -83,8 +89,8 @@ public partial class SecretEncryptionUtils
     public async Task<byte[]> Encrypt(string contractCodeHash, object contractMsg)
     {
         var nonce = GenerateNewSeed();
-
         var txEncryptionKey = await GetTxEncryptionKey(nonce);
+
         var siv = Siv.ImportKey(txEncryptionKey);
         var contractMsgAsString = (contractMsg is string) ? contractMsg : JsonConvert.SerializeObject(contractMsg);
 

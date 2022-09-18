@@ -79,9 +79,19 @@ public static class SecretUtils
     {
         if (!String.IsNullOrEmpty(typeUrl) && !String.IsNullOrEmpty(matchType))
         {
-            return typeUrl.TrimStart('/').Equals(matchType, StringComparison.InvariantCultureIgnoreCase);
+            var cleanedType = CleanUpTypeurl(typeUrl);
+            return cleanedType.Equals(matchType, StringComparison.InvariantCultureIgnoreCase);
         }
         return false;
+    }
+
+    public static string CleanUpTypeurl(this string typeUrl)
+    {
+        if (!String.IsNullOrEmpty(typeUrl))
+        {
+            return Regex.Match(typeUrl, "[^/]([^/]*)$").Groups[0].Value;
+        }
+        return typeUrl;
     }
 
     public static bool IsProtoType(this IMessage msg, string matchType)
