@@ -18,7 +18,7 @@ public class CreateClientOptions
     public string ChainId { get; private set; }
 
     /// <summary>
-    /// A wallet for signing transactions & permits. When `wallet` is supplied, `walletAddress` and `chainId` must be supplied too.
+    /// A wallet for signing transactions and permits. When `wallet` is supplied, `walletAddress` and `chainId` must be supplied too.
     /// </summary>
     /// <value>The wallet.</value>
     public Wallet Wallet { get; set; }

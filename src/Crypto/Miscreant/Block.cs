@@ -59,10 +59,7 @@ internal class Block
     }
 
     /// <summary>
-    /// Double a value over GF(2^128):
-    /// 
-    /// a<<1 if firstbit(a)=0
-    /// (a<<1) ⊕ 0¹²⁰10000111 if firstbit(a)=1
+    /// Double a value over GF(2^128)
     /// </summary>
     internal void Dbl()
     {
