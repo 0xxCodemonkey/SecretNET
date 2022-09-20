@@ -27,7 +27,6 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
 - [Key Features](#key-features)
   - [Additional packages](#additional-packages)
   - [Full API-documentation](#full-api-documentation)
-- [Table of Contents](#table-of-contents)
 - [General information](#general-information)
 - [Usage](#usage)
   - [Installation](#installation)
