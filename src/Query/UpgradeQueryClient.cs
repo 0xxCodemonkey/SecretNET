@@ -34,7 +34,7 @@ public class UpgradeQueryClient : GprcBase
     /// </summary>
     /// <param name="request">The request.</param>
     /// <returns>QueryCurrentPlanResponse.</returns>
-    public async Task<QueryCurrentPlanResponse> GetNodeInfo(QueryCurrentPlanRequest request)
+    public async Task<QueryCurrentPlanResponse> CurrentPlan(QueryCurrentPlanRequest request)
     {
         var result = await client.CurrentPlanAsync(request);
         return result;

@@ -34,7 +34,7 @@ public class MintQueryClient : GprcBase
     /// </summary>
     /// <param name="request">The request.</param>
     /// <returns>QueryParamsResponse.</returns>
-    public async Task<QueryParamsResponse> DenomTrace(QueryParamsRequest request)
+    public async Task<QueryParamsResponse> Params(QueryParamsRequest request)
     {
         var result = await client.ParamsAsync(request);
         return result;

@@ -113,7 +113,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         {
             if (_queries == null)
             {
-                _queries = new Queries(this, _grpcChannel, _rpcMessageInterceptor);
+                _queries = new Queries(this, Tx, _grpcChannel, _rpcMessageInterceptor);
             }
             return _queries;
         }
