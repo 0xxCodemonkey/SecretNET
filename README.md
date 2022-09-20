@@ -160,10 +160,11 @@ Later via prop:
 ```  csharp
 secretNetworkClient.Wallet = walletFromMnemonic;
 ```
-# Querier (`secretClient.Query`)
-The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.
+# SecretNetworkClient
+[**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
 
-## Sending Queries
+## Querier (`secretClient.Query`)
+The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.
 
 ### `secretClient.Query.GetTx(string hash, bool tryToDecrypt = true)`
 Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string.
@@ -398,16 +399,14 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `CurrentPlan(QueryCurrentPlanRequest request)` => CurrentPlan queries the current upgrade plan.
 - `ModuleVersions(QueryModuleVersionsRequest request)` => ModuleVersions queries the list of module versions from state. Since: cosmos-sdk 0.43.
 
-## Broadcasting Transactions
-## Uploading and initialize Smart Contract
-## Calling a Smart Contract
-## Interacting with an Token Contract (SNIP20)
-## Interacting with an NFT Contract (SNIP721)
-# SecretNetworkClient
-[**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
-
-## Querier
-The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.
-
 ## Transactions
 Use ```SecretNetworkClient.Tx``` to broadcast transactions.
+
+### Broadcasting transactions
+### Uploading and initialize smart contract
+### Calling a smart contract
+### Interacting with an token contract (SNIP20)
+### Interacting with an NFT contract (SNIP721)
+
+### All transactions (eg. )
+
