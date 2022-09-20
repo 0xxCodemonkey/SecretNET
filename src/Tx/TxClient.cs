@@ -209,7 +209,7 @@ public class TxClient : GprcBase
     /// Gets the tx.
     /// </summary>
     /// <param name="hash">The hash.</param>
-    /// <param name="tryToDecrypt">if set to <c>true</c> [try to decrypt].</param>
+    /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
     /// <returns>SecretTx.</returns>
     public async Task<SecretTx> GetTx(string hash, bool tryToDecrypt = true)
     {
@@ -222,7 +222,7 @@ public class TxClient : GprcBase
     /// TXSs the query.
     /// </summary>
     /// <param name="query">The query.</param>
-    /// <param name="tryToDecrypt">if set to <c>true</c> [try to decrypt].</param>
+    /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
     /// <returns>SecretTx[].</returns>
     public async Task<SecretTx[]> TxsQuery(string query, bool tryToDecrypt = false)
     {
@@ -241,7 +241,7 @@ public class TxClient : GprcBase
     /// GetTxsEvent fetches txs by event.
     /// </summary>
     /// <param name="request">The request.</param>
-    /// <param name="tryToDecrypt">if set to <c>true</c> [try to decrypt].</param>
+    /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
     /// <returns>GetTxsEventResponse.</returns>
     public async Task<SecretTx[]> GetTxsEvent(GetTxsEventRequest request, bool tryToDecrypt = false)
     {

@@ -44,6 +44,15 @@ public class AuthQueryClient : GprcBase
     }
 
     /// <summary>
+    /// Accountses this instance.
+    /// </summary>
+    /// <returns>List&lt;IMessage&gt;.</returns>
+    public async Task<List<IMessage>> Accounts()
+    {
+        return await Accounts(new QueryAccountsRequest());
+    }
+
+    /// <summary>
     /// Returns all the existing accounts
     /// </summary>
     /// <param name="request"></param>

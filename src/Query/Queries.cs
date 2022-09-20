@@ -2,6 +2,8 @@
 
 public class Queries : GprcBase
 {
+    private Tx.TxClient _txClient;
+
     // cosmos
     private AuthQueryClient _authQuery;
     private AuthzQueryClient _authzQuery;
@@ -31,10 +33,12 @@ public class Queries : GprcBase
     /// Initializes a new instance of the <see cref="Queries" /> class.
     /// </summary>
     /// <param name="secretNetworkClient">The secret network client.</param>
+    /// <param name="txClient">The tx client.</param>
     /// <param name="grpcChannel">The GRPC channel.</param>
     /// <param name="grpcMessageInterceptor">The GRPC message interceptor.</param>
-    internal Queries(ISecretNetworkClient secretNetworkClient, GrpcChannel grpcChannel, CallInvoker? grpcMessageInterceptor) : base(secretNetworkClient, grpcChannel, grpcMessageInterceptor)
+    internal Queries(ISecretNetworkClient secretNetworkClient, Tx.TxClient txClient, GrpcChannel grpcChannel, CallInvoker? grpcMessageInterceptor) : base(secretNetworkClient, grpcChannel, grpcMessageInterceptor)
     {
+        _txClient = txClient;
         _authQuery = new AuthQueryClient(secretNetworkClient, grpcChannel, grpcMessageInterceptor);
         _authzQuery = new AuthzQueryClient(secretNetworkClient, grpcChannel, grpcMessageInterceptor);
         _bankQuery = new BankQueryClient(secretNetworkClient, grpcChannel, grpcMessageInterceptor);
@@ -55,6 +59,41 @@ public class Queries : GprcBase
         _tendermintQuery = new TendermintQueryClient(secretNetworkClient, grpcChannel, grpcMessageInterceptor);
         _upgradeQuery = new UpgradeQueryClient(secretNetworkClient, grpcChannel, grpcMessageInterceptor);
     }
+
+    /// <summary>
+    /// Gets the tx.
+    /// </summary>
+    /// <param name="hash">The hash.</param>
+    /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
+    /// <returns>SecretTx.</returns>
+    public async Task<Tx.SecretTx> GetTx(string hash, bool tryToDecrypt = true)
+    {
+        return await _txClient.GetTx(hash, tryToDecrypt); 
+    }
+
+    /// <summary>
+    /// TXSs the query.
+    /// </summary>
+    /// <param name="query">The query.</param>
+    /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
+    /// <returns>SecretTx[].</returns>
+    public async Task<Tx.SecretTx[]> TxsQuery(string query, bool tryToDecrypt = false)
+    {
+        return await _txClient.TxsQuery(query, tryToDecrypt);
+    }
+
+    /// <summary>
+    /// GetTxsEvent fetches txs by event.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
+    /// <returns>GetTxsEventResponse.</returns>
+    public async Task<Tx.SecretTx[]> GetTxsEvent(GetTxsEventRequest request, bool tryToDecrypt = false)
+    {
+        return await _txClient.GetTxsEvent(request, tryToDecrypt);
+    }
+
+
 
     /// <summary>
     /// AuthQuerier is the query interface for the x/auth module
