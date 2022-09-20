@@ -40,7 +40,7 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
       - [Import via Keplr QR](#import-via-keplr-qr)
       - [Generating a new account](#generating-a-new-account)
       - [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#attaching-the-wallet-to-the-secretnetworkclient-required-for-signing-transactions)
-  - [Sending Queries](#sending-queries)
+  - [Sending Queries](#querier-secretclientquery)
   - [Broadcasting Transactions](#broadcasting-transactions)
   - [Uploading and initialize Smart Contract](#uploading-and-initialize-smart-contract)
   - [Calling a Smart Contract](#calling-a-smart-contract)
