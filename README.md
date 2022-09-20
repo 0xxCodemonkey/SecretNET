@@ -161,6 +161,80 @@ Later via prop:
 secretNetworkClient.Wallet = walletFromMnemonic;
 ```
 ## Sending Queries
+### `secretClient.Query`
+
+#### `secretClient.Query.GetTx(string hash, bool tryToDecrypt = true)`
+Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string.
+
+If set the parameter tryToDecrypt to true (default) the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).
+
+#### `secretClient.Query.TxsQuery(string query, bool tryToDecrypt = false)`
+Returns all transactions that match a query.
+
+If set the parameter tryToDecrypt to true (default = false) the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).
+
+To tell which events you want, you need to provide a query. query is a string, which has a form: `condition AND condition ...` (no OR at the moment). Condition has a form: `key operation operand`. key is a string with a restricted set of possible symbols (`\t`, `\n`, `\r`, `\`, `(`, `)`, `"`, `'`, `=`, `>`, `<` are not allowed). Operation can be `=`, `<`, `<=`, `>`, `>=`, `CONTAINS` AND `EXISTS`. Operand can be a string (escaped with single quotes), number, date or time.
+
+Examples:
+
+- `tx.hash = 'XYZ'` # single transaction
+- `tx.height = 5` # all txs of the fifth block
+- `create_validator.validator = 'ABC'` # tx where validator ABC was created
+
+Tendermint provides a few predefined keys: `tx.hash` and `tx.height`. You can provide additional event keys that were emitted during the transaction. All events are indexed by a composite key of the form `{eventType}.{evenAttrKey}`. Multiple event types with duplicate keys are allowed and are meant to categorize unique and distinct events.
+
+To create a query for txs where AddrA transferred funds: `transfer.sender = 'AddrA'`
+
+See `txsQuery` under https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm
+
+### Get SCRT Balance
+
+```csharp
+var response = await secretClient.Query.Bank.Balance("secret1ap26qrlp8mcq2pg6r47w43l0y8zkqm8a450s03");
+Console.WriteLine("Balance: " + (float.Parse(response.Amount) / 1000000f)); // denom: "uscrt"
+```
+
+### Query smart contract (permissionless method)
+
+```csharp
+// grpcWebUrl => TODO get from https://github.com/scrtlabs/api-registry
+// chainId e.g. "secret-4" or "pulsar-2"
+var secretClient = new SecretNetworkClient(grpcWebUrl, chainId, wallet: null);
+
+// https://github.com/scrtlabs/mysimplecounter
+var contractAddress = "secret12j8e6aeyy9ff7drfks3knxva0pxj847fle8zsf"; // pulsar-2
+var contractCodeHash = "3d528d0d9889d5887abd3e497243ed6e5a4da008091e20ee420eca39874209ad";
+
+var getCountQueryMsg = new { get_count = new { } };
+
+var queryContractResult = await secretClient.Query.Compute.QueryContract<object>(
+				contractAddress: contractAddress, 
+				queryMsg: getCountQueryMsg, 
+				codeHash: contractCodeHash); // optional but way faster
+
+Console.WriteLine(queryContractResult.Response); // JSON string
+```
+
+Or even easier for a **SNIP20 Contract** via **SecretNET.SNIP20** Add-On:
+
+```csharp
+var snip20Client =  new SecretNET.SNIP20.Snip20Client(secretClient);
+
+var sSCRT_Address = "secret1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek"; // secret-4
+var sScrt_CodeHash = "af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e";
+
+var tokenInfoResult = (await snip20Client.Query.GetTokenInfo(
+					contractAddress: sSCRT_Address, 
+					codeHash:  sScrt_CodeHash // optional but way faster
+          )).Response.Result;
+
+Console.WriteLine($"TokenName: {tokenInfoResult.Name}, Symbol: {tokenInfoResult.Symbol}");
+```
+#### Other queries eg. account, auth, bank, etc.
+##### secretClient.Query.Auth
+- `Account(string address)` => Returns account details based on address.
+- `Accounts()` => Returns all existing accounts on the blockchain.
+
 ## Broadcasting Transactions
 ## Uploading and initialize Smart Contract
 ## Calling a Smart Contract
