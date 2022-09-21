@@ -1,7 +1,8 @@
 
 # Secret.NET Core Library
-Secret.NET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is a .NET Client to interact with the [Secret Network blockchain](https://scrt.network/) (L1 / Cosmos based), the first privacy smart contract blockchain that processes and stores data on-chain in encrypted form (SGX). 
-This allows [unique use cases](https://docs.scrt.network/secret-network-documentation/secret-network-overview/use-cases) like Secret NFTs where you can store public and private data e.g., Encryption Keys, passwords or other secrets. 
+**Secret.NET** (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is a .NET Client to interact with the [Secret Network blockchain](https://scrt.network/) (L1 / Cosmos based), the first privacy smart contract blockchain that processes and stores data on-chain in encrypted form (SGX). 
+
+This allows [unique use cases](https://docs.scrt.network/secret-network-documentation/secret-network-overview/use-cases) like **Secret NFTs where you can store public and private data** e.g., encryption keys, passwords or other secrets. 
 
 # Key Features
 - Written in .NET 6 including MAUI Support.
@@ -29,25 +30,28 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
   - [Additional packages](#additional-packages)
   - [Full API-documentation](#full-api-documentation)
 - [General information](#general-information)
-- [Usage](#usage)
-  - [Installation](#installation)
+- [Installation](#installation)
   - [Additional packages](#additional-packages)
-- [Creating / Initializing the Wallet](#creating--initializing-the-wallet)
-	- [Importing account from mnemonic phrase](#importing-account-from-mnemonic-phrase)
-	- [Importing private key](#importing-private-key)
-	- [Use previously saved wallet](#use-previously-saved-wallet)
-	- [Import via Keplr QR](#import-via-keplr-qr)
-	- [Generating a new account](#generating-a-new-account)
-	- [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#attaching-the-wallet-to-the-secretnetworkclient-required-for-signing-transactions)
-- [SecretNetworkClient](#secretnetworkclient)
-  - [Queries](#querier-secretclientquery)
-  	- [Get SCRT Balance](#get-scrt-balance)
-	- [Query smart contract (permissionless method)](#query-smart-contract-permissionless-method)
+- [Usage Examples](#usage-examples)
+	-[Sending Queries](#sending-queries)
+  		- [Get SCRT Balance](#get-scrt-balance)
+		- [Query smart contract (permissionless method)](#query-smart-contract-permissionless-method)	
+	-[Broadcasting Transactions](#broadcasting-transactions)
+		- [Calling a Smart Contract](#calling-a-smart-contract)
+-[API](#api)
+	- [Creating / Initializing the Wallet](#creating--initializing-the-wallet)
+		- [Importing account from mnemonic phrase](#importing-account-from-mnemonic-phrase)
+		- [Importing private key](#importing-private-key)
+		- [Use previously saved wallet](#use-previously-saved-wallet)
+		- [Import via Keplr QR](#import-via-keplr-qr)
+		- [Generating a new account](#generating-a-new-account)
+		- [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#attaching-the-wallet-to-the-secretnetworkclient-required-for-signing-transactions)
+	- [SecretNetworkClient](#secretnetworkclient)
+  		- [Queries](#querier-secretclientquery)
+
 	- [All queries (eg. accounts, bank, compute, gov, feegrant, etc.)](#all-queries-eg-accounts-bank-compute-gov-feegrant-etc)
   - [Transactions](#transactions)
-	- [Broadcasting Transactions](#broadcasting-transactions)
-  	- [Uploading and initialize Smart Contract](#uploading-and-initialize-smart-contract)
-  	- [Calling a Smart Contract](#calling-a-smart-contract)
+  	- [Uploading and initialize Smart Contract](#uploading-and-initialize-smart-contract)	
   	- [Interacting with an Token Contract (SNIP20)](#interacting-with-an-token-contract-snip20)
   	- [Interacting with an NFT Contract (SNIP721)](#interacting-with-an-nft-contract-snip721)
   	- [All transactions (eg. )](#all-transactions-eg-)
@@ -70,8 +74,7 @@ All transactions can also be simulated via ``Tx.Simulate`` to determine the esti
 
 ![](resources/VS_IntelliSense.png)
 
-# Usage 
-## Installation
+# Installation
 The Secret.NET Core Libray can be easily installed via Nuget: 
 
 ``` nuget.exe ``` -CLI:
@@ -97,7 +100,66 @@ Install-Package SecretNET.SNIP20
 Install-Package SecretNET.SNIP721
 Install-Package SecretNET.UI (coming soon)
 ```
-# Examples
+# Usage Examples
+Note: Public gRPC-web endpoints can be found in https://github.com/scrtlabs/api-registry for both mainnet and testnet.
+
+For a lot more usage examples refer to the tests.
+
+## Sending Queries
+```csharp
+using SecretNET;
+
+// grpcWebUrl => TODO get from https://github.com/scrtlabs/api-registry
+// chainId e.g. "secret-4" or "pulsar-2"
+var secretClient = new SecretNetworkClient(grpcWebUrl, chainId, wallet: null); // no wallet needed for queries
+
+var response = await secretClient.Query.Bank.Balance("secret1ap26qrlp8mcq2pg6r47w43l0y8zkqm8a450s03");
+Console.WriteLine("Balance: " + (float.Parse(response.Amount) / 1000000f)); // denom: "uscrt"
+
+// simple counter contract
+var contractAddress = "secret12j8e6aeyy9ff7drfks3knxva0pxj847fle8zsf"; // pulsar-2
+var contractCodeHash = "3d528d0d9889d5887abd3e497243ed6e5a4da008091e20ee420eca39874209ad";
+
+var getCountQueryMsg = new { get_count = new { } };
+
+var queryContractResult = await secretClient.Query.Compute.QueryContract<object>(
+				contractAddress: contractAddress, 
+				queryMsg: getCountQueryMsg, 
+				codeHash: contractCodeHash); // optional but way faster
+
+Console.WriteLine(queryContractResult.Response); // JSON string
+```
+## Broadcasting Transactions
+```csharp
+using SecretNET;
+
+var myWallet = await SecretNET.Wallet.Create("detect unique diary skate horse hockey gain naive approve rabbit act lift");
+
+// grpcWebUrl => TODO get from https://github.com/scrtlabs/api-registry
+// chainId e.g. "secret-4" or "pulsar-2"
+var secretClient = new SecretNetworkClient(grpcWebUrl, chainId, wallet: myWallet); // wallet needed for transactions
+
+// simple counter contract
+var contractAddress = "secret12j8e6aeyy9ff7drfks3knxva0pxj847fle8zsf"; // pulsar-2
+var contractCodeHash = "3d528d0d9889d5887abd3e497243ed6e5a4da008091e20ee420eca39874209ad";
+
+var msgExecuteContract = new SecretNET.Tx.MsgExecuteContract(
+				contractAddress: contractAddress, 
+				msg: new { increment = new { } }, 
+				codeHash: contractCodeHash); // optional but way faster
+
+var txOptionsExecute = new TxOptions()
+{
+    GasLimit = 300_000,
+    GasPriceInFeeDenom = 0.26F
+};
+
+var executeContractResult = await secretClient.Tx.Compute.ExecuteContract(
+				msg: msgExecuteContract, 
+				txOptions: txOptionsExecute);
+```
+
+# API
 ## Creating / Initializing the wallet
 When initializing a wallet, you must pass an ```IPrivateKeyStorage``` provider where the private key and mnemonic phrase will be stored (default = MauiSecureStorage). 
 The following providers are available out of the box:
@@ -162,18 +224,18 @@ Later via prop:
 ```  csharp
 secretNetworkClient.Wallet = walletFromMnemonic;
 ```
-# SecretNetworkClient
+## SecretNetworkClient
 [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
 
-## Querier (`secretClient.Query`)
+### Querier (`secretClient.Query`)
 The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.
 
-### `secretClient.Query.GetTx(string hash, bool tryToDecrypt = true)`
+#### `secretClient.Query.GetTx(string hash, bool tryToDecrypt = true)`
 Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string.
 
 If set the parameter tryToDecrypt to true (default) the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).
 
-### `secretClient.Query.TxsQuery(string query, bool tryToDecrypt = false)`
+#### `secretClient.Query.TxsQuery(string query, bool tryToDecrypt = false)`
 Returns all transactions that match a query.
 
 If set the parameter `tryToDecrypt` to true (default = false) the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same ```CreateClientOptions.EncryptionSeed``` is used).
@@ -199,14 +261,14 @@ var response = await secretClient.Query.Bank.Balance("secret1ap26qrlp8mcq2pg6r47
 Console.WriteLine("Balance: " + (float.Parse(response.Amount) / 1000000f)); // denom: "uscrt"
 ```
 
-### Query smart contract (permissionless method)
+#### Query smart contract (permissionless method)
 
 ```csharp
 // grpcWebUrl => TODO get from https://github.com/scrtlabs/api-registry
 // chainId e.g. "secret-4" or "pulsar-2"
 var secretClient = new SecretNetworkClient(grpcWebUrl, chainId, wallet: null);
 
-// https://github.com/scrtlabs/mysimplecounter
+// simple counter contract
 var contractAddress = "secret12j8e6aeyy9ff7drfks3knxva0pxj847fle8zsf"; // pulsar-2
 var contractCodeHash = "3d528d0d9889d5887abd3e497243ed6e5a4da008091e20ee420eca39874209ad";
 
@@ -235,7 +297,7 @@ var tokenInfoResult = (await snip20Client.Query.GetTokenInfo(
 
 Console.WriteLine($"TokenName: {tokenInfoResult.Name}, Symbol: {tokenInfoResult.Symbol}");
 ```
-### All queries (eg. accounts, bank, compute, gov, feegrant, etc.)
+#### All queries (eg. accounts, bank, compute, gov, feegrant, etc.)
 - secretClient.Query.Auth
 - secretClient.Query.Authz
 - secretClient.Query.Bank
@@ -258,16 +320,16 @@ Console.WriteLine($"TokenName: {tokenInfoResult.Name}, Symbol: {tokenInfoResult.
 
 See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm)
 
-#### [secretClient.Query.Auth](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthQueryClient.htm)
+##### [secretClient.Query.Auth](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthQueryClient.htm)
 - `Account(string address)` => Returns account details based on address.
 - `Accounts()` => Returns all existing accounts on the blockchain.
 
-#### [secretClient.Query.Authz](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthzQueryClient.htm)
+##### [secretClient.Query.Authz](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthzQueryClient.htm)
 - `GranteeGrants(QueryGranteeGrantsRequest request)` => GranteeGrants returns a list of `GrantAuthorization` by grantee. Since: cosmos-sdk 0.45.2.
 - `GranterGrants(QueryGranterGrantsRequest request)` => GranterGrants returns list of `GrantAuthorization`, granted by granter. Since: cosmos-sdk 0.45.2.
 - `Grants(QueryGrantsRequest request)` => Returns list of `Authorization`, granted to the grantee by the granter.
 
-#### [secretClient.Query.Bank](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.BankQueryClient.htm)
+##### [secretClient.Query.Bank](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.BankQueryClient.htm)
 - `Balance(QueryBalanceRequest request)` / `Balance(string address, string denom)` => Balance queries the balance of **a single** coin for a single account.
 - `Balance(QueryAllBalancesRequest request)` => AllBalances queries the balance of **all coins** for a single account.
 - `DenomMetadata(QueryDenomMetadataRequest request)` => DenomsMetadata queries the client metadata of **a given coin** denomination.
@@ -277,7 +339,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `SupplyOf(QuerySupplyOfRequest request)` => SupplyOf queries the supply of a single coin.
 - `TotalSupply(QueryTotalSupplyRequest request)` => TotalSupply queries the total supply of all coins.
 
-#### [secretClient.Query.Compute](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.ComputeQueryClient.htm)
+##### [secretClient.Query.Compute](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.ComputeQueryClient.htm)
 - `Code(ulong codeId, Metadata metadata)` => Get WASM bytecode and metadata for a code id.
 - `Codes(Metadata metadata)` => Query all codes on chain.
 - `ContractInfo(string contractAddress, Metadata metadata)` => Get metadata of a Secret Contract.
@@ -286,7 +348,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `GetCodeHashByCodeId(ulong codeId, Metadata metadata)` => Get the codeHash from a code id.
 - `QueryContract<R>(string contractAddress, Object queryMsg, string codeHash, Metadata metadata)` => Query a Secret Contract and cast the response as `R`. (see above)
 
-#### [secretClient.Query.Distribution](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.DistributionQueryClient.htm)
+##### [secretClient.Query.Distribution](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.DistributionQueryClient.htm)
 - `Balance(QueryParamsRequest request)` => CommunityPool queries the community pool coins.
 - `CommunityPool(QueryCommunityPoolRequest request)` => Query all codes on chain.
 - `DelegationRewards(QueryDelegationRewardsRequest request)` => DelegationRewards queries the total rewards accrued by a delegation.
@@ -298,11 +360,11 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `ValidatorOutstandingRewards(QueryValidatorCommissionRequest request)` => ValidatorOutstandingRewards queries rewards of a validator address.
 - `ValidatorSlashes(QueryValidatorCommissionRequest request)` => ValidatorSlashes queries slash events of a validator.
 
-#### [secretClient.Query.Evidence](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.EvidenceQueryClient.htm)
+##### [secretClient.Query.Evidence](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.EvidenceQueryClient.htm)
 - `AllEvidence(QueryAllEvidenceRequest request)` => AllEvidence queries all evidence.
 - `FoundationTax(QueryEvidenceRequest request)` => Evidence queries evidence based on evidence hash.
 
-#### [secretClient.Query.Feegrant](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.FeegrantQueryClient.htm)
+##### [secretClient.Query.Feegrant](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.FeegrantQueryClient.htm)
 - `Allowance(QueryAllowanceRequest request)` => Allowance returns fee granted to the grantee by the granter.
 - `Allowances(QueryAllowancesRequest request)` => Allowances returns all the grants for address.
 
