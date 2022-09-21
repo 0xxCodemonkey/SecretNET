@@ -295,7 +295,7 @@ Console.WriteLine($"TokenName: {tokenInfoResult.Name}, Symbol: {tokenInfoResult.
 ```
 
 ## Transactions
-On a signer Secret.NET client, `SecretNetworkClient.Tx` is used to broadcast transactions. Every function under secretjs.tx can receive an optional TxOptions.
+On a signer Secret.NET client, `SecretNetworkClient.Tx` is used to broadcast transactions. Every function under `SecretNetworkClient.Tx` can receive an optional TxOptions.
 
 ### Broadcasting transactions
 Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
