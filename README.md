@@ -1,6 +1,7 @@
 
 # Secret.NET Core Library
-Secret.NET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is an .NET SDK for writing applications that interact with the [Secret Network blockchain](https://scrt.network/).
+Secret.NET (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is a .NET Client to interact with the [Secret Network blockchain](https://scrt.network/) (L1 / Cosmos based), the first privacy smart contract blockchain that processes and stores data on-chain in encrypted form (SGX). 
+This allows [unique use cases](https://docs.scrt.network/secret-network-documentation/secret-network-overview/use-cases) like Secret NFTs where you can store public and private data e.g., Encryption Keys, passwords or other secrets. 
 
 # Key Features
 - Written in .NET 6 including MAUI Support.
