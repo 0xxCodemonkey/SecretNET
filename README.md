@@ -40,7 +40,7 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
   	- [Importing account from mnemonic phrase](#importing-account-from-mnemonic-phrase)
 	- [Importing private key](#importing-private-key)
 	- [Use previously saved wallet](#use-previously-saved-wallet)
-	- [Import via Keplr QR](#import-via-keplr-qr)
+	- Import via Keplr QR (coming soon...)
 	- [Generating a new account](#generating-a-new-account)
 	- [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#attaching-the-wallet-to-the-secretnetworkclient-required-for-signing-transactions)
   - [SecretNetworkClient](#secretnetworkclient)
@@ -293,6 +293,28 @@ var tokenInfoResult = (await snip20Client.Query.GetTokenInfo(
 
 Console.WriteLine($"TokenName: {tokenInfoResult.Name}, Symbol: {tokenInfoResult.Symbol}");
 ```
+
+## Transactions
+On a signer Secret.NET client, `SecretNetworkClient.Tx` is used to broadcast transactions. Every function under secretjs.tx can receive an optional TxOptions.
+
+### Broadcasting transactions
+Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+
+```csharp
+
+```
+
+### Uploading and initialize smart contract
+### Calling a smart contract
+### Interacting with an token contract (SNIP20)
+### Interacting with an NFT contract (SNIP721)
+
+
+
+
+
+
+
 #### All queries (eg. accounts, bank, compute, gov, feegrant, etc.)
 - secretClient.Query.Auth
 - secretClient.Query.Authz
@@ -459,14 +481,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `CurrentPlan(QueryCurrentPlanRequest request)` => CurrentPlan queries the current upgrade plan.
 - `ModuleVersions(QueryModuleVersionsRequest request)` => ModuleVersions queries the list of module versions from state. Since: cosmos-sdk 0.43.
 
-## Transactions
-Use ```SecretNetworkClient.Tx``` to broadcast transactions.
 
-### Broadcasting transactions
-### Uploading and initialize smart contract
-### Calling a smart contract
-### Interacting with an token contract (SNIP20)
-### Interacting with an NFT contract (SNIP721)
 
 ### All transactions (eg. )
 
