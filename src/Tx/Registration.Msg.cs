@@ -19,7 +19,7 @@ public class RaAuthenticate : MsgBase
         Certificate = certificate;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgTransfer = new Secret.Registration.V1Beta1.RaAuthenticate()
         {
@@ -29,7 +29,7 @@ public class RaAuthenticate : MsgBase
 
         return msgTransfer;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("reg/authenticate");
         // order of properties must be sorted for amino signing!!

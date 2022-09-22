@@ -71,7 +71,7 @@ public class MsgTransfer : MsgBase
         TimeoutTimestampSec = timeoutTimestampSec;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgTransfer = new Ibc.Applications.Transfer.V1.MsgTransfer()
         {
@@ -87,7 +87,7 @@ public class MsgTransfer : MsgBase
         return msgTransfer;
     }
 
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgTransfer ToAmino is not implemented.");
     }

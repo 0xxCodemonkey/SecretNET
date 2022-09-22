@@ -3,19 +3,11 @@
 public class ComputeTx
 {
     private TxClient _tx;
-    private ComputeTxSimulate _txSimulte;
 
     internal ComputeTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new ComputeTxSimulate(tx);
     }
-
-    public ComputeTxSimulate Simulate
-    {
-        get { return _txSimulte; }
-    }
-
 
     /// <summary>
     /// Execute a function on a contract
@@ -55,7 +47,7 @@ public class ComputeTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<StoreCodeSecretTx> StoreCode(MsgStoreCode msg, TxOptions txOptions = null)
+    public async Task<SingleSecretTx<Secret.Compute.V1Beta1.MsgStoreCodeResponse>> StoreCode(MsgStoreCode msg, TxOptions txOptions = null)
     {
         if (msg == null || msg.WasmByteCode == null || msg.WasmByteCode.Length == 0) return null;
 
@@ -69,8 +61,8 @@ public class ComputeTx
             msg.Sender = _tx.secretClient.WalletAddress;
         }
 
-        var secretTx = await _tx.Broadcast(msg, txOptions);
-        return new StoreCodeSecretTx(secretTx);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Secret.Compute.V1Beta1.MsgStoreCodeResponse>(txResult);
     }
 
     /// <summary>
@@ -79,15 +71,15 @@ public class ComputeTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<InstantiateContractSecretTx> InstantiateContract(MsgInstantiateContract msg, TxOptions txOptions = null)
+    public async Task<SingleSecretTx<Secret.Compute.V1Beta1.MsgInstantiateContractResponse>> InstantiateContract(MsgInstantiateContract msg, TxOptions txOptions = null)
     {
         if (string.IsNullOrEmpty(msg.Sender))
         {
             msg.Sender = _tx.secretClient.WalletAddress;
         }
 
-        var secretTx = await _tx.Broadcast(msg, txOptions);
-        return new InstantiateContractSecretTx(secretTx);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Secret.Compute.V1Beta1.MsgInstantiateContractResponse>(txResult);
     }
 
 }

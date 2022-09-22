@@ -21,7 +21,7 @@ public class MsgSetWithdrawAddress : MsgBase
     }
 
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgSetWithdrawAddress = new Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddress()
         {
@@ -32,7 +32,7 @@ public class MsgSetWithdrawAddress : MsgBase
         return msgSetWithdrawAddress;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgModifyWithdrawAddress");
         // order of properties must be sorted for amino signing!!
@@ -67,7 +67,7 @@ public class MsgWithdrawDelegatorReward : MsgBase
     }
 
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgWithdrawDelegatorReward = new Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorReward()
         {
@@ -78,7 +78,7 @@ public class MsgWithdrawDelegatorReward : MsgBase
         return msgWithdrawDelegatorReward;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgWithdrawDelegationReward");
         // order of properties must be sorted for amino signing!!
@@ -109,7 +109,7 @@ public class MsgWithdrawValidatorCommission : MsgBase
         ValidatorAddress = validatorAddress;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgWithdrawValidatorCommission = new Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommission()
         {
@@ -119,7 +119,7 @@ public class MsgWithdrawValidatorCommission : MsgBase
         return msgWithdrawValidatorCommission;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgWithdrawValidatorCommission");
         // order of properties must be sorted for amino signing!!
@@ -152,7 +152,7 @@ public class MsgFundCommunityPool : MsgBase
         Amount = amount;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgFundCommunityPool = new Cosmos.Distribution.V1Beta1.MsgFundCommunityPool()
         {
@@ -167,7 +167,7 @@ public class MsgFundCommunityPool : MsgBase
         return msgFundCommunityPool;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgFundCommunityPool");
         // order of properties must be sorted for amino signing!!

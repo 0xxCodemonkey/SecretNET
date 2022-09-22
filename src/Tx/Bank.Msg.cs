@@ -23,7 +23,7 @@ public class MsgSend : MsgBase
         Amount = amount;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgSend = new Cosmos.Bank.V1Beta1.MsgSend()
         {
@@ -35,7 +35,7 @@ public class MsgSend : MsgBase
         return msgSend;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgSend");
         // order of properties must be sorted for amino signing!!
@@ -107,7 +107,7 @@ public class MsgMultiSend : MsgBase
         Outputs = outputs;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         if (Inputs != null || Outputs != null)
         {
@@ -146,7 +146,7 @@ public class MsgMultiSend : MsgBase
         return null;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgMultiSend");
         // order of properties must be sorted for amino signing!!

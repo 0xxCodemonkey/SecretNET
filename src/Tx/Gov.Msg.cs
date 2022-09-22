@@ -99,7 +99,7 @@ public class MsgSubmitProposal : MsgBase
     }
 
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         if (Type == ProposalType.TextProposal)
         {
@@ -148,7 +148,7 @@ public class MsgSubmitProposal : MsgBase
         return null;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgSubmitProposal ToAmino is not implemented.");
     }
@@ -177,7 +177,7 @@ public class MsgVote : MsgBase
         ProposalId = proposalId;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgVote = new Cosmos.Gov.V1Beta1.MsgVote()
         {
@@ -188,7 +188,7 @@ public class MsgVote : MsgBase
         return msgVote;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgVote");
         // order of properties must be sorted for amino signing!!
@@ -224,7 +224,7 @@ public class MsgVoteWeighted : MsgBase
         ProposalId = proposalId;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgVoteWeighted = new Cosmos.Gov.V1Beta1.MsgVoteWeighted()
         {
@@ -239,7 +239,7 @@ public class MsgVoteWeighted : MsgBase
         return msgVoteWeighted;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgVoteWeighted");
         // order of properties must be sorted for amino signing!!
@@ -280,7 +280,7 @@ public class MsgDeposit : MsgBase
         Amount = amount;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgDeposit = new Cosmos.Gov.V1Beta1.MsgDeposit()
         {
@@ -295,7 +295,7 @@ public class MsgDeposit : MsgBase
         return msgDeposit;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgVoteWeighted");
         // order of properties must be sorted for amino signing!!

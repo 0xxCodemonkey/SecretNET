@@ -9,6 +9,8 @@ public abstract class MsgExecuteContractBase : MsgBase
 
     public string Sender { get; set; }
 
+    internal SecretEncryptionUtils EncryptionUtils { get; set; }
+
     /// <summary>
     /// The SHA256 hash value of the contract's WASM bytecode, represented as case-insensitive 64
     /// character hex string.
@@ -30,15 +32,15 @@ public abstract class MsgExecuteContractBase : MsgBase
     /// </summary>
     public object Msg { get; set; }
 
-    internal async Task<byte[]> GetEncryptedMsg(SecretEncryptionUtils utils)
+    internal async Task<byte[]> GetEncryptedMsg()
     {
-        if (_msgEncrypted == null)
+        if (_msgEncrypted == null && EncryptionUtils != null)
         {
             // The encryption uses a random nonce
             // toProto() & toAmino() are called multiple times during signing
             // so to keep the msg consistant across calls we encrypt the msg only once
             string msgString = (Msg is string) ? (string)Msg : JsonConvert.SerializeObject(Msg);
-            _msgEncrypted = await utils.Encrypt(CodeHash, msgString);
+            _msgEncrypted = await EncryptionUtils.Encrypt(CodeHash, msgString);
         }
         return _msgEncrypted;
     }
@@ -98,11 +100,11 @@ public class MsgExecuteContract : MsgExecuteContractBase
         WarnIfCodeHashMissing();
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         WarnIfCodeHashMissing();
 
-        var msgEncrypted = await GetEncryptedMsg(utils);
+        var msgEncrypted = await GetEncryptedMsg();
 
         var msgExecuteContract = new Secret.Compute.V1Beta1.MsgExecuteContract()
         {
@@ -119,11 +121,11 @@ public class MsgExecuteContract : MsgExecuteContractBase
         return msgExecuteContract;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         WarnIfCodeHashMissing();
 
-        var msgEncrypted = await GetEncryptedMsg(utils);
+        var msgEncrypted = await GetEncryptedMsg();
 
         var aminoMsg = new AminoMsg("wasm/MsgExecuteContract");
         // order of properties must be sorted for amino signing!!
@@ -166,11 +168,11 @@ public class MsgInstantiateContract : MsgExecuteContractBase
         WarnIfCodeHashMissing();
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         WarnIfCodeHashMissing();
 
-        var msgEncrypted = await GetEncryptedMsg(utils);
+        var msgEncrypted = await GetEncryptedMsg();
 
         var msgInstantiateContract = new Secret.Compute.V1Beta1.MsgInstantiateContract()
         {
@@ -188,11 +190,11 @@ public class MsgInstantiateContract : MsgExecuteContractBase
         return msgInstantiateContract;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         WarnIfCodeHashMissing();
 
-        var msgEncrypted = await GetEncryptedMsg(utils);
+        var msgEncrypted = await GetEncryptedMsg();
 
         var aminoMsg = new AminoMsg("wasm/MsgInstantiateContract");
         // order of properties must be sorted for amino signing!!
@@ -249,7 +251,7 @@ public class MsgStoreCode : MsgBase
         Builder = builder;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgStoreCode = new Secret.Compute.V1Beta1.MsgStoreCode()
         {
@@ -262,7 +264,7 @@ public class MsgStoreCode : MsgBase
         return msgStoreCode;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("wasm/MsgStoreCode");
         // order of properties must be sorted for amino signing!!
@@ -275,37 +277,5 @@ public class MsgStoreCode : MsgBase
         };
 
         return aminoMsg;
-    }
-}
-
-
-// Typed SecretTx responses
-
-public class InstantiateContractSecretTx : SecretTx
-{
-    public string ContractAddress { get; set; }
-
-    public InstantiateContractSecretTx(SecretTx secretTx) : base(secretTx)
-    {
-        ContractAddress = TryFindEventValue("contract_address");
-    }
-}
-
-public class StoreCodeSecretTx : SecretTx
-{
-    public ulong CodeId { get; set; }
-
-    public StoreCodeSecretTx(SecretTx secretTx) : base(secretTx)
-    {
-        TryGetCodeId();
-    }
-
-    private void TryGetCodeId()
-    {
-        var codeIdString = TryFindEventValue("code_id");
-        if (!string.IsNullOrEmpty(codeIdString) && ulong.TryParse(codeIdString, out var code_id))
-        {
-            CodeId = code_id;
-        }
     }
 }

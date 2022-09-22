@@ -7,12 +7,12 @@ public class MsgUpgradeClient : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgUpgradeClient;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgUpgradeClient ToAmino is not implemented.");
     }
 
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgUpgradeClient ToProto is not implemented.");
     }
@@ -25,11 +25,11 @@ public class MsgSubmitMisbehaviour : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgSubmitMisbehaviour;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgSubmitMisbehaviour ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgSubmitMisbehaviour ToProto is not implemented.");
     }
@@ -42,11 +42,11 @@ public class MsgCreateClient : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgCreateClient;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgCreateClient ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgCreateClient ToProto is not implemented.");
     }

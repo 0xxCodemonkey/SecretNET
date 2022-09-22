@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tendermint.Abci;
 
 namespace SecretNET.Tx
 {
@@ -133,12 +134,33 @@ namespace SecretNET.Tx
         /// <returns>T.</returns>
         public T GetResponseMsg<T>(int msgIndex = 0)
         {
-            var msgData = GetResponseData(msgIndex);
-            if (msgData != null)
+            T response = default(T);
+            try
             {
-                return JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(msgData));
+                var msgData = GetResponseData(0);
+                if (msgData != null)
+                {
+                    if (typeof(IMessage).IsAssignableFrom(typeof(T)))
+                    {
+                        var decoder = MsgDecoderRegistry.Get(typeof(T));
+                        if (decoder != null)
+                        {
+                            response = (T)decoder(msgData);
+                        }
+                    }
+                    else
+                    {
+                        var jsonData = Encoding.UTF8.GetString(msgData);
+                        response = JsonConvert.DeserializeObject<T>(jsonData);
+                    }
+                }
             }
-            return default;
+            catch (Exception ex)
+            {
+                Exceptions = Exceptions != null ? Exceptions : new List<Exception>();
+                Exceptions.Add(ex);
+            }
+            return response;
         }
 
         /// <summary>
@@ -224,8 +246,19 @@ namespace SecretNET.Tx
                 var msgData = GetResponseData(0);
                 if (msgData != null)
                 {
-                    var jsonData = Encoding.UTF8.GetString(msgData);
-                    Response = JsonConvert.DeserializeObject<T>(jsonData);
+                    if (typeof(IMessage).IsAssignableFrom(typeof(T)))
+                    {
+                        var decoder = MsgDecoderRegistry.Get(typeof(T));
+                        if (decoder != null)
+                        {
+                            Response = (T)decoder(msgData);
+                        }
+                    }
+                    else
+                    {
+                        var jsonData = Encoding.UTF8.GetString(msgData);
+                        Response = JsonConvert.DeserializeObject<T>(jsonData);
+                    }                    
                 }
             }
             catch (Exception ex)
@@ -234,6 +267,7 @@ namespace SecretNET.Tx
                 Exceptions.Add(ex);
             }
         }
-
     }
+
+
 }

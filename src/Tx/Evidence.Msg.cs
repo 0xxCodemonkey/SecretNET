@@ -19,12 +19,12 @@ public class MsgSubmitEvidence : MsgBase
         Evidence = evidence;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgSubmitEvidence ToProto is not implemented.");
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgSubmitEvidence ToAmino is not implemented.");
     }

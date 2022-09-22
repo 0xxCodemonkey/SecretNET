@@ -32,7 +32,7 @@ public class MsgGrantAllowance : MsgBase
     }
 
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgGrantAllowance = new Cosmos.Feegrant.V1Beta1.MsgGrantAllowance()
         {
@@ -44,7 +44,7 @@ public class MsgGrantAllowance : MsgBase
         return msgGrantAllowance;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgGrantAllowance");
         // order of properties must be sorted for amino signing!!
@@ -84,7 +84,7 @@ public class MsgRevokeAllowance : MsgBase
     }
 
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgRevokeAllowance = new Cosmos.Feegrant.V1Beta1.MsgRevokeAllowance()
         {
@@ -95,7 +95,7 @@ public class MsgRevokeAllowance : MsgBase
         return msgRevokeAllowance;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgRevokeAllowance");
         // order of properties must be sorted for amino signing!!

@@ -28,7 +28,7 @@ public class MsgCreateVestingAccount : MsgBase
         Delayed = delayed;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgUnjail = new Cosmos.Vesting.V1Beta1.MsgCreateVestingAccount()
         {
@@ -45,7 +45,7 @@ public class MsgCreateVestingAccount : MsgBase
 
         return msgUnjail;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgCreateVestingAccount ToAmino is not implemented.");
     }

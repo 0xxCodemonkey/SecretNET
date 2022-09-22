@@ -7,11 +7,11 @@ public class MsgRecvPacket : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgRecvPacket;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgSubmitEvidence ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgSubmitEvidence ToProto is not implemented.");
     }
@@ -24,11 +24,11 @@ public class MsgTimeout : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgTimeout;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgTimeout ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgTimeout ToProto is not implemented.");
     }
@@ -41,11 +41,11 @@ public class MsgTimeoutOnClose : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgTimeoutOnClose;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgTimeoutOnClose ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgTimeoutOnClose ToProto is not implemented.");
     }
@@ -58,11 +58,11 @@ public class MsgChannelOpenInit : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgChannelOpenInit;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgChannelOpenInit ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgChannelOpenInit ToProto is not implemented.");
     }
@@ -75,11 +75,11 @@ public class MsgAcknowledgement : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgAcknowledgement;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgAcknowledgement ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgAcknowledgement ToProto is not implemented.");
     }
@@ -92,11 +92,11 @@ public class MsgChannelOpenTry : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgChannelOpenTry;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgChannelOpenTry ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgChannelOpenTry ToProto is not implemented.");
     }
@@ -109,11 +109,11 @@ public class MsgChannelOpenAck : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgChannelOpenAck;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgChannelOpenAck ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgChannelOpenAck ToProto is not implemented.");
     }
@@ -126,11 +126,11 @@ public class MsgChannelOpenConfirm : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgChannelOpenConfirm;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgChannelOpenConfirm ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgChannelOpenConfirm ToProto is not implemented.");
     }
@@ -143,11 +143,11 @@ public class MsgChannelCloseInit : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgChannelCloseInit;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgChannelCloseInit ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgChannelCloseInit ToProto is not implemented.");
     }
@@ -160,11 +160,11 @@ public class MsgChannelCloseConfirm : MsgBase
 {
     public override string MsgType { get; } = MsgGrantAuthorization.MsgChannelCloseConfirm;
 
-    public override Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override Task<IMessage> ToProto()
     {
         throw new NotImplementedException("MsgChannelCloseConfirm ToAmino is not implemented.");
     }
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgChannelCloseConfirm ToProto is not implemented.");
     }

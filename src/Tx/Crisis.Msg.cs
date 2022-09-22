@@ -21,7 +21,7 @@ public class MsgVerifyInvariant : MsgBase
     }
 
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgVerifyInvariant = new Cosmos.Crisis.V1Beta1.MsgVerifyInvariant()
         {
@@ -33,7 +33,7 @@ public class MsgVerifyInvariant : MsgBase
         return msgVerifyInvariant;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgVerifyInvariant");
         // order of properties must be sorted for amino signing!!

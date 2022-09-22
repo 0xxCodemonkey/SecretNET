@@ -3,17 +3,10 @@
 public class EvidenceTx
 {
     private TxClient _tx;
-    private EvidenceTxSimulate _txSimulte;
 
     internal EvidenceTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new EvidenceTxSimulate(tx);
-    }
-
-    public EvidenceTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -23,9 +16,10 @@ public class EvidenceTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> SubmitEvidence(MsgSubmitEvidence msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Evidence.V1Beta1.MsgSubmitEvidenceResponse>> SubmitEvidence(Cosmos.Evidence.V1Beta1.MsgSubmitEvidence msg, TxOptions? txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Evidence.V1Beta1.MsgSubmitEvidenceResponse>(txResult);
     }
 
 }

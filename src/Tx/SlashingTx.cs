@@ -3,17 +3,10 @@
 public class SlashingTx
 {
     private TxClient _tx;
-    private SlashingTxSimulate _txSimulte;
 
     internal SlashingTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new SlashingTxSimulate(tx);
-    }
-
-    public SlashingTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -22,9 +15,10 @@ public class SlashingTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> Unjail(MsgUnjail msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Slashing.V1Beta1.MsgUnjailResponse>> Unjail(Cosmos.Slashing.V1Beta1.MsgUnjail msg, TxOptions? txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Slashing.V1Beta1.MsgUnjailResponse>(txResult);
     }
 
 }

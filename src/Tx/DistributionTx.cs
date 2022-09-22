@@ -3,17 +3,9 @@
 public class DistributionTx
 {
     private TxClient _tx;
-    private DistributionTxSimulate _txSimulte;
-
     internal DistributionTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new DistributionTxSimulate(tx);
-    }
-
-    public DistributionTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -22,9 +14,10 @@ public class DistributionTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> FundCommunityPool(MsgFundCommunityPool msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgFundCommunityPoolResponse>> FundCommunityPool(Cosmos.Distribution.V1Beta1.MsgFundCommunityPool msg, TxOptions? txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgFundCommunityPoolResponse>(txResult);
     }
 
     /// <summary>
@@ -33,9 +26,10 @@ public class DistributionTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> SetWithdrawAddress(MsgSetWithdrawAddress msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddressResponse>> SetWithdrawAddress(Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddress msg, TxOptions? txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddressResponse>(txResult);
     }
 
     /// <summary>
@@ -44,9 +38,10 @@ public class DistributionTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> WithdrawDelegatorReward(MsgWithdrawDelegatorReward msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorRewardResponse>> WithdrawDelegatorReward(Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorReward msg, TxOptions? txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorRewardResponse>(txResult);
     }
 
     /// <summary>
@@ -55,9 +50,10 @@ public class DistributionTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> WithdrawValidatorCommission(MsgWithdrawValidatorCommission msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommissionResponse>> WithdrawValidatorCommission(Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommission msg, TxOptions? txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommissionResponse>(txResult);
     }
 
 }

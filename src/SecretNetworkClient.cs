@@ -113,7 +113,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         {
             if (_queries == null)
             {
-                _queries = new Queries(this, Tx, _grpcChannel, _rpcMessageInterceptor);
+                _queries = new Queries(this, _grpcChannel, _rpcMessageInterceptor);
             }
             return _queries;
         }
@@ -130,7 +130,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         {
             if (_txClient == null)
             {
-                _txClient = new TxClient(this, _grpcChannel, _rpcMessageInterceptor);
+                _txClient = new TxClient(this, Query, _grpcChannel, _rpcMessageInterceptor);
             }
             return _txClient;
         }
@@ -243,8 +243,13 @@ public class SecretNetworkClient : ISecretNetworkClient
         for (int i = 0; i < messages.Length; i++)
         {
             var msg = messages[i];
+            if (msg is MsgExecuteContractBase)
+            {
+                ((MsgExecuteContractBase)msg).EncryptionUtils = EncryptionUtils;
+            }
+            
             await PopulateCodeHash(msg);
-            var protoMsg = await msg.ToProto(EncryptionUtils);
+            var protoMsg = await msg.ToProto();
             encryptionNonces.TryAdd(i, ExtractNonce(protoMsg));
 
             var any = Any.Pack(protoMsg,"");
@@ -285,7 +290,11 @@ public class SecretNetworkClient : ISecretNetworkClient
         List<AminoMsg> msgs = new List<AminoMsg>();
         foreach (var msg in messages)
         {
-            msgs.Add(await msg.ToAmino(EncryptionUtils));
+            if (msg is MsgExecuteContractBase)
+            {
+                ((MsgExecuteContractBase)msg).EncryptionUtils = EncryptionUtils;
+            }
+            msgs.Add(await msg.ToAmino());
         }
 
         var signDoc = MakeSignDocAmino(msgs.ToArray(), fee, ChainId, signerData.AccountNumber, signerData.Sequence, memo);
@@ -297,8 +306,13 @@ public class SecretNetworkClient : ISecretNetworkClient
         for (int i = 0; i < messages.Length; i++)
         {
             var msg = messages[i];
+            if (msg is MsgExecuteContractBase)
+            {
+                ((MsgExecuteContractBase)msg).EncryptionUtils = EncryptionUtils;
+            }
+
             await PopulateCodeHash(msg);
-            var protoMsg = await msg.ToProto(EncryptionUtils);
+            var protoMsg = await msg.ToProto();
             encryptionNonces.TryAdd(i, ExtractNonce(protoMsg));
 
             var any = Any.Pack(protoMsg, "");

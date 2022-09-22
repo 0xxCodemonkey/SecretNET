@@ -9,7 +9,7 @@ public class SendAuthorization : MsgBase
 
     public Coin[] Coins { get; set; }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var sendAuthorization = new Cosmos.Bank.V1Beta1.SendAuthorization();
         sendAuthorization.SpendLimit.Add(Coins.Select(c => new Cosmos.Base.V1Beta1.Coin() { Amount = c.Amount, Denom = c.Denom }).ToArray());
@@ -17,7 +17,7 @@ public class SendAuthorization : MsgBase
         return sendAuthorization;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new Exception("SendAuthorization ToAmino is not implemented.");
     }
@@ -68,7 +68,7 @@ public class StakeAuthorization : MsgBase
     /// </summary>
     public StakeAuthorizationType AuthorizationType { get; set; }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var sendAuthorization = new Cosmos.Staking.V1Beta1.StakeAuthorization();
         if (MaxTokens != null)
@@ -100,7 +100,7 @@ public class StakeAuthorization : MsgBase
         return sendAuthorization;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new Exception("SendAuthorization ToAmino is not implemented.");
     }
@@ -125,7 +125,7 @@ public class MsgGrant : MsgBase
     /// </summary>
     public ulong Expiration { get; set; }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         Cosmos.Authz.V1Beta1.MsgGrant msgGrant = null;
 
@@ -139,7 +139,7 @@ public class MsgGrant : MsgBase
                 {
                      Grant = new Cosmos.Authz.V1Beta1.Grant()
                      {
-                         Authorization = Any.Pack((await Authorization.ToProto(utils)),""),
+                         Authorization = Any.Pack((await Authorization.ToProto()),""),
                          Expiration = new Timestamp()
                          {
                              Seconds = (long)Expiration
@@ -178,7 +178,7 @@ public class MsgGrant : MsgBase
         return null;
     }
 
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new Exception("MsgGrant ToAmino is not implemented.");
     }
@@ -201,7 +201,7 @@ public class MsgExec : MsgBase
     /// </summary>
     public MsgBase[] AuthorizationMsgs { get; set; }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         if (AuthorizationMsgs != null && AuthorizationMsgs.Length > 0)
         {
@@ -213,7 +213,7 @@ public class MsgExec : MsgBase
             var protoMsgs = new List<Any>();
             foreach (var m in AuthorizationMsgs)
             {
-                var protoMsg = await m.ToProto(utils);
+                var protoMsg = await m.ToProto();
                 protoMsgs.Add(Any.Pack(protoMsg, ""));
             }
 
@@ -224,7 +224,7 @@ public class MsgExec : MsgBase
         return null;
     }
 
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new Exception("MsgExec ToAmino is not implemented.");
     }
@@ -254,7 +254,7 @@ public class MsgRevoke : MsgBase
     /// </summary>
     public MsgBase[] AuthorizationMsgs { get; set; }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         if (RevokeAuthorization != null)
         {
@@ -274,7 +274,7 @@ public class MsgRevoke : MsgBase
         return null;
     }
 
-    public override Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgRevoke ToAmino is not implemented.");
     }

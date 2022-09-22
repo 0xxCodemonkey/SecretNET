@@ -16,7 +16,7 @@ public class MsgUnjail : MsgBase
         ValidatorAddress = validatorAddress;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgUnjail = new Cosmos.Slashing.V1Beta1.MsgUnjail()
         {
@@ -25,7 +25,7 @@ public class MsgUnjail : MsgBase
 
         return msgUnjail;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         var aminoMsg = new AminoMsg("cosmos-sdk/MsgUnjail");
         // order of properties must be sorted for amino signing!!

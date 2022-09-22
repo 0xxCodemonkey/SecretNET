@@ -57,7 +57,7 @@ public class MsgCreateValidator : MsgBase
         InitialDelegation = initialDelegation;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgCreateValidator = new Cosmos.Staking.V1Beta1.MsgCreateValidator()
         {
@@ -81,7 +81,7 @@ public class MsgCreateValidator : MsgBase
 
         return msgCreateValidator;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgCreateValidator ToAmino is not implemented.");
     }
@@ -124,7 +124,7 @@ public class MsgEditValidator : MsgBase
         CommissionRate = commissionRate;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgEditValidator = new Cosmos.Staking.V1Beta1.MsgEditValidator()
         {
@@ -136,7 +136,7 @@ public class MsgEditValidator : MsgBase
 
         return msgEditValidator;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgEditValidator ToAmino is not implemented.");
     }
@@ -164,7 +164,7 @@ public class MsgDelegate : MsgBase
         Amount = amount;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgDelegate = new Cosmos.Staking.V1Beta1.MsgDelegate()
         {
@@ -178,7 +178,7 @@ public class MsgDelegate : MsgBase
 
         return msgDelegate;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgDelegate ToAmino is not implemented.");
     }
@@ -209,7 +209,7 @@ public class MsgBeginRedelegate : MsgBase
         Amount = amount;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgBeginRedelegate = new Cosmos.Staking.V1Beta1.MsgBeginRedelegate()
         {
@@ -224,7 +224,7 @@ public class MsgBeginRedelegate : MsgBase
 
         return msgBeginRedelegate;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgBeginRedelegate ToAmino is not implemented.");
     }
@@ -252,7 +252,7 @@ public class MsgUndelegate : MsgBase
         Amount = amount;
     }
 
-    public override async Task<IMessage> ToProto(SecretEncryptionUtils utils)
+    public override async Task<IMessage> ToProto()
     {
         var msgUndelegate = new Cosmos.Staking.V1Beta1.MsgUndelegate()
         {
@@ -266,7 +266,7 @@ public class MsgUndelegate : MsgBase
 
         return msgUndelegate;
     }
-    public override async Task<AminoMsg> ToAmino(SecretEncryptionUtils utils)
+    public override async Task<AminoMsg> ToAmino()
     {
         throw new NotImplementedException("MsgUndelegate ToAmino is not implemented.");
     }
