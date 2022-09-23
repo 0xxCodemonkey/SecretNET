@@ -17,27 +17,28 @@ public class BankTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>> Send(Cosmos.Bank.V1Beta1.MsgSend msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>> Send(Cosmos.Bank.V1Beta1.MsgSend msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
         return new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>(txResult);
     }
 
     /// <summary>
-    /// Sends the specified to address.
+    /// Sends SCRT to the specified to address.
     /// </summary>
     /// <param name="toAddress">To address.</param>
-    /// <param name="amount">The amount.</param>
+    /// <param name="amount">The amount (1000000 uscrt == 1SCRT).</param>
+    /// <param name="denom">The denom, default 'uscrt'</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>SingleSecretTx&lt;Cosmos.Bank.V1Beta1.MsgSendResponse&gt;.</returns>
-    public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>> Send(string toAddress, Coin[] amount, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>> Send(string toAddress, int amount, string denom = "uscrt", TxOptions txOptions = null)
     {
         var msgSend = new Cosmos.Bank.V1Beta1.MsgSend()
         {
             FromAddress = _tx.WalletAddress,
             ToAddress = toAddress,
         };
-        msgSend.Amount.Add(amount.Select(c => new Cosmos.Base.V1Beta1.Coin() { Amount = c.Amount, Denom = c.Denom }).ToArray());
+        msgSend.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = amount.ToString(), Denom = denom });
 
         var txResult = await _tx.Broadcast(msgSend, txOptions);
         return new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>(txResult);
@@ -49,7 +50,7 @@ public class BankTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgMultiSendResponse>> MultiSend(Cosmos.Bank.V1Beta1.MsgMultiSend msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgMultiSendResponse>> MultiSend(Cosmos.Bank.V1Beta1.MsgMultiSend msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
         return new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgMultiSendResponse>(txResult);

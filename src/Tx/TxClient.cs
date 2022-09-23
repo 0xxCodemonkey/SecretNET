@@ -2,6 +2,11 @@
 
 namespace SecretNET.Tx;
 
+/// <summary>
+/// Provides access to all transaction types / methods.
+/// Implements the <see cref="SecretNET.Common.GprcBase" />
+/// </summary>
+/// <seealso cref="SecretNET.Common.GprcBase" />
 public class TxClient : GprcBase
 {
     private Queries _queries;
@@ -67,76 +72,136 @@ public class TxClient : GprcBase
         }
     }
 
+    /// <summary>
+    /// Authorization module.
+    /// </summary>
+    /// <value>The authz.</value>
     public AuthzTx Authz
     {
         get { return _authzTx; }
     }
 
+    /// <summary>
+    /// Create and broadcast transactions.
+    /// </summary>
+    /// <value>The bank.</value>
     public BankTx Bank
     {
         get { return _bankTx; }
     }
 
+    /// <summary>
+    /// Store, init and execute smart contracts.
+    /// </summary>
+    /// <value>The compute.</value>
     public ComputeTx Compute
     {
         get { return _computeTx; }
     }
 
+    /// <summary>
+    /// Crisis module.
+    /// </summary>
+    /// <value>The crisis.</value>
     public CrisisTx Crisis
     {
         get { return _crisisTx; }
     }
 
+    /// <summary>
+    /// Distribution module.
+    /// </summary>
+    /// <value>The distribution.</value>
     public DistributionTx Distribution
     {
         get { return _distributionTx; }
     }
 
+    /// <summary>
+    /// Evidence module.
+    /// </summary>
+    /// <value>The evidence.</value>
     public EvidenceTx Evidence
     {
         get { return _evidenceTx; }
     }
 
+    /// <summary>
+    /// Feegrant module.
+    /// </summary>
+    /// <value>The feegrant.</value>
     public FeegrantTx Feegrant
     {
         get { return _feegrantTx; }
     }
 
+    /// <summary>
+    /// Governance module.
+    /// </summary>
+    /// <value>The gov.</value>
     public GovTx Gov
     {
         get { return _govTx; }
     }
 
+    /// <summary>
+    /// Slashing module.
+    /// </summary>
+    /// <value>The slashing.</value>
     public SlashingTx Slashing
     {
         get { return _slashingTx; }
     }
 
+    /// <summary>
+    /// Stake module.
+    /// </summary>
+    /// <value>The staking.</value>
     public StakingTx Staking
     {
         get { return _stakingTx; }
     }
 
+    /// <summary>
+    /// Vesting module.
+    /// </summary>
+    /// <value>The vesting.</value>
     public VestingTx Vesting
     {
         get { return _vestingTx; }
     }
 
+    /// <summary>
+    /// IBC Channel module.
+    /// </summary>
+    /// <value>The ibc channel.</value>
     public IbcChannelTx IbcChannel
     {
         get { return _ibcChannelTx; }
     }
 
+    /// <summary>
+    /// IBC Client module.
+    /// </summary>
+    /// <value>The ibc client.</value>
     public IbcClientTx IbcClient
     {
         get { return _ibcClientTx; }
     }
 
+    /// <summary>
+    /// IBC Connection module.
+    /// </summary>
+    /// <value>The ibc connection.</value>
     public IbcConnectionTx IbcConnection
     {
         get { return _ibcConnectionTx; }
     }
 
+    /// <summary>
+    /// IBC Transfer module.
+    /// </summary>
+    /// <value>The ibc transfer.</value>
     public IbcTransferTx IbcTransfer
     {
         get { return _ibcTransferTx; }
@@ -194,6 +259,12 @@ public class TxClient : GprcBase
         return await Broadcast(new MsgBase[] { message }, txOptions);
     }
 
+    /// <summary>
+    /// Broadcasts the specified Tx / messages.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SecretTx.</returns>
     public async Task<SecretTx> Broadcast(IMessage message, TxOptions txOptions = null)
     {
         return await Broadcast(new MsgBase[] { new Msg(message) }, txOptions);
@@ -211,6 +282,13 @@ public class TxClient : GprcBase
         return await Broadcast<T>(new MsgBase[] { message }, txOptions);
     }
 
+    /// <summary>
+    /// Broadcasts the specified Tx / messages.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SingleSecretTx&lt;T&gt;.</returns>
     public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage message, TxOptions txOptions = null)
     {
         return await Broadcast<T>(new MsgBase[] { new Msg(message) }, txOptions);
@@ -233,6 +311,13 @@ public class TxClient : GprcBase
         return null;
     }
 
+    /// <summary>
+    /// Broadcasts the specified Tx / messages.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SingleSecretTx&lt;T&gt;.</returns>
     public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage[] messages, TxOptions txOptions = null)
     {
         var msgBaseList = new List<MsgBase>();
@@ -262,8 +347,6 @@ public class TxClient : GprcBase
     {
         var start = DateTime.Now;
         var txHash = SecretNET.Crypto.Hashes.SHA256(TxBytes).ToHexString().ToUpper();
-
-        Console.WriteLine("BroadcastTx Calculated TxHash: " + txHash);
 
         var mode = txOptions.BroadcastMode;
         var waitForCommit = txOptions.WaitForCommit;

@@ -15,7 +15,7 @@ public class VestingTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SingleSecretTx<Cosmos.Vesting.V1Beta1.MsgCreateVestingAccountResponse>> CreateVestingAccount(Cosmos.Vesting.V1Beta1.MsgCreateVestingAccount msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Vesting.V1Beta1.MsgCreateVestingAccountResponse>> CreateVestingAccount(Cosmos.Vesting.V1Beta1.MsgCreateVestingAccount msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
         return new SingleSecretTx<Cosmos.Vesting.V1Beta1.MsgCreateVestingAccountResponse>(txResult);

@@ -5,6 +5,11 @@ using System.Text.RegularExpressions;
 
 namespace SecretNET.Query;
 
+/// <summary>
+/// Provides access to all query types / methods.
+/// Implements the <see cref="SecretNET.Common.GprcBase" />
+/// </summary>
+/// <seealso cref="SecretNET.Common.GprcBase" />
 public class Queries : GprcBase
 {
     private Service.ServiceClient _txClient;
@@ -123,94 +128,166 @@ public class Queries : GprcBase
     }
 
     /// <summary>
-    /// AuthQuerier is the query interface for the x/auth module
+    /// Account queries.
     /// </summary>
     public AuthQueryClient Auth
     {
         get { return _authQuery; }
     }
 
+    /// <summary>
+    /// Authorization queries (Grants, etc.).
+    /// </summary>
+    /// <value>The authz.</value>
     public AuthzQueryClient Authz
     {
         get { return _authzQuery; }
     }
 
+    /// <summary>
+    /// Bank queries (balance, etc.).
+    /// </summary>
+    /// <value>The bank.</value>
     public BankQueryClient Bank
     {
         get { return _bankQuery; }
     }
+    /// <summary>
+    /// Compute queries (QueryContract, GetCodeHash, ContractInfo, etc.).
+    /// </summary>
+    /// <value>The compute.</value>
     public ComputeQueryClient Compute
     {
         get { return _computeQuery; }
     }
 
+    /// <summary>
+    /// Distribution queries.
+    /// </summary>
+    /// <value>The distribution.</value>
     public DistributionQueryClient Distribution
     {
         get { return _distributionQuery; }
     }
 
+    /// <summary>
+    /// Evidence queries.
+    /// </summary>
+    /// <value>The evidence.</value>
     public EvidenceQueryClient Evidence
     {
         get { return _evidenceQuery; }
     }
+    /// <summary>
+    /// Feegrant queries.
+    /// </summary>
+    /// <value>The feegrant.</value>
     public FeegrantQueryClient Feegrant
     {
         get { return _feegrantQuery; }
     }
 
+    /// <summary>
+    /// Governance queries.
+    /// </summary>
+    /// <value>The gov.</value>
     public GovQueryClient Gov
     {
         get { return _govQuery; }
-    }    
+    }
 
+    /// <summary>
+    /// IBC Channel queries.
+    /// </summary>
+    /// <value>The ibc channel.</value>
     public IbcChannelQueryClient IbcChannel
     {
         get { return _ibcChannelQuery; }
     }
+    /// <summary>
+    /// IBC Client queries.
+    /// </summary>
+    /// <value>The ibc client.</value>
     public IbcClientQueryClient IbcClient
     {
         get { return _ibcClientQuery; }
     }
+    /// <summary>
+    /// IBC Connection queries.
+    /// </summary>
+    /// <value>The ibc connection.</value>
     public IbcConnectionQueryClient IbcConnection
     {
         get { return _ibcConnectionQuery; }
     }
 
+    /// <summary>
+    /// IBC Transfer queries.
+    /// </summary>
+    /// <value>The ibc transfer.</value>
     public IbcTransferQueryClient IbcTransfer
     {
         get { return _ibcTransferQuery; }
     }
 
+    /// <summary>
+    /// Mint queries.
+    /// </summary>
+    /// <value>The mint.</value>
     public MintQueryClient Mint
     {
         get { return _mintQuery; }
     }
 
+    /// <summary>
+    /// Params queries.
+    /// </summary>
+    /// <value>The parameters.</value>
     public ParamsQueryClient Params
     {
         get { return _paramsQuery; }
     }
 
+    /// <summary>
+    /// Registration queries (TxKey, etc).
+    /// </summary>
+    /// <value>The registration.</value>
     public RegistrationQueryClient Registration
     {
         get { return _registrationQuery; }
     }
 
+    /// <summary>
+    /// Slashing queries.
+    /// </summary>
+    /// <value>The slashing.</value>
     public SlashingQueryClient Slashing
     {
         get { return _slashingQuery; }
     }
 
+    /// <summary>
+    /// Staking queries.
+    /// </summary>
+    /// <value>The staking.</value>
     public StakingQueryClient Staking
     {
         get { return _stakingQuery; }
     }
 
+    /// <summary>
+    /// Tendermint queries (GetNodeInfo, GetLatestBlock, GetBlockByHeight, etc).
+    /// </summary>
+    /// <value>The tendermint.</value>
     public TendermintQueryClient Tendermint
     {
         get { return _tendermintQuery; }
     }
 
+    /// <summary>
+    /// Upgrade queries.
+    /// </summary>
+    /// <value>The upgrade.</value>
     public UpgradeQueryClient Upgrade
     {
         get { return _upgradeQuery; }
@@ -266,7 +343,6 @@ public class Queries : GprcBase
                         try
                         {
                             var nonce = new ArraySegment<byte>(inputMsgBytes, 0, 32).ToArray();
-                            //Console.WriteLine("DecodeTxResponses nonce: " + nonce.ToHexString());
 
                             var accountPubkey = new ArraySegment<byte>(inputMsgBytes, 32, 32).ToArray(); // unused in decryption
                             var ciphertext = new ArraySegment<byte>(inputMsgBytes, 64, inputMsgBytes.Length - 64).ToArray();

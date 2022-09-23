@@ -17,7 +17,7 @@ public class IbcTransferTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SingleSecretTx<Ibc.Applications.Transfer.V1.MsgTransferResponse>> Transfer(Ibc.Applications.Transfer.V1.MsgTransfer msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Ibc.Applications.Transfer.V1.MsgTransferResponse>> Transfer(Ibc.Applications.Transfer.V1.MsgTransfer msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
         return new SingleSecretTx<Ibc.Applications.Transfer.V1.MsgTransferResponse>(txResult);

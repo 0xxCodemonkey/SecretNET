@@ -166,7 +166,7 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>System.ValueTuple&lt;System.Byte[], ComputeMsgToNonce&gt;.</returns>
-    public async Task<byte[]> PrepareAndSign(MsgBase[] messages, TxOptions? txOptions = null)
+    public async Task<byte[]> PrepareAndSign(MsgBase[] messages, TxOptions txOptions = null)
     {
         txOptions = txOptions ?? new TxOptions();
 
@@ -490,7 +490,6 @@ public class SecretNetworkClient : ISecretNetworkClient
         {
             var msg = (Secret.Compute.V1Beta1.MsgInstantiateContract)protoMsg;
             var slice = new ArraySegment<byte>(msg.InitMsg.Span.ToArray(), 0, 32).ToArray();
-            Console.WriteLine("ExtractNonce nonce: " + slice.ToHexString());
             return slice;
         }
         return new byte[0];

@@ -15,7 +15,7 @@ public class SlashingTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SingleSecretTx<Cosmos.Slashing.V1Beta1.MsgUnjailResponse>> Unjail(Cosmos.Slashing.V1Beta1.MsgUnjail msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Slashing.V1Beta1.MsgUnjailResponse>> Unjail(Cosmos.Slashing.V1Beta1.MsgUnjail msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
         return new SingleSecretTx<Cosmos.Slashing.V1Beta1.MsgUnjailResponse>(txResult);
