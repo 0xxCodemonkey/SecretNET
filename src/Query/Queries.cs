@@ -82,7 +82,7 @@ public class Queries : GprcBase
     }
 
     /// <summary>
-    /// Gets the tx.
+    /// Returns a transaction with a txhash. hash is a 64 character upper-case hex string.
     /// </summary>
     /// <param name="hash">The hash.</param>
     /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
@@ -95,7 +95,7 @@ public class Queries : GprcBase
 
 
     /// <summary>
-    /// TXSs the query.
+    /// Returns all transactions that match a query.
     /// </summary>
     /// <param name="query">The query.</param>
     /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
@@ -114,7 +114,7 @@ public class Queries : GprcBase
     }
 
     /// <summary>
-    /// GetTxsEvent fetches txs by event.
+    /// Returns all transactions that matches the specified events (GetTxsEventRequest.Events).
     /// </summary>
     /// <param name="request">The request.</param>
     /// <param name="tryToDecrypt">if set to <c>true</c> the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).</param>
