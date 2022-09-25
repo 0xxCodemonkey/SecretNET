@@ -342,6 +342,20 @@ var tx = await secretClient.Tx.Broadcast(messages, new TxOptions
     GasLimit = (int)Math.Ceiling(simulate.GasInfo.GasUsed * 1.1),
 });
 ```
+
+### Sending SCRT
+
+```csharp
+var sendResponse = await secretClient.Tx.Bank.Send(
+				toAddress: alice, 
+				amount: 1000000, 
+				denom: null,	// default "uscrt"
+				new TxOptions{ GasLimit = 20000,}
+				);
+				
+var success = sendResponse.Code == 0;
+```
+
 ### Uploading a smart contract
 With you can upload a compiled contract to Secret Network.
 
