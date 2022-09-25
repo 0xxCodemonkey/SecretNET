@@ -1,6 +1,6 @@
 
 # Secret.NET Core Library
-**Secret.NET** (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is a .NET Client to interact with the [Secret Network blockchain](https://scrt.network/) (L1 / Cosmos based), the first privacy smart contract blockchain that processes and stores data on-chain in encrypted form (SGX). 
+**Secret.NET** (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is a .NET Client to interact with the [Secret Network blockchain](https://scrt.network/) (L1 / Cosmos based), **the first privacy smart contract blockchain** that processes and stores data on-chain in encrypted form (SGX). 
 
 This allows [unique use cases](https://docs.scrt.network/secret-network-documentation/secret-network-overview/use-cases) like **Secret NFTs where you can store public and private data** e.g., encryption keys, passwords or other secrets. 
 
@@ -45,12 +45,10 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
 	- [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#attaching-the-wallet-to-the-secretnetworkclient-required-for-signing-transactions)
   - [SecretNetworkClient](#secretnetworkclient)
 	- [Queries](#querier-secretclientquery)
-	- [All queries (eg. accounts, bank, compute, gov, feegrant, etc.)](#all-queries-eg-accounts-bank-compute-gov-feegrant-etc)
-  - [Transactions](#transactions)
-  	- [Uploading and initialize Smart Contract](#uploading-and-initialize-smart-contract)	
-  	- [Interacting with an Token Contract (SNIP20)](#interacting-with-an-token-contract-snip20)
-  	- [Interacting with an NFT Contract (SNIP721)](#interacting-with-an-nft-contract-snip721)
-  	- [All transactions (eg. )](#all-transactions-eg-)
+	- [Transactions](#transactions)
+  - [Overview of all query and transaction methods](#overview-of-all-query-and-transaction-methods)
+  	- [All query methods](#all-query-methods)
+  	- [All transaction methods](#all-transaction-methods)
 
 # General information
 The rough structure of the Secret.NET client, from the user's perspective, is divided into the following areas:
@@ -155,6 +153,8 @@ var executeContractResult = await secretClient.Tx.Compute.ExecuteContract(
 				txOptions: txOptionsExecute);
 ```
 
+You can find **more examples** in the [ready to run example CLI project](https://github.com/0xxCodemonkey/SecretNET/blob/main/examples/SecretNET.Examples/Program.cs).
+
 # API
 ## Creating / Initializing the wallet
 When initializing a wallet, you must pass an ```IPrivateKeyStorage``` provider where the private key and mnemonic phrase will be stored (default = MauiSecureStorage). 
@@ -226,6 +226,8 @@ secretNetworkClient.Wallet = walletFromMnemonic;
 ### Querier (`secretClient.Query`)
 The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.
 
+You can find a full list of all query methods below under ['All query methods'](#all-query-methods) or in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm)
+
 #### `secretClient.Query.GetTx(string hash, bool tryToDecrypt = true)`
 Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string.
 
@@ -250,7 +252,7 @@ To create a query for txs where AddrA transferred funds: `transfer.sender = 'Add
 
 See `txsQuery` under https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm
 
-### Get SCRT Balance
+#### Get SCRT Balance
 
 ```csharp
 var response = await secretClient.Query.Bank.Balance("secret1ap26qrlp8mcq2pg6r47w43l0y8zkqm8a450s03");
@@ -294,28 +296,131 @@ var tokenInfoResult = (await snip20Client.Query.GetTokenInfo(
 Console.WriteLine($"TokenName: {tokenInfoResult.Name}, Symbol: {tokenInfoResult.Symbol}");
 ```
 
+You can find **more examples** in the [ready to run example CLI project](https://github.com/0xxCodemonkey/SecretNET/blob/main/examples/SecretNET.Examples/Program.cs).
+
 ## Transactions
 On a signer Secret.NET client, `SecretNetworkClient.Tx` is used to broadcast transactions. Every function under `SecretNetworkClient.Tx` can receive an optional `TxOptions`.
 
+You can find a full list of all transaction methods below under ['All transaction methods'](#all-transaction-methods) or in the [**Full API »**]([https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.TxClient.htm))
+
 ### Broadcasting transactions
 Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+See code example in simulate.
+
+### Simulate transactions
+Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. Can be used to get a gas estimation or to see the output without actually committing a transaction on-chain.
+
+The input should be exactly how you'd use it in `SecretNetworkClient.Tx.Broadcast()`, except that you don't have to pass in `gasLimit`, `gasPriceInFeeDenom` & `feeDenom`.
+
+Notes:
+
+- :warning: On mainnet it's recommended to not simulate every transaction as this can burden your node provider. Instead, use this while testing to determine the gas limit for each of your app's transactions, then in production use hard-coded values.
+- Gas estimation is known to be a bit off, so you might need to adjust it a bit before broadcasting.
 
 ```csharp
+var sendToAlice = new Cosmos.Bank.V1Beta1.MsgSend()
+{
+    FromAddress = wallet.Address,
+    ToAddress = subaccountWallet.Address
+};
+sendToAlice.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
+
+var sendToEve = new Cosmos.Bank.V1Beta1.MsgSend()
+{
+    FromAddress = wallet.Address,
+    ToAddress = subaccountWallet.Address // use the same address for simplicity
+};
+sendToEve.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
+
+var messages = new[] { sendToAlice, sendToEve };
+
+var simulate = await secretClient.Tx.Simulate(messages);
+
+var tx = await secretClient.Tx.Broadcast(messages, new TxOptions
+{
+    // Adjust gasLimit up by 10% to account for gas estimation error
+    GasLimit = (int)Math.Ceiling(simulate.GasInfo.GasUsed * 1.1),
+});
+```
+
+### Sending SCRT
+
+```csharp
+var sendResponse = await secretClient.Tx.Bank.Send(
+				toAddress: alice, 
+				amount: 1000000, 
+				denom: null,	// default "uscrt"
+				new TxOptions{ GasLimit = 20000,}
+				);
+				
+var success = sendResponse.Code == 0;
+```
+
+### Uploading a smart contract
+With you can upload a compiled contract to Secret Network.
+
+Input: MsgStoreCodeParams
+
+```csharp
+// https://github.com/0xxCodemonkey/SecretNET/blob/main/resources/mysimplecounter.wasm.gz
+byte[] wasmByteCode = File.ReadAllBytes(@"Resources\mysimplecounter.wasm.gz");
+
+// MsgStoreCode
+var msgStoreCodeCounter = new MsgStoreCode(wasmByteCode,
+                        source: "https://github.com/scrtlabs/secret-template", // Source is a valid absolute HTTPS URI to the contract's source code, optional
+                        builder: "enigmampc/secret-contract-optimizer:latest"  // Builder is a valid docker image name with tag, optional
+                        );
+
+var storeCodeResponse = await secretClient.Tx.Compute.StoreCode(msgStoreCodeCounter, txOptions: txOptionsUpload);
+
+Console.WriteLine("Init Contract with CodeId " + storeCodeResponse.Response.CodeId);
+
+```
+### Instantiate a contract from code id
+
+```csharp
+var codeId = storeCodeResponse.Response.CodeId; // see above
+var codeHash = await secretClient.Query.Compute.GetCodeHashByCodeId(codeId); // get codeHash (optional)
+
+var msgInitContract = new MsgInstantiateContract(
+                            codeId: codeId, 
+                            label: $"MySimpleCouter {codeId}", 
+                            initMsg: new { count = 100 }, 
+                            codeHash: codeHash	// optional but way faster
+			    );
+
+var initContractResponse = await secretClient.Tx.Compute.InstantiateContract(msgInitContract, txOptions: txOptionsUpload);
+logSecretTx("InstantiateContract", initContractResponse);
+
+const contractAddress = initContractResponse.Response.Address);
 
 ```
 
-### Uploading and initialize smart contract
 ### Calling a smart contract
-### Interacting with an token contract (SNIP20)
-### Interacting with an NFT contract (SNIP721)
+Execute a function on a contract
 
+```csharp
+var msgExecuteContract = new MsgExecuteContract(
+				contractAddress: contractAddress, 
+				msg: executeMsg, 
+				codeHash: contractCodeHash,
+				sender: null, 		// optional => set to the wallet address
+				sentFunds: null 	// optional
+				);
+				
+var tx = await secretClient.Tx.Compute.ExecuteContract(msgExecuteContract, new TxOptions
+{
+    // Adjust gasLimit to you got from a simulate tx
+    GasLimit = 150000,
+});
 
+```
 
+You can find more examples in the [ready to run example CLI project](https://github.com/0xxCodemonkey/SecretNET/blob/main/examples/SecretNET.Examples/Program.cs).
 
+# Overview of all query and transaction methods
 
-
-
-#### All queries (eg. accounts, bank, compute, gov, feegrant, etc.)
+## All query methods
 - secretClient.Query.Auth
 - secretClient.Query.Authz
 - secretClient.Query.Bank
@@ -338,16 +443,21 @@ Used to send a complex transactions, which contains a list of messages. The mess
 
 See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm)
 
-##### [secretClient.Query.Auth](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthQueryClient.htm)
+### [secretClient.Query](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm)
+- `GetTx(string hash, bool tryToDecrypt = true)` => Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string. (see [above](#secretclientquerygettxstring-hash-bool-trytodecrypt--true))
+- `TxsQuery(string query, bool tryToDecrypt = false)` => Returns all transactions that match a query.  (see [above](#secretclientquerytxsquerystring-query-bool-trytodecrypt--false))
+- `GetTxsEvent(GetTxsEventRequest request, bool tryToDecrypt = false)` => Returns all transactions that matches the specified events (`GetTxsEventRequest.Events`).
+
+### [secretClient.Query.Auth](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthQueryClient.htm)
 - `Account(string address)` => Returns account details based on address.
 - `Accounts()` => Returns all existing accounts on the blockchain.
 
-##### [secretClient.Query.Authz](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthzQueryClient.htm)
+### [secretClient.Query.Authz](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthzQueryClient.htm)
 - `GranteeGrants(QueryGranteeGrantsRequest request)` => GranteeGrants returns a list of `GrantAuthorization` by grantee. Since: cosmos-sdk 0.45.2.
 - `GranterGrants(QueryGranterGrantsRequest request)` => GranterGrants returns list of `GrantAuthorization`, granted by granter. Since: cosmos-sdk 0.45.2.
 - `Grants(QueryGrantsRequest request)` => Returns list of `Authorization`, granted to the grantee by the granter.
 
-##### [secretClient.Query.Bank](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.BankQueryClient.htm)
+### [secretClient.Query.Bank](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.BankQueryClient.htm)
 - `Balance(QueryBalanceRequest request)` / `Balance(string address, string denom)` => Balance queries the balance of **a single** coin for a single account.
 - `Balance(QueryAllBalancesRequest request)` => AllBalances queries the balance of **all coins** for a single account.
 - `DenomMetadata(QueryDenomMetadataRequest request)` => DenomsMetadata queries the client metadata of **a given coin** denomination.
@@ -357,7 +467,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `SupplyOf(QuerySupplyOfRequest request)` => SupplyOf queries the supply of a single coin.
 - `TotalSupply(QueryTotalSupplyRequest request)` => TotalSupply queries the total supply of all coins.
 
-##### [secretClient.Query.Compute](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.ComputeQueryClient.htm)
+### [secretClient.Query.Compute](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.ComputeQueryClient.htm)
 - `Code(ulong codeId, Metadata metadata)` => Get WASM bytecode and metadata for a code id.
 - `Codes(Metadata metadata)` => Query all codes on chain.
 - `ContractInfo(string contractAddress, Metadata metadata)` => Get metadata of a Secret Contract.
@@ -366,7 +476,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `GetCodeHashByCodeId(ulong codeId, Metadata metadata)` => Get the codeHash from a code id.
 - `QueryContract<R>(string contractAddress, Object queryMsg, string codeHash, Metadata metadata)` => Query a Secret Contract and cast the response as `R`. (see above)
 
-##### [secretClient.Query.Distribution](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.DistributionQueryClient.htm)
+### [secretClient.Query.Distribution](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.DistributionQueryClient.htm)
 - `Balance(QueryParamsRequest request)` => CommunityPool queries the community pool coins.
 - `CommunityPool(QueryCommunityPoolRequest request)` => Query all codes on chain.
 - `DelegationRewards(QueryDelegationRewardsRequest request)` => DelegationRewards queries the total rewards accrued by a delegation.
@@ -378,15 +488,15 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `ValidatorOutstandingRewards(QueryValidatorCommissionRequest request)` => ValidatorOutstandingRewards queries rewards of a validator address.
 - `ValidatorSlashes(QueryValidatorCommissionRequest request)` => ValidatorSlashes queries slash events of a validator.
 
-##### [secretClient.Query.Evidence](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.EvidenceQueryClient.htm)
+### [secretClient.Query.Evidence](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.EvidenceQueryClient.htm)
 - `AllEvidence(QueryAllEvidenceRequest request)` => AllEvidence queries all evidence.
 - `FoundationTax(QueryEvidenceRequest request)` => Evidence queries evidence based on evidence hash.
 
-##### [secretClient.Query.Feegrant](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.FeegrantQueryClient.htm)
+### [secretClient.Query.Feegrant](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.FeegrantQueryClient.htm)
 - `Allowance(QueryAllowanceRequest request)` => Allowance returns fee granted to the grantee by the granter.
 - `Allowances(QueryAllowancesRequest request)` => Allowances returns all the grants for address.
 
-#### [secretClient.Query.Gov](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.GovQueryClient.htm)
+### [secretClient.Query.Gov](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.GovQueryClient.htm)
 - `Deposit(QueryDepositRequest request)` => Deposit queries single deposit information based proposalID, depositAddr.
 - `Deposits(QueryDepositsRequest request)` => Deposits queries all deposits of a single proposal.
 - `Params(QueryParamsRequest request)` => Params queries all parameters of the gov module.
@@ -396,7 +506,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `Vote(QueryVoteRequest request)` => Vote queries voted information based on proposalID, voterAddr.
 - `Votes(QueryVotesRequest request)` => Votes queries votes of a given proposal.
 
-#### [secretClient.Query.IbcChannel](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcChannelQueryClient.htm)
+### [secretClient.Query.IbcChannel](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcChannelQueryClient.htm)
 - `Channel(QueryChannelRequest request)` => Channel queries an IBC Channel.
 - `Channels(QueryChannelsRequest request)` => Channels queries all the IBC channels of a chain.
 - `ChannelClientState(QueryChannelClientStateRequest request)` => ChannelClientState queries for the client state for the channel associated with the provided channel identifiers.
@@ -411,7 +521,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `UnreceivedAcks(QueryUnreceivedAcksRequest request)` => UnreceivedAcks returns all the unreceived IBC acknowledgements associated with a channel and sequences.
 - `UnreceivedPackets(QueryUnreceivedPacketsRequest request)` => UnreceivedPackets returns all the unreceived IBC packets associated with a channel and sequences.
 
-#### [secretClient.Query.IbcClient](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcClientQueryClient.htm)
+### [secretClient.Query.IbcClient](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcClientQueryClient.htm)
 - `ClientParams(QueryClientParamsRequest request)` => ClientParams queries all parameters of the ibc client.
 - `ClientState(QueryClientStateRequest request)` => ClientState queries an IBC light client.
 - `ClientStates(QueryClientStatesRequest request)` => ClientStates queries all the IBC light clients of a chain.
@@ -421,38 +531,38 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `UpgradedClientState(QueryUpgradedClientStateRequest request)` => UpgradedClientState queries an Upgraded IBC light client.
 - `UpgradedConsensusState(QueryUpgradedConsensusStateRequest request)` => UpgradedConsensusState queries an Upgraded IBC consensus state.
 
-#### [secretClient.Query.IbcConnection](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcConnectionQueryClient.htm)
+### [secretClient.Query.IbcConnection](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcConnectionQueryClient.htm)
 - `ClientConnections(QueryClientConnectionsRequest request)` => ClientConnections queries the connection paths associated with a client state.
 - `Connection(QueryConnectionRequest request)` => Connection queries an IBC connection end.
 - `Connections(QueryConnectionsRequest request)` => Connections queries all the IBC connections of a chain.
 - `ConnectionClientState(QueryConnectionClientStateRequest request)` => ConnectionClientState queries the client state associated with the connection.
 - `ConnectionConsensusState(QueryConnectionConsensusStateRequest request)` => ConnectionConsensusState queries the consensus state associated with the connection.
 
-#### [secretClient.Query.IbcTransfer](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcTransferQueryClient.htm)
+### [secretClient.Query.IbcTransfer](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.IbcTransferQueryClient.htm)
 - `DenomHash(QueryDenomHashRequest request)` => DenomHash queries a denomination hash information.
 - `DenomTrace(QueryDenomTraceRequest request)` => DenomTrace queries a denomination trace information.
 - `DenomTraces(QueryDenomTracesRequest request)` => DenomTraces queries all denomination traces.
 - `Params(QueryParamsRequest request)` => Params queries all parameters of the ibc-transfer module.
 
-#### [secretClient.Query.Mint](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.MintQueryClient.htm)
+### [secretClient.Query.Mint](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.MintQueryClient.htm)
 - `AnnualProvisions(QueryAnnualProvisionsRequest request)` => AnnualProvisions current minting annual provisions value.
 - `Inflation(QueryInflationRequest request)` => Inflation returns the current minting inflation value.
 - `Params(QueryParamsRequest request)` => Params returns the total set of minting parameters.
 
-#### [secretClient.Query.Params](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.ParamsQueryClient.htm)
+### [secretClient.Query.Params](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.ParamsQueryClient.htm)
 - `Params(QueryParamsRequest request)` => Params queries a specific parameter of a module, given its subspace and key.
 
-#### [secretClient.Query.Registration](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.RegistrationQueryClient.htm)
+### [secretClient.Query.Registration](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.RegistrationQueryClient.htm)
 - `EncryptedSeed(QueryEncryptedSeedRequest request)` => Encrypteds the seed.
 - `RegistrationKey()` => Returns the key used for registration.
 - `TxKey()` => Returns the key used for transactions.
 
-#### [secretClient.Query.Slashing](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.SlashingQueryClient.htm)
+### [secretClient.Query.Slashing](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.SlashingQueryClient.htm)
 - `Params(QueryParamsRequest request)` => Params queries the parameters of slashing module.
 - `SigningInfo(QuerySigningInfoRequest request)` => SigningInfo queries the signing info of given cons address.
 - `SigningInfos(QuerySigningInfosRequest request)` => SigningInfos queries signing info of all validators.
 
-#### [secretClient.Query.Staking](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.StakingQueryClient.htm)
+### [secretClient.Query.Staking](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.StakingQueryClient.htm)
 - `Delegation(QueryDelegationRequest request)` => Delegation queries delegate info for given validator delegator pair.
 - `DelegatorDelegations(QueryDelegatorDelegationsRequest request)` => DelegatorDelegations queries all delegations of a given delegator address.
 - `DelegatorValidator(QueryDelegatorValidatorRequest request)` => DelegatorValidator queries validator info for given delegator validator pair.
@@ -468,7 +578,7 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `ValidatorDelegations(QueryValidatorDelegationsRequest request)` => ValidatorDelegations queries delegate info for given validator.
 - `ValidatorUnbondingDelegations(QueryValidatorUnbondingDelegationsRequest request)` => ValidatorUnbondingDelegations queries unbonding delegations of a validator.
 
-#### [secretClient.Query.Tendermint](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.TendermintQueryClient.htm)
+### [secretClient.Query.Tendermint](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.TendermintQueryClient.htm)
 - `GetBlockByHeight(GetBlockByHeightRequest request)` => GetBlockByHeight queries block for given height.
 - `GetLatestBlock(GetLatestBlockRequest request)` => GetLatestBlock returns the latest block.
 - `GetLatestValidatorSet(GetLatestValidatorSetRequest request)` => GetLatestValidatorSet queries latest validator-set.
@@ -476,12 +586,111 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `GetSyncing(GetSyncingRequest request)` => GetSyncing queries node syncing.
 - `GetValidatorSetByHeight(GetValidatorSetByHeightRequest request)` => GetValidatorSetByHeight queries validator-set at a given height.
 
-#### [secretClient.Query.Upgrade](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.UpgradeQueryClient.htm)
+### [secretClient.Query.Upgrade](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.UpgradeQueryClient.htm)
 - `AppliedPlan(QueryAppliedPlanRequest request)` => AppliedPlan queries a previously applied upgrade plan by its name.
 - `CurrentPlan(QueryCurrentPlanRequest request)` => CurrentPlan queries the current upgrade plan.
 - `ModuleVersions(QueryModuleVersionsRequest request)` => ModuleVersions queries the list of module versions from state. Since: cosmos-sdk 0.43.
 
+## All transaction methods
+- secretClient.Tx.Authz
+- secretClient.Tx.Bank
+- secretClient.Tx.Compute
+- secretClient.Tx.Crisis
+- secretClient.Tx.Distribution
+- secretClient.Tx.Evidence
+- secretClient.Tx.Feegrant
+- secretClient.Tx.Gov
+- secretClient.Tx.IbcChannel
+- secretClient.Tx.IbcClient
+- secretClient.Tx.IbcConnection
+- secretClient.Tx.IbcTransfer
+- secretClient.Tx.Slashing
+- secretClient.Tx.Staking
+- secretClient.Tx.Vesting
 
+See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.TxClient.htm)
 
-### All transactions (eg. )
+### [secretClient.Tx](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.TxClient.htm)
+- `Simulate(IMessage message, TxOptions txOptions = null)` => Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. (has several overloads).
+- `Broadcast(IMessage message, TxOptions txOptions = null)` => Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed. (has several overloads).
+- `Broadcast<T>(IMessage message, TxOptions txOptions = null)` => Like Broadcast but tries to convert the first message result to T. (has several overloads).
+
+### [secretClient.Tx.Authz](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.AuthzTx.htm)
+- `Exec(MsgExec msg, TxOptions txOptions = null)` => Exec attempts to execute the provided messages using authorizations granted to the grantee. Each message should have only one signer corresponding to the granter of the authorization. 
+- `Grant(MsgExec msg, TxOptions txOptions = null)` => Grant is a request type for Grant method. It declares authorization to the grantee on behalf of the granter with the provided expiration time. 
+- `Revoke(MsgRevoke msg, TxOptions txOptions = null)` => Revoke revokes any authorization with the provided sdk.Msg type on the granter's account with that has been granted to the grantee. 
+
+### [secretClient.Tx.Bank](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.BankTx.htm)
+- `Send(string toAddress, int amount, string denom, TxOptions txOptions = null)` => Sends SCRT to the specified to address.
+- `Send(MsgSend msg, TxOptions txOptions = null)` => MsgSend represents a message to send coins from one account to another. 
+- `MultiSend(MsgMultiSend msg, TxOptions txOptions = null)` => MsgMultiSend represents an arbitrary multi-in, multi-out send message.
+- 
+### [secretClient.Tx.Compute](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.ComputeTx.htm)
+- `ExecuteContract(MsgExecuteContract msg, TxOptions txOptions = null)` => Execute a function on a contract. (see also [above](#calling-a-smart-contract))
+- `ExecuteContract<T>(MsgExecuteContract msg, TxOptions txOptions = null)` => Execute a function on a contract and tries to convert the response to T.
+- `InstantiateContract(MsgInstantiateContract msg, TxOptions txOptions = null)` => Instantiate a contract from code id. (see also [above](#instantiate-a-contract-from-code-id))
+- `StoreCode(MsgStoreCode msg, TxOptions txOptions = null)` => Upload a compiled contract to Secret Network. (see also [above](#uploading-a-smart-contract))
+
+### [secretClient.Tx.Crisis](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.CrisisTx.htm)
+- `VerifyInvariant(MsgVerifyInvariant msg, TxOptions txOptions = null)` => MsgVerifyInvariant represents a message to verify a particular invariance. 
+
+### [secretClient.Tx.Distribution](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.DistributionTx.htm)
+- `FundCommunityPool(MsgFundCommunityPool msg, TxOptions txOptions = null)` => MsgFundCommunityPool allows an account to directly fund the community pool. 
+- `SetWithdrawAddress(MsgSetWithdrawAddress msg, TxOptions txOptions = null)` => MsgSetWithdrawAddress sets the withdraw address for a delegator (or validator self-delegation). 
+- `WithdrawDelegatorReward(MsgWithdrawDelegatorReward msg, TxOptions txOptions = null)` => MsgWithdrawDelegatorReward represents delegation withdrawal to a delegator from a single validator. 
+- `WithdrawValidatorCommission(MsgExec msg, TxOptions txOptions = null)` => MsgWithdrawValidatorCommission withdraws the full commission to the validator address. 
+
+### [secretClient.Tx.Evidence](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.EvidenceTx.htm)
+- `SubmitEvidence(MsgSubmitEvidence msg, TxOptions txOptions = null)` => MsgSubmitEvidence represents a message that supports submitting arbitrary Evidence of misbehavior such as equivocation or counterfactual signing. 
+
+### [secretClient.Tx.Feegrant](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.FeegrantTx.htm)
+- `GrantAllowance(MsgGrantAllowance msg, TxOptions txOptions = null)` => MsgGrantAllowance adds permission for Grantee to spend up to Allowance of fees from the account of Granter. 
+- `RevokeAllowance(MsgRevokeAllowance msg, TxOptions txOptions = null)` => MsgRevokeAllowance removes any existing Allowance from Granter to Grantee. 
+
+### [secretClient.Tx.Gov](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.GovTx.htm)
+- `Deposit(MsgDeposit msg, TxOptions txOptions = null)` => MsgDeposit defines a message to submit a deposit to an existing proposal. 
+- `SubmitProposal(MsgSubmitProposal msg, TxOptions txOptions = null)` => MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary proposal Content. 
+- `Vote(MsgVote msg, TxOptions txOptions = null)` => MsgVote defines a message to cast a vote. 
+- `VoteWeighted(MsgVoteWeighted msg, TxOptions txOptions = null)` => MsgVoteWeighted defines a message to cast a vote, with an option to split the vote. 
+
+### [secretClient.Tx.IbcChannel](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcChannelTx.htm)
+- `Acknowledgement(MsgAcknowledgement msg, TxOptions txOptions = null)` => 
+- `ChannelCloseConfirm(MsgChannelCloseConfirm msg, TxOptions txOptions = null)` => 
+- `ChannelCloseInit(MsgChannelCloseInit msg, TxOptions txOptions = null)` => 
+- `ChannelOpenAck(MsgChannelOpenAck msg, TxOptions txOptions = null)` => 
+- `ChannelOpenConfirm(MsgChannelOpenConfirm msg, TxOptions txOptions = null)` => 
+- `ChannelOpenInit(MsgChannelOpenInit msg, TxOptions txOptions = null)` => 
+- `ChannelOpenTry(MsgChannelOpenTry msg, TxOptions txOptions = null)` => 
+- `RecvPacket(MsgRecvPacket msg, TxOptions txOptions = null)` => 
+- `Timeout(MsgTimeout msg, TxOptions txOptions = null)` => 
+- `TimeoutOnClose(MsgTimeoutOnClose msg, TxOptions txOptions = null)` => 
+
+### [secretClient.Tx.IbcClient](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcClientTx.htm)
+- `CreateClient(MsgCreateClient msg, TxOptions txOptions = null)` => 
+- `SubmitMisbehaviour(MsgSubmitMisbehaviour msg, TxOptions txOptions = null)` => 
+- `UpdateClient(MsgUpdateClient msg, TxOptions txOptions = null)` => 
+- `UpgradeClient(MsgUpgradeClient msg, TxOptions txOptions = null)` => 
+
+### [secretClient.Tx.IbcConnection](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcConnectionTx.htm)
+- `ConnectionOpenAck(MsgConnectionOpenAck msg, TxOptions txOptions = null)` => 
+- `ConnectionOpenConfirm(MsgConnectionOpenConfirm msg, TxOptions txOptions = null)` => 
+- `ConnectionOpenInit(MsgConnectionOpenInit msg, TxOptions txOptions = null)` => 
+- `ConnectionOpenTry(MsgConnectionOpenTry msg, TxOptions txOptions = null)` => 
+
+### [secretClient.Tx.IbcTransfer](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcTransferTx.htm)
+- `Transfer(MsgTransfer msg, TxOptions txOptions = null)` => MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between ICS20 enabled chains. See ICS Spec here: https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures 
+
+### [secretClient.Tx.Slashing](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.SlashingTx.htm)
+- `Unjail(MsgUnjail msg, TxOptions txOptions = null)` => MsgUnjail defines a message to release a validator from jail. 
+
+### [secretClient.Tx.Staking](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.StakingTx.htm)
+- `BeginRedelegate(MsgBeginRedelegate msg, TxOptions txOptions = null)` => MsgBeginRedelegate defines an SDK message for performing a redelegation of coins from a delegator and source validator to a destination validator. 
+- `CreateValidator(MsgCreateValidator msg, TxOptions txOptions = null)` => MsgCreateValidator defines an SDK message for creating a new validator. 
+- `Delegate(MsgDelegate msg, TxOptions txOptions = null)` => MsgDelegate defines an SDK message for performing a delegation of coins from a delegator to a validator. 
+- `EditValidator(MsgEditValidator msg, TxOptions txOptions = null)` => MsgEditValidator defines an SDK message for editing an existing validator. 
+- `Undelegate(MsgUndelegate msg, TxOptions txOptions = null)` => MsgUndelegate defines an SDK message for performing an undelegation from a delegate and a validator 
+
+### [secretClient.Tx.Vesting](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.VestingTx.htm)
+- `CreateVestingAccount(MsgCreateVestingAccount msg, TxOptions txOptions = null)` => MsgCreateVestingAccount defines a message that enables creating a vesting account. 
+
 
