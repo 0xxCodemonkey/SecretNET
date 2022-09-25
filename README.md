@@ -616,31 +616,81 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `Broadcast<T>(IMessage message, TxOptions txOptions = null)` => Like Broadcast but tries to convert the first message result to T. (has several overloads).
 
 ### [secretClient.Tx.Authz](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.AuthzTx.htm)
+- `Exec(MsgExec msg, TxOptions txOptions = null)` => Exec attempts to execute the provided messages using authorizations granted to the grantee. Each message should have only one signer corresponding to the granter of the authorization. 
+- `Grant(MsgExec msg, TxOptions txOptions = null)` => Grant is a request type for Grant method. It declares authorization to the grantee on behalf of the granter with the provided expiration time. 
+- `Revoke(MsgRevoke msg, TxOptions txOptions = null)` => Revoke revokes any authorization with the provided sdk.Msg type on the granter's account with that has been granted to the grantee. 
 
 ### [secretClient.Tx.Bank](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.BankTx.htm)
-
+- `Send(string toAddress, int amount, string denom, TxOptions txOptions = null)` => Sends SCRT to the specified to address.
+- `Send(MsgSend msg, TxOptions txOptions = null)` => MsgSend represents a message to send coins from one account to another. 
+- `MultiSend(MsgMultiSend msg, TxOptions txOptions = null)` => MsgMultiSend represents an arbitrary multi-in, multi-out send message.
+- 
 ### [secretClient.Tx.Compute](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.ComputeTx.htm)
+- `ExecuteContract(MsgExecuteContract msg, TxOptions txOptions = null)` => Execute a function on a contract. (see also [above](#calling-a-smart-contract))
+- `ExecuteContract<T>(MsgExecuteContract msg, TxOptions txOptions = null)` => Execute a function on a contract and tries to convert the response to T.
+- `InstantiateContract(MsgInstantiateContract msg, TxOptions txOptions = null)` => Instantiate a contract from code id. (see also [above](#instantiate-a-contract-from-code-id))
+- `StoreCode(MsgStoreCode msg, TxOptions txOptions = null)` => Upload a compiled contract to Secret Network. (see also [above](#uploading-a-smart-contract))
 
 ### [secretClient.Tx.Crisis](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.CrisisTx.htm)
+- `VerifyInvariant(MsgVerifyInvariant msg, TxOptions txOptions = null)` => MsgVerifyInvariant represents a message to verify a particular invariance. 
 
 ### [secretClient.Tx.Distribution](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.DistributionTx.htm)
+- `FundCommunityPool(MsgFundCommunityPool msg, TxOptions txOptions = null)` => MsgFundCommunityPool allows an account to directly fund the community pool. 
+- `SetWithdrawAddress(MsgSetWithdrawAddress msg, TxOptions txOptions = null)` => MsgSetWithdrawAddress sets the withdraw address for a delegator (or validator self-delegation). 
+- `WithdrawDelegatorReward(MsgWithdrawDelegatorReward msg, TxOptions txOptions = null)` => MsgWithdrawDelegatorReward represents delegation withdrawal to a delegator from a single validator. 
+- `WithdrawValidatorCommission(MsgExec msg, TxOptions txOptions = null)` => MsgWithdrawValidatorCommission withdraws the full commission to the validator address. 
 
 ### [secretClient.Tx.Evidence](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.EvidenceTx.htm)
+- `SubmitEvidence(MsgSubmitEvidence msg, TxOptions txOptions = null)` => MsgSubmitEvidence represents a message that supports submitting arbitrary Evidence of misbehavior such as equivocation or counterfactual signing. 
 
 ### [secretClient.Tx.Feegrant](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.FeegrantTx.htm)
+- `GrantAllowance(MsgGrantAllowance msg, TxOptions txOptions = null)` => MsgGrantAllowance adds permission for Grantee to spend up to Allowance of fees from the account of Granter. 
+- `RevokeAllowance(MsgRevokeAllowance msg, TxOptions txOptions = null)` => MsgRevokeAllowance removes any existing Allowance from Granter to Grantee. 
 
 ### [secretClient.Tx.Gov](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.GovTx.htm)
+- `Deposit(MsgDeposit msg, TxOptions txOptions = null)` => MsgDeposit defines a message to submit a deposit to an existing proposal. 
+- `SubmitProposal(MsgSubmitProposal msg, TxOptions txOptions = null)` => MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary proposal Content. 
+- `Vote(MsgVote msg, TxOptions txOptions = null)` => MsgVote defines a message to cast a vote. 
+- `VoteWeighted(MsgVoteWeighted msg, TxOptions txOptions = null)` => MsgVoteWeighted defines a message to cast a vote, with an option to split the vote. 
 
 ### [secretClient.Tx.IbcChannel](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcChannelTx.htm)
+- `Acknowledgement(MsgAcknowledgement msg, TxOptions txOptions = null)` => 
+- `ChannelCloseConfirm(MsgChannelCloseConfirm msg, TxOptions txOptions = null)` => 
+- `ChannelCloseInit(MsgChannelCloseInit msg, TxOptions txOptions = null)` => 
+- `ChannelOpenAck(MsgChannelOpenAck msg, TxOptions txOptions = null)` => 
+- `ChannelOpenConfirm(MsgChannelOpenConfirm msg, TxOptions txOptions = null)` => 
+- `ChannelOpenInit(MsgChannelOpenInit msg, TxOptions txOptions = null)` => 
+- `ChannelOpenTry(MsgChannelOpenTry msg, TxOptions txOptions = null)` => 
+- `RecvPacket(MsgRecvPacket msg, TxOptions txOptions = null)` => 
+- `Timeout(MsgTimeout msg, TxOptions txOptions = null)` => 
+- `TimeoutOnClose(MsgTimeoutOnClose msg, TxOptions txOptions = null)` => 
 
 ### [secretClient.Tx.IbcClient](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcClientTx.htm)
+- `CreateClient(MsgCreateClient msg, TxOptions txOptions = null)` => 
+- `SubmitMisbehaviour(MsgSubmitMisbehaviour msg, TxOptions txOptions = null)` => 
+- `UpdateClient(MsgUpdateClient msg, TxOptions txOptions = null)` => 
+- `UpgradeClient(MsgUpgradeClient msg, TxOptions txOptions = null)` => 
 
 ### [secretClient.Tx.IbcConnection](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcConnectionTx.htm)
+- `ConnectionOpenAck(MsgConnectionOpenAck msg, TxOptions txOptions = null)` => 
+- `ConnectionOpenConfirm(MsgConnectionOpenConfirm msg, TxOptions txOptions = null)` => 
+- `ConnectionOpenInit(MsgConnectionOpenInit msg, TxOptions txOptions = null)` => 
+- `ConnectionOpenTry(MsgConnectionOpenTry msg, TxOptions txOptions = null)` => 
 
 ### [secretClient.Tx.IbcTransfer](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcTransferTx.htm)
+- `Transfer(MsgTransfer msg, TxOptions txOptions = null)` => MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between ICS20 enabled chains. See ICS Spec here: https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures 
 
 ### [secretClient.Tx.Slashing](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.SlashingTx.htm)
+- `Unjail(MsgUnjail msg, TxOptions txOptions = null)` => MsgUnjail defines a message to release a validator from jail. 
 
 ### [secretClient.Tx.Staking](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.StakingTx.htm)
+- `BeginRedelegate(MsgBeginRedelegate msg, TxOptions txOptions = null)` => MsgBeginRedelegate defines an SDK message for performing a redelegation of coins from a delegator and source validator to a destination validator. 
+- `CreateValidator(MsgCreateValidator msg, TxOptions txOptions = null)` => MsgCreateValidator defines an SDK message for creating a new validator. 
+- `Delegate(MsgDelegate msg, TxOptions txOptions = null)` => MsgDelegate defines an SDK message for performing a delegation of coins from a delegator to a validator. 
+- `EditValidator(MsgEditValidator msg, TxOptions txOptions = null)` => MsgEditValidator defines an SDK message for editing an existing validator. 
+- `Undelegate(MsgUndelegate msg, TxOptions txOptions = null)` => MsgUndelegate defines an SDK message for performing an undelegation from a delegate and a validator 
 
 ### [secretClient.Tx.Vesting](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.VestingTx.htm)
+- `CreateVestingAccount(MsgCreateVestingAccount msg, TxOptions txOptions = null)` => MsgCreateVestingAccount defines a message that enables creating a vesting account. 
+
+
