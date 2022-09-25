@@ -594,4 +594,55 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `ModuleVersions(QueryModuleVersionsRequest request)` => ModuleVersions queries the list of module versions from state. Since: cosmos-sdk 0.43.
 
 ## All transaction methods
-- x
+- secretClient.Tx.Authz
+- secretClient.Tx.Bank
+- secretClient.Tx.Compute
+- secretClient.Tx.Crisis
+- secretClient.Tx.Distribution
+- secretClient.Tx.Evidence
+- secretClient.Tx.Feegrant
+- secretClient.Tx.Gov
+- secretClient.Tx.IbcChannel
+- secretClient.Tx.IbcClient
+- secretClient.Tx.IbcConnection
+- secretClient.Tx.IbcTransfer
+- secretClient.Tx.Slashing
+- secretClient.Tx.Staking
+- secretClient.Tx.Vesting
+
+See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.TxClient.htm)
+
+### [secretClient.Tx](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.TxClient.htm)
+- `Simulate(IMessage message, TxOptions txOptions = null)` => Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. (has several overloads).
+- `Broadcast(IMessage message, TxOptions txOptions = null)` => Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed. (has several overloads).
+- `Broadcast<T>(IMessage message, TxOptions txOptions = null)` => Like Broadcast but tries to convert the first message result to T. (has several overloads).
+
+### [secretClient.Tx.Authz](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.AuthzTx.htm)
+
+### [secretClient.Tx.Bank](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.BankTx.htm)
+
+### [secretClient.Tx.Compute](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.ComputeTx.htm)
+
+### [secretClient.Tx.Crisis](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.CrisisTx.htm)
+
+### [secretClient.Tx.Distribution](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.DistributionTx.htm)
+
+### [secretClient.Tx.Evidence](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.EvidenceTx.htm)
+
+### [secretClient.Tx.Feegrant](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.FeegrantTx.htm)
+
+### [secretClient.Tx.Gov](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.GovTx.htm)
+
+### [secretClient.Tx.IbcChannel](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcChannelTx.htm)
+
+### [secretClient.Tx.IbcClient](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcClientTx.htm)
+
+### [secretClient.Tx.IbcConnection](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcConnectionTx.htm)
+
+### [secretClient.Tx.IbcTransfer](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.IbcTransferTx.htm)
+
+### [secretClient.Tx.Slashing](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.SlashingTx.htm)
+
+### [secretClient.Tx.Staking](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.StakingTx.htm)
+
+### [secretClient.Tx.Vesting](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.VestingTx.htm)
