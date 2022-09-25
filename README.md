@@ -280,7 +280,7 @@ var queryContractResult = await secretClient.Query.Compute.QueryContract<object>
 Console.WriteLine(queryContractResult.Response); // JSON string
 ```
 
-Or even easier for a **SNIP20 Contract** via [**SecretNET.SNIP20**](#additional-packages) Add-On:
+Or even easier for a **SNIP20 Contract** via [**SecretNET.Token**](#additional-packages) Add-On:
 
 ```csharp
 var snip20Client =  new SecretNET.Token.Snip20Client(secretClient);
