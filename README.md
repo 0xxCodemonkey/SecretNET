@@ -18,8 +18,8 @@ This allows [unique use cases](https://docs.scrt.network/secret-network-document
 
 ## Additional packages
 In addition to the Secret.NET Core Library, the following complementary packages are available:
-- [**Full SNIP-20 (Token) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP20), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
-- [**Full SNIP-721 / SNIP-722 (NFT) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP721), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
+- [**Full Token (SNIP-20) client**](https://github.com/0xxCodemonkey/SecretNET.Token), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
+- [**Full NFT (SNIP-721 / SNIP-722) client**](https://github.com/0xxCodemonkey/SecretNET.NFT), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
 - **UI Package** (coming soon), which contains typical MAUI controls such as Confirm Transaction, Wallet Setup, Scan Keplr QR, etc. 
 
 ## Full API-documentation
@@ -83,15 +83,15 @@ Install-Package SecretNET
 ## Additional packages
 nuget.exe-CLI:
 ```  bash
-nuget install SecretNET.SNIP20
-nuget install SecretNET.SNIP721
+nuget install SecretNET.Token
+nuget install SecretNET.NFT
 nuget install SecretNET.UI (coming soon)
 ```
 
 NuGet-Paket-Manager-Konsole:
 ```  bash
-Install-Package SecretNET.SNIP20
-Install-Package SecretNET.SNIP721
+Install-Package SecretNET.Token
+Install-Package SecretNET.NFT
 Install-Package SecretNET.UI (coming soon)
 ```
 # Usage Examples
@@ -283,7 +283,7 @@ Console.WriteLine(queryContractResult.Response); // JSON string
 Or even easier for a **SNIP20 Contract** via [**SecretNET.SNIP20**](#additional-packages) Add-On:
 
 ```csharp
-var snip20Client =  new SecretNET.SNIP20.Snip20Client(secretClient);
+var snip20Client =  new SecretNET.Token.Snip20Client(secretClient);
 
 var sSCRT_Address = "secret1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek"; // secret-4
 var sScrt_CodeHash = "af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e";

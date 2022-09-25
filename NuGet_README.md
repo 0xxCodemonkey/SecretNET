@@ -18,8 +18,8 @@ All information and documentation is available in the [**GitHub repository**](ht
 
 ## Additional packages
 In addition to the Secret.NET Core Library, the following complementary packages are available:
-- [**Full SNIP-20 (Token) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP20), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
-- [**Full SNIP-721 / SNIP-722 (NFT) client**](https://github.com/0xxCodemonkey/SecretNET.SNIP721), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
+- [**Full Token (SNIP-20) client**](https://github.com/0xxCodemonkey/SecretNET.Token), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
+- [**Full NFT (SNIP-721 / SNIP-722) client**](https://github.com/0xxCodemonkey/SecretNET.NFT), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
 
 ## Links
 - [GitHub](https://github.com/0xxCodemonkey/SecretNET)
