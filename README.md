@@ -45,12 +45,10 @@ You can find the **full API-documentation** here => [https://0xxcodemonkey.githu
 	- [Attaching the wallet to the SecretNetworkClient (required for signing transactions)](#attaching-the-wallet-to-the-secretnetworkclient-required-for-signing-transactions)
   - [SecretNetworkClient](#secretnetworkclient)
 	- [Queries](#querier-secretclientquery)
-	- [All queries (eg. accounts, bank, compute, gov, feegrant, etc.)](#all-queries-eg-accounts-bank-compute-gov-feegrant-etc)
-  - [Transactions](#transactions)
-  	- [Uploading and initialize Smart Contract](#uploading-and-initialize-smart-contract)	
-  	- [Interacting with an Token Contract (SNIP20)](#interacting-with-an-token-contract-snip20)
-  	- [Interacting with an NFT Contract (SNIP721)](#interacting-with-an-nft-contract-snip721)
-  	- [All transactions (eg. )](#all-transactions-eg-)
+	- [Transactions](#transactions)
+  - [Overview of all query and transaction methods](#overview-of-all-query-and-transaction-methods)
+  	- [All query methods](#all-query-methods)
+  	- [All transaction methods](#all-transaction-methods)
 
 # General information
 The rough structure of the Secret.NET client, from the user's perspective, is divided into the following areas:
