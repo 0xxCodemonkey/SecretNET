@@ -3,17 +3,10 @@
 public class VestingTx
 {
     private TxClient _tx;
-    private VestingTxSimulate _txSimulte;
 
     internal VestingTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new VestingTxSimulate(tx);
-    }
-
-    public VestingTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -22,9 +15,10 @@ public class VestingTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> CreateVestingAccount(MsgCreateVestingAccount msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Vesting.V1Beta1.MsgCreateVestingAccountResponse>> CreateVestingAccount(Cosmos.Vesting.V1Beta1.MsgCreateVestingAccount msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Vesting.V1Beta1.MsgCreateVestingAccountResponse>(txResult);
     }
 
 }

@@ -14,7 +14,7 @@ public static class SecretUtils
 
     public static bool IsBase64String(this string base64String)
     {
-        if (!String.IsNullOrEmpty(base64String) && base64String.Length > 3)
+        if (!string.IsNullOrWhiteSpace(base64String) && base64String.Length > 3)
         {
             return _isBase64RegEx.IsMatch(base64String);
         }
@@ -77,16 +77,26 @@ public static class SecretUtils
 
     public static bool IsProtoType(this string typeUrl, string matchType)
     {
-        if (!String.IsNullOrEmpty(typeUrl) && !String.IsNullOrEmpty(matchType))
+        if (!string.IsNullOrWhiteSpace(typeUrl) && !string.IsNullOrWhiteSpace(matchType))
         {
-            return typeUrl.TrimStart('/').Equals(matchType, StringComparison.InvariantCultureIgnoreCase);
+            var cleanedType = CleanUpTypeurl(typeUrl);
+            return cleanedType.Equals(matchType, StringComparison.InvariantCultureIgnoreCase);
         }
         return false;
     }
 
+    public static string CleanUpTypeurl(this string typeUrl)
+    {
+        if (!string.IsNullOrWhiteSpace(typeUrl))
+        {
+            return Regex.Match(typeUrl, "[^/]([^/]*)$").Groups[0].Value;
+        }
+        return typeUrl;
+    }
+
     public static bool IsProtoType(this IMessage msg, string matchType)
     {
-        if (!String.IsNullOrEmpty(msg?.Descriptor?.FullName))
+        if (!string.IsNullOrWhiteSpace(msg?.Descriptor?.FullName))
         {
             return IsProtoType(msg.Descriptor.FullName, matchType);
         }

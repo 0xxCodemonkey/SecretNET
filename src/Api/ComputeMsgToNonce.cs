@@ -1,9 +1,11 @@
-﻿namespace SecretNET.Api;
+﻿using System.Collections.Concurrent;
+
+namespace SecretNET.Api;
 
 /// <summary>
 /// Dictionary which assigns messages index to nonce.
 /// </summary>
-public class ComputeMsgToNonce : Dictionary<int, byte[]>
+public class ComputeMsgToNonce : ConcurrentDictionary<int, byte[]>
 {
 
 }

@@ -5,7 +5,7 @@ internal class ASCIIEncoder : DataEncoder
     //Do not using Encoding.ASCII (not portable)
     internal override byte[] DecodeData(string encoded)
     {
-        if (string.IsNullOrEmpty(encoded))
+        if (string.IsNullOrWhiteSpace(encoded))
             return new byte[0];
 
 		Span<byte> r = encoded.Length is int v && v > 256 ? new byte[v] : stackalloc byte[v];

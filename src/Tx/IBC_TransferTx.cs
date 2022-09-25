@@ -3,17 +3,10 @@
 public class IbcTransferTx
 {
     private TxClient _tx;
-    private IbcTransferTxSimulate _txSimulte;
 
     internal IbcTransferTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new IbcTransferTxSimulate(tx);
-    }
-
-    public IbcTransferTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -24,9 +17,10 @@ public class IbcTransferTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> Transfer(MsgTransfer msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Ibc.Applications.Transfer.V1.MsgTransferResponse>> Transfer(Ibc.Applications.Transfer.V1.MsgTransfer msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Ibc.Applications.Transfer.V1.MsgTransferResponse>(txResult);
     }
 
 }

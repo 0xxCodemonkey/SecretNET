@@ -24,6 +24,12 @@ public class SecretContractInfo
     /// </summary>
     public AbsoluteTxPosition? Created { get; set; }
 
+    /// <summary>
+    /// Gets or sets the ibc port identifier.
+    /// </summary>
+    /// <value>The ibc port identifier.</value>
+    public string IbcPortId { get; set; }
+
 }
 
 public class AbsoluteTxPosition

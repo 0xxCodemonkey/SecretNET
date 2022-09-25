@@ -93,7 +93,7 @@ static class Wnaf
 	/** Convert a number to WNAF notation.
 	 *  The number becomes represented by sum(2^{wi} * wnaf[i], i=0..WNAF_SIZE(w)+1) - return_val.
 	 *  It has the following guarantees:
-	 *  - each wnaf[i] is either 0 or an odd integer between -(1 << w) and (1 << w)
+	 *  - each wnaf[i] is either 0 or an odd integer between -(1) and (1)
 	 *  - the number of words set is always WNAF_SIZE(w)
 	 *  - the returned skew is 0 or 1
 	 */

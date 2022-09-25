@@ -1,17 +1,19 @@
 ﻿using Google.Protobuf.Collections;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Cosmos.Base.Abci.V1Beta1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tendermint.Abci;
 
 namespace SecretNET.Tx
 {
     public class SecretTx
     {
-        public GetTxResponse EncryptedResponse { get; internal set; }
+        public TxResponse TxResponse { get; internal set; }
 
         #region EncryptedResponse reference props
 
@@ -45,30 +47,41 @@ namespace SecretNET.Tx
 
         public List<Exception> Exceptions { get; internal set; } = new List<Exception>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretTx"/> class.
+        /// </summary>
         public SecretTx()
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretTx"/> class.
+        /// </summary>
+        /// <param name="txHash">The tx hash.</param>
         public SecretTx(string txHash)
         {
             Txhash = txHash;
             Success = true;
         }
 
-        public SecretTx(GetTxResponse response)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretTx"/> class.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        public SecretTx(TxResponse response)
         {
-            EncryptedResponse = response;
-            if (EncryptedResponse?.TxResponse != null)
+            TxResponse = response;
+            if (TxResponse != null)
             {
-                Txhash = EncryptedResponse?.TxResponse?.Txhash;
-                Codespace = EncryptedResponse?.TxResponse?.Codespace;
-                Height = EncryptedResponse.TxResponse.Height;
-                Code = EncryptedResponse.TxResponse.Code;
-                TxBytes = EncryptedResponse.TxResponse.Tx.Value.ToByteArray();
-                Events = EncryptedResponse.TxResponse.Events;
-                GasUsed = EncryptedResponse.TxResponse.GasUsed;
-                GasWanted = EncryptedResponse.TxResponse.GasWanted;
+                Txhash = TxResponse?.Txhash;
+                Codespace = TxResponse?.Codespace;
+                Height = TxResponse.Height;
+                Code = TxResponse.Code;
+                TxBytes = TxResponse.Tx?.Value?.ToByteArray();
+                Events = TxResponse?.Events;
+                GasUsed = TxResponse.GasUsed;
+                GasWanted = TxResponse.GasWanted;
             }
             else
             {
@@ -79,9 +92,13 @@ namespace SecretNET.Tx
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretTx"/> class.
+        /// </summary>
+        /// <param name="secretTx">The secret tx.</param>
         public SecretTx(SecretTx secretTx)
         {
-            EncryptedResponse = secretTx.EncryptedResponse;
+            TxResponse = secretTx.TxResponse;
             Height = secretTx.Height;
             Codespace = secretTx.Codespace;
             Code = secretTx.Code;
@@ -98,26 +115,66 @@ namespace SecretNET.Tx
             Exceptions = secretTx.Exceptions;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretTx"/> class.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="txHash">The tx hash.</param>
         public SecretTx(Exception ex, string txHash)
         {
             Txhash = txHash;
             Exceptions.Add(ex);
         }
 
+        /// <summary>
+        /// Gets the response MSG.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="msgIndex">Index of the MSG.</param>
+        /// <returns>T.</returns>
         public T GetResponseMsg<T>(int msgIndex = 0)
         {
-            if (Data != null && Data.Count() > msgIndex)
+            T response = default(T);
+            try
             {
-                return JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(Data[msgIndex]));
+                var msgData = GetResponseData(0);
+                if (msgData != null)
+                {
+                    if (typeof(IMessage).IsAssignableFrom(typeof(T)))
+                    {
+                        var decoder = MsgDecoderRegistry.Get(typeof(T));
+                        if (decoder != null)
+                        {
+                            response = (T)decoder(msgData);
+                        }
+                    }
+                    else
+                    {
+                        var jsonData = Encoding.UTF8.GetString(msgData);
+                        response = JsonConvert.DeserializeObject<T>(jsonData);
+                    }
+                }
             }
-            return default;
+            catch (Exception ex)
+            {
+                Exceptions = Exceptions != null ? Exceptions : new List<Exception>();
+                Exceptions.Add(ex);
+            }
+            return response;
         }
 
+        /// <summary>
+        /// Gets the response json.
+        /// </summary>
+        /// <param name="msgIndex">Index of the MSG.</param>
+        /// <param name="formated">if set to <c>true</c> [formated].</param>
+        /// <returns>System.String.</returns>
         public string GetResponseJson(int msgIndex = 0, bool formated = true)
         {
-            if (Data != null && Data.Count() > msgIndex)
+            var msgData = GetResponseData(msgIndex);
+            if (msgData != null)
             {
-                var json = Encoding.UTF8.GetString(Data[msgIndex]);
+                var json = Encoding.UTF8.GetString(msgData);
                 if (formated)
                 {
                     return JToken.Parse(json).ToString();
@@ -127,18 +184,49 @@ namespace SecretNET.Tx
             return null;
         }
 
+        /// <summary>
+        /// Tries the find event value.
+        /// </summary>
+        /// <param name="eventKey">The event key.</param>
+        /// <returns>System.String.</returns>
         public string TryFindEventValue(string eventKey)
         {
             string result = String.Empty;
-            if (EncryptedResponse?.TxResponse?.Logs != null)
+            if (TxResponse?.Logs != null)
             {
-                result = EncryptedResponse.TxResponse.Logs
+                result = TxResponse.Logs
                 .Where(a => a.Events != null && a.Events.Any())
                 .Select(a => a.Events.FirstOrDefault(b => b.Attributes.Any(c => c.Key == eventKey)))
                 .Select(a => a.Attributes.FirstOrDefault(b => b.Key == eventKey)?.Value)
                 .FirstOrDefault();
             }
             return result;
+        }
+
+        // private
+        internal byte[] GetResponseData(int msgIndex = 0)
+        {
+            if (TxResponse?.Tx != null)
+            {
+                var decodedTx = TxResponse.Tx.Unpack<Cosmos.Tx.V1Beta1.Tx>();
+                if (decodedTx?.Body?.Messages?.Count -1 >= msgIndex)
+                {
+                    var rawMsg = decodedTx.Body.Messages[msgIndex];
+                    if (rawMsg.TypeUrl.IsProtoType(MsgGrantAuthorization.MsgExecuteContract))
+                    {
+                        var msg = Secret.Compute.V1Beta1.MsgExecuteContractResponse.Parser.ParseFrom(Data[msgIndex]);
+                        if (msg != null)
+                        {
+                            return msg.Data.ToArray();
+                        }
+                    }
+                    else
+                    {
+                        return Data[msgIndex];
+                    }
+                }
+            }
+            return null;
         }
     }
 
@@ -155,10 +243,22 @@ namespace SecretNET.Tx
         {
             try
             {
-                if (Data != null && Data.Count() > 0)
+                var msgData = GetResponseData(0);
+                if (msgData != null)
                 {
-                    var jsonData = Encoding.UTF8.GetString(Data[0]);
-                    Response = JsonConvert.DeserializeObject<T>(jsonData);
+                    if (typeof(IMessage).IsAssignableFrom(typeof(T)))
+                    {
+                        var decoder = MsgDecoderRegistry.Get(typeof(T));
+                        if (decoder != null)
+                        {
+                            Response = (T)decoder(msgData);
+                        }
+                    }
+                    else
+                    {
+                        var jsonData = Encoding.UTF8.GetString(msgData);
+                        Response = JsonConvert.DeserializeObject<T>(jsonData);
+                    }                    
                 }
             }
             catch (Exception ex)
@@ -167,6 +267,7 @@ namespace SecretNET.Tx
                 Exceptions.Add(ex);
             }
         }
-
     }
+
+
 }

@@ -18,7 +18,7 @@ namespace SecretNET.Tx
         public int GasLimit { get; set; } = 25000;
 
         /// <summary>
-        /// E.g. gasPriceInFeeDenom=0.25 & feeDenom="uscrt" => Total fee for tx is `0.25 * gasLimit`uscrt. Defaults to `0.25`.
+        /// E.g. gasPriceInFeeDenom=0.25 and feeDenom="uscrt" => Total fee for tx is `0.25 * gasLimit`uscrt. Defaults to `0.25`.
         /// </summary>
         /// <value>The gas price in fee denom.</value>
         public float GasPriceInFeeDenom { get; set; } = 0.25F;
@@ -28,6 +28,12 @@ namespace SecretNET.Tx
         /// </summary>
         /// <value>The fee denom.</value>
         public string FeeDenom { get; set; } = "uscrt";
+
+        /// <summary>
+        /// Address of the fee granter from which to charge gas fees.
+        /// </summary>
+        /// <value>The fee granter.</value>
+        public string FeeGranter { get; set; }
 
         /// <summary>
         /// Defaults to "".
@@ -67,8 +73,8 @@ namespace SecretNET.Tx
         public BroadcastMode BroadcastMode { get; set; } = BroadcastMode.Sync;
 
         /// <summary>
-        /// explicitSignerData can be used to override `chainId`, `accountNumber` & `accountSequence`.
-        /// This is usefull when using {@link BroadcastMode.Async} or when you don't want secretNET to query for `accountNumber` & `accountSequence` from the chain. (smoother in UIs, less load on your node provider).
+        /// ExplicitSignerData can be used to override `chainId`, `accountNumber` and `accountSequence`.
+        /// This is usefull when using BroadcastMode.Async or when you don't want secretNET to query for `accountNumber` and `accountSequence` from the chain. (smoother in UIs, less load on your node provider).
         /// </summary>
         /// <value>The explicit signer data.</value>
         public SignerData ExplicitSignerData { get; set; }

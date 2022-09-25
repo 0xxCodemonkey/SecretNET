@@ -3,17 +3,10 @@
 public class GovTx
 {
     private TxClient _tx;
-    private GovTxSimulate _txSimulte;
 
     internal GovTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new GovTxSimulate(tx);
-    }
-
-    public GovTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -22,9 +15,10 @@ public class GovTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> Deposit(MsgDeposit msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgDepositResponse>> Deposit(Cosmos.Gov.V1Beta1.MsgDeposit msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgDepositResponse>(txResult);
     }
 
     /// <summary>
@@ -33,9 +27,10 @@ public class GovTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> SubmitProposal(MsgSubmitProposal msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>> SubmitProposal(Cosmos.Gov.V1Beta1.MsgSubmitProposal msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>(txResult);
     }
 
     /// <summary>
@@ -44,9 +39,10 @@ public class GovTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> Vote(MsgVote msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteResponse>> Vote(Cosmos.Gov.V1Beta1.MsgVote msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteResponse>(txResult);
     }
 
     /// <summary>
@@ -55,9 +51,10 @@ public class GovTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> VoteWeighted(MsgVoteWeighted msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteWeightedResponse>> VoteWeighted(Cosmos.Gov.V1Beta1.MsgVoteWeighted msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteWeightedResponse>(txResult);
     }
 
 }

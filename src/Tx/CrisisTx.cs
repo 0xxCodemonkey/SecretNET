@@ -3,17 +3,10 @@
 public class CrisisTx
 {
     private TxClient _tx;
-    private CrisisTxSimulate _txSimulte;
 
     internal CrisisTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new CrisisTxSimulate(tx);
-    }
-
-    public CrisisTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -22,9 +15,10 @@ public class CrisisTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> VerifyInvariant(MsgVerifyInvariant msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Crisis.V1Beta1.MsgVerifyInvariantResponse>> VerifyInvariant(Cosmos.Crisis.V1Beta1.MsgVerifyInvariant msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Crisis.V1Beta1.MsgVerifyInvariantResponse>(txResult);
     }
 
 }

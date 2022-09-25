@@ -3,17 +3,10 @@
 public class FeegrantTx
 {
     private TxClient _tx;
-    private FeegrantTxSimulate _txSimulte;
 
     internal FeegrantTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new FeegrantTxSimulate(tx);
-    }
-
-    public FeegrantTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -22,9 +15,10 @@ public class FeegrantTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> GrantAllowance(MsgGrantAllowance msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgGrantAllowanceResponse>> GrantAllowance(Cosmos.Feegrant.V1Beta1.MsgGrantAllowance msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgGrantAllowanceResponse>(txResult);
     }
 
     /// <summary>
@@ -33,9 +27,10 @@ public class FeegrantTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> RevokeAllowance(MsgRevokeAllowance msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgRevokeAllowanceResponse>> RevokeAllowance(Cosmos.Feegrant.V1Beta1.MsgRevokeAllowance msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgRevokeAllowanceResponse>(txResult);
     }
 
 }

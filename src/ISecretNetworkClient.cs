@@ -45,7 +45,7 @@ public interface ISecretNetworkClient
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>Task&lt;System.ValueTuple&lt;System.Byte[], ComputeMsgToNonce&gt;&gt;.</returns>
-    public Task<(byte[] TxBytes, ComputeMsgToNonce Nonces)> PrepareAndSign(Tx.MsgBase[] messages, TxOptions? txOptions = null);
+    public Task<byte[]> PrepareAndSign(Tx.MsgBase[] messages, TxOptions txOptions = null);
 
     /// <summary>
     /// Signs the specified messages.
@@ -55,7 +55,7 @@ public interface ISecretNetworkClient
     /// <param name="memo">The memo.</param>
     /// <param name="explicitSignerData">The explicit signer data.</param>
     /// <returns>Task&lt;System.ValueTuple&lt;TxRaw, ComputeMsgToNonce&gt;&gt;.</returns>
-    public Task<(TxRaw TxRaw, ComputeMsgToNonce Nonces)> Sign(Tx.MsgBase[] messages, StdFee fee, string? memo = null, SignerData? explicitSignerData = null);
+    public Task<TxRaw> Sign(Tx.MsgBase[] messages, StdFee fee, string memo = null, SignerData explicitSignerData = null);
 
     /// <summary>
     /// Signs the transaction (direct).
@@ -65,6 +65,6 @@ public interface ISecretNetworkClient
     /// <param name="signerData">The signer data.</param>
     /// <param name="memo">The memo.</param>
     /// <returns>Task&lt;System.ValueTuple&lt;TxRaw, ComputeMsgToNonce&gt;&gt;.</returns>
-    public Task<(TxRaw TxRaw, ComputeMsgToNonce Nonces)> SignDirect(Tx.MsgBase[] messages, StdFee fee, SignerData signerData, string? memo = null);
+    public Task<TxRaw> SignDirect(Tx.MsgBase[] messages, StdFee fee, SignerData signerData, string memo = null);
 
 }

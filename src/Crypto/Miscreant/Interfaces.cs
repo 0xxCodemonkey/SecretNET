@@ -46,8 +46,8 @@ internal interface IMACLike
 /// </summary>
 public interface ISIVLike
 {
-    public byte[] Seal(byte[] plaintext, byte[][] associatedData);
-    public byte[] Open(byte[] plaintext, byte[][] associatedData);
+    public byte[] Seal(byte[] plaintext);
+    public byte[] Open(byte[] plaintext);
     public ISIVLike Clear();
 }
 

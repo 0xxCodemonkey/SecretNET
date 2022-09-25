@@ -3,17 +3,10 @@
 public class AuthzTx
 {
     private TxClient _tx;
-    private AuthzTxSimulate _txSimulte;
 
     internal AuthzTx(TxClient tx)
     {
         _tx = tx;
-        _txSimulte = new AuthzTxSimulate(tx);
-    }
-
-    public AuthzTxSimulate Simulate
-    {
-        get { return _txSimulte; }
     }
 
     /// <summary>
@@ -24,9 +17,10 @@ public class AuthzTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> Exec(MsgExec msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Authz.V1Beta1.MsgExecResponse>> Exec(Cosmos.Authz.V1Beta1.MsgExec msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgExecResponse>(txResult);
     }
 
     /// <summary>
@@ -36,9 +30,10 @@ public class AuthzTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> Grant(MsgGrant msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Authz.V1Beta1.MsgGrantResponse>> Grant(Cosmos.Authz.V1Beta1.MsgGrant msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgGrantResponse>(txResult);
     }
 
     /// <summary>
@@ -48,9 +43,10 @@ public class AuthzTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SecretTx> Revoke(MsgRevoke msg, TxOptions? txOptions = null)
+    public async Task<SingleSecretTx<Cosmos.Authz.V1Beta1.MsgRevokeResponse>> Revoke(Cosmos.Authz.V1Beta1.MsgRevoke msg, TxOptions txOptions = null)
     {
-        return await _tx.Broadcast(msg, txOptions);
+        var txResult = await _tx.Broadcast(msg, txOptions);
+        return new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgRevokeResponse>(txResult);
     }
 
 }

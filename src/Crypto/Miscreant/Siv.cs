@@ -58,25 +58,17 @@ internal class Siv : ISIVLike
     /// Encrypt and authenticate data using AES-SIV
     /// </summary>
     /// <param name="plaintext">The plaintext.</param>
-    /// <param name="associatedData">The associated data.</param>
-    /// <param name="">The .</param>
     /// <returns>System.Byte[].</returns>
     /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="NotImplementedException"></exception>
-    public byte[] Seal(byte[] plaintext, byte[][]? associatedData = null)
+    public byte[] Seal(byte[] plaintext)
     {
-        associatedData = new byte[][] { new byte[0] };
-        if (associatedData.Length > MAX_ASSOCIATED_DATA)
-        {
-            throw new Exception("AES-SIV: too many associated data items");
-        }
-
         // Allocate space for sealed ciphertext.
         var resultLength = Block.SIZE + plaintext.Length;
         var result = new byte[resultLength];
 
         // Authenticate.
-        var iv = S2V(plaintext, associatedData);
+        var iv = S2V(plaintext, new byte[][] { new byte[0] });
         result.Set(iv);
 
         // Encrypt.
@@ -89,18 +81,12 @@ internal class Siv : ISIVLike
     /// <summary>
     /// Decrypt and authenticate data using AES-SIV
     /// </summary>
-    /// <param name="plaintext">The plaintext.</param>
-    /// <param name="associatedData">The associated data.</param>
+    /// <param name="sealedText">The sealed text.</param>
     /// <returns>System.Byte[].</returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public byte[] Open(byte[] sealedText, byte[][]? associatedData = null)
+    /// <exception cref="Exception">AES-SIV: ciphertext is truncated</exception>
+    /// <exception cref="Exception">AES-SIV: ciphertext verification failure!</exception>
+    public byte[] Open(byte[] sealedText)
     {
-        associatedData = new byte[][] { new byte[0] };
-        if (associatedData.Length > MAX_ASSOCIATED_DATA)
-        {
-            throw new Exception("AES-SIV: too many associated data items");
-        }
-
         if (sealedText.Length < Block.SIZE)
         {
             throw new Exception("AES-SIV: ciphertext is truncated");
@@ -117,7 +103,7 @@ internal class Siv : ISIVLike
         var result = _ctr.EncryptCtr(iv, sealedText.Subarray(Block.SIZE));
 
         // Authenticate.
-        var expectedTag = S2V(result, associatedData);
+        var expectedTag = S2V(result, new byte[][] { new byte[0] });
 
         if (!expectedTag.SequenceEqual(tag))
         {

@@ -1,20 +1,66 @@
-﻿using Cosmos.Base.Abci.V1Beta1;
-using System.Text.RegularExpressions;
+﻿using SecretNET.Query;
 
 namespace SecretNET.Tx;
 
+/// <summary>
+/// Provides access to all transaction types / methods.
+/// Implements the <see cref="SecretNET.Common.GprcBase" />
+/// </summary>
+/// <seealso cref="SecretNET.Common.GprcBase" />
 public class TxClient : GprcBase
 {
+    private Queries _queries;
     private Service.ServiceClient _txClient;
-    
+
+    // Cosmos
+    private AuthzTx _authzTx;
+    private BankTx _bankTx;
+    private CrisisTx _crisisTx;
+    private DistributionTx _distributionTx;
+    private EvidenceTx _evidenceTx;
+    private FeegrantTx _feegrantTx;
+    private GovTx _govTx;
+    private SlashingTx _slashingTx;
+    private StakingTx _stakingTx;
+    private VestingTx _vestingTx;
+
+    // IBC
+    private IbcChannelTx _ibcChannelTx;
+    private IbcClientTx _ibcClientTx;
+    private IbcConnectionTx _ibcConnectionTx;
+    private IbcTransferTx _ibcTransferTx;
+
+    // Secret Network
     private ComputeTx _computeTx;
 
-    internal TxClient(ISecretNetworkClient secretNetworkClient, GrpcChannel grpcChannel, CallInvoker? grpcMessageInterceptor) : base(secretNetworkClient, grpcChannel, grpcMessageInterceptor)
-    {        
+
+    internal TxClient(ISecretNetworkClient secretNetworkClient, Queries queries, GrpcChannel grpcChannel, CallInvoker? grpcMessageInterceptor) : base(secretNetworkClient, grpcChannel, grpcMessageInterceptor)
+    {
+        _queries = queries;
+
+        // Cosmos
+        _authzTx = new AuthzTx(this);
+        _bankTx = new BankTx(this);
+        _crisisTx = new CrisisTx(this);
+        _distributionTx = new DistributionTx(this);
+        _evidenceTx = new EvidenceTx(this);
+        _feegrantTx = new FeegrantTx(this);
+        _govTx = new GovTx(this);
+        _slashingTx = new SlashingTx(this);
+        _stakingTx = new StakingTx(this); ;
+        _vestingTx = new VestingTx(this);
+
+        // IBC
+        _ibcChannelTx = new IbcChannelTx(this);
+        _ibcClientTx = new IbcClientTx(this);
+        _ibcConnectionTx = new IbcConnectionTx(this);
+        _ibcTransferTx = new IbcTransferTx(this);
+
+        // Secret Network
         _computeTx = new ComputeTx(this);
     }
 
-    private Service.ServiceClient client
+    internal Service.ServiceClient ServiceClient
     {
         get
         {
@@ -26,25 +72,200 @@ public class TxClient : GprcBase
         }
     }
 
+    /// <summary>
+    /// Authorization module.
+    /// </summary>
+    /// <value>The authz.</value>
+    public AuthzTx Authz
+    {
+        get { return _authzTx; }
+    }
+
+    /// <summary>
+    /// Create and broadcast transactions.
+    /// </summary>
+    /// <value>The bank.</value>
+    public BankTx Bank
+    {
+        get { return _bankTx; }
+    }
+
+    /// <summary>
+    /// Store, init and execute smart contracts.
+    /// </summary>
+    /// <value>The compute.</value>
     public ComputeTx Compute
     {
         get { return _computeTx; }
     }
 
+    /// <summary>
+    /// Crisis module.
+    /// </summary>
+    /// <value>The crisis.</value>
+    public CrisisTx Crisis
+    {
+        get { return _crisisTx; }
+    }
+
+    /// <summary>
+    /// Distribution module.
+    /// </summary>
+    /// <value>The distribution.</value>
+    public DistributionTx Distribution
+    {
+        get { return _distributionTx; }
+    }
+
+    /// <summary>
+    /// Evidence module.
+    /// </summary>
+    /// <value>The evidence.</value>
+    public EvidenceTx Evidence
+    {
+        get { return _evidenceTx; }
+    }
+
+    /// <summary>
+    /// Feegrant module.
+    /// </summary>
+    /// <value>The feegrant.</value>
+    public FeegrantTx Feegrant
+    {
+        get { return _feegrantTx; }
+    }
+
+    /// <summary>
+    /// Governance module.
+    /// </summary>
+    /// <value>The gov.</value>
+    public GovTx Gov
+    {
+        get { return _govTx; }
+    }
+
+    /// <summary>
+    /// Slashing module.
+    /// </summary>
+    /// <value>The slashing.</value>
+    public SlashingTx Slashing
+    {
+        get { return _slashingTx; }
+    }
+
+    /// <summary>
+    /// Stake module.
+    /// </summary>
+    /// <value>The staking.</value>
+    public StakingTx Staking
+    {
+        get { return _stakingTx; }
+    }
+
+    /// <summary>
+    /// Vesting module.
+    /// </summary>
+    /// <value>The vesting.</value>
+    public VestingTx Vesting
+    {
+        get { return _vestingTx; }
+    }
+
+    /// <summary>
+    /// IBC Channel module.
+    /// </summary>
+    /// <value>The ibc channel.</value>
+    public IbcChannelTx IbcChannel
+    {
+        get { return _ibcChannelTx; }
+    }
+
+    /// <summary>
+    /// IBC Client module.
+    /// </summary>
+    /// <value>The ibc client.</value>
+    public IbcClientTx IbcClient
+    {
+        get { return _ibcClientTx; }
+    }
+
+    /// <summary>
+    /// IBC Connection module.
+    /// </summary>
+    /// <value>The ibc connection.</value>
+    public IbcConnectionTx IbcConnection
+    {
+        get { return _ibcConnectionTx; }
+    }
+
+    /// <summary>
+    /// IBC Transfer module.
+    /// </summary>
+    /// <value>The ibc transfer.</value>
+    public IbcTransferTx IbcTransfer
+    {
+        get { return _ibcTransferTx; }
+    }
+
+    /// <summary>
+    /// Simulates the specified Tx / message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SimulateResponse.</returns>
     public async Task<SimulateResponse> Simulate(MsgBase message, TxOptions txOptions = null)
     {
-        if (message is MsgExecuteContract && string.IsNullOrEmpty(((MsgExecuteContract)message).Sender))
+        if (message is MsgExecuteContract && string.IsNullOrWhiteSpace(((MsgExecuteContract)message).Sender))
         {
             ((MsgExecuteContract)message).Sender = WalletAddress;
         }
         return await Simulate(new MsgBase[] { message }, txOptions);
     }
 
+    /// <summary>
+    /// Simulates the specified message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SimulateResponse.</returns>
+    public async Task<SimulateResponse> Simulate(IMessage message, TxOptions txOptions = null)
+    {
+        if (message is MsgExecuteContract && string.IsNullOrWhiteSpace(((MsgExecuteContract)message).Sender))
+        {
+            ((MsgExecuteContract)message).Sender = WalletAddress;
+        }
+        return await Simulate(new IMessage[] { message }, txOptions);
+    }
+
+    /// <summary>
+    /// Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. Can be used to get a gas estimation or to see the output without actually committing a transaction on-chain.
+    /// The input should be exactly how you'd use it in Tx.Broadcast(), except that you don't have to pass in gasLimit, gasPriceInFeeDenom and feeDenom.
+    /// </summary>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SimulateResponse.</returns>
+    public async Task<SimulateResponse> Simulate(IMessage[] messages, TxOptions txOptions = null)
+    {
+        var msgBaseList = new List<MsgBase>();
+        foreach (IMessage msg in messages)
+        {
+            msgBaseList.Add(new Msg(msg));
+        }
+        return await Simulate(msgBaseList.ToArray(), txOptions);
+    }
+
+    /// <summary>
+    /// Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. Can be used to get a gas estimation or to see the output without actually committing a transaction on-chain.
+    /// The input should be exactly how you'd use it in Tx.Broadcast(), except that you don't have to pass in gasLimit, gasPriceInFeeDenom and feeDenom.
+    /// </summary>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SimulateResponse.</returns>
     public async Task<SimulateResponse> Simulate(MsgBase[] messages, TxOptions txOptions = null)
     {
         foreach (var msg in messages)
         {
-            if (msg is MsgExecuteContract && string.IsNullOrEmpty(((MsgExecuteContract)msg).Sender))
+            if (msg is MsgExecuteContract && string.IsNullOrWhiteSpace(((MsgExecuteContract)msg).Sender))
             {
                 ((MsgExecuteContract)msg).Sender = WalletAddress;
             }
@@ -53,23 +274,67 @@ public class TxClient : GprcBase
         var prepareResult = await secretClient.PrepareAndSign(messages, txOptions);
         var request = new SimulateRequest()
         {
-            TxBytes = ByteString.CopyFrom(prepareResult.TxBytes)
+            TxBytes = ByteString.CopyFrom(prepareResult)
         };
 
-        var result = await client.SimulateAsync(request);
+        var result = await ServiceClient.SimulateAsync(request);
         return result;
     }
 
+    /// <summary>
+    /// Broadcasts the specified Tx / message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SecretTx.</returns>
     public async Task<SecretTx> Broadcast(MsgBase message, TxOptions txOptions = null)
     {
         return await Broadcast(new MsgBase[] { message }, txOptions);
     }
 
+    /// <summary>
+    /// Broadcasts the specified Tx / messages.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SecretTx.</returns>
+    public async Task<SecretTx> Broadcast(IMessage message, TxOptions txOptions = null)
+    {
+        return await Broadcast(new MsgBase[] { new Msg(message) }, txOptions);
+    }
+
+    /// <summary>
+    /// Used to send a single transactions / messages.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SingleSecretTx&lt;T&gt;.</returns>
     public async Task<SingleSecretTx<T>> Broadcast<T>(MsgBase message, TxOptions txOptions = null)
     {
         return await Broadcast<T>(new MsgBase[] { message }, txOptions);
     }
 
+    /// <summary>
+    /// Used to send a single transactions / messages.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SingleSecretTx&lt;T&gt;.</returns>
+    public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage message, TxOptions txOptions = null)
+    {
+        return await Broadcast<T>(new MsgBase[] { new Msg(message) }, txOptions);
+    }
+
+    /// <summary>
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// The result tries to convert the first message result to T.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SingleSecretTx&lt;T&gt;.</returns>
     public async Task<SingleSecretTx<T>> Broadcast<T>(MsgBase[] messages, TxOptions txOptions = null)
     {
         var result = await Broadcast(messages, txOptions);
@@ -80,256 +345,163 @@ public class TxClient : GprcBase
         return null;
     }
 
+    /// <summary>
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// The result tries to convert the first message result to T.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SingleSecretTx&lt;T&gt;.</returns>
+    public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage[] messages, TxOptions txOptions = null)
+    {
+        var msgBaseList = new List<MsgBase>();
+        foreach(IMessage msg in messages)
+        {
+            msgBaseList.Add(new Msg(msg));
+        }
+        return await Broadcast<T>(msgBaseList.ToArray(), txOptions);
+    }
+
+    /// <summary>
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// </summary>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SecretTx.</returns>
     public async Task<SecretTx> Broadcast(MsgBase[] messages, TxOptions txOptions = null)
     {
-        txOptions = txOptions != null ? txOptions : new TxOptions();
-
-        var start = DateTime.Now;
+        txOptions = txOptions != null ? txOptions : new TxOptions();       
 
         var prepareResult = await secretClient.PrepareAndSign(messages, txOptions);
+
+        return await BroadcastTx(prepareResult, txOptions);        
+    }
+
+    /// <summary>
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// </summary>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SecretTx.</returns>
+    public async Task<SecretTx> Broadcast(IMessage[] messages, TxOptions txOptions = null)
+    {
+        var msgBaseList = new List<MsgBase>();
+        foreach (IMessage msg in messages)
+        {
+            msgBaseList.Add(new Msg(msg));
+        }
+
+        return await Broadcast(msgBaseList.ToArray(), txOptions);
+    }
+
+    private async Task<SecretTx> BroadcastTx(byte[] TxBytes, TxOptions txOptions)
+    {
+        var start = DateTime.Now;
+        var txHash = SecretNET.Crypto.Hashes.SHA256(TxBytes).ToHexString().ToUpper();
+
+        var mode = txOptions.BroadcastMode;
+        var waitForCommit = txOptions.WaitForCommit;
+
         var request = new BroadcastTxRequest()
         {
-            TxBytes = ByteString.CopyFrom(prepareResult.TxBytes),
-            Mode = txOptions?.BroadcastMode ?? BroadcastMode.Sync
+            TxBytes = ByteString.CopyFrom(TxBytes),
+            Mode = mode,
         };
 
-        var result = await client.BroadcastTxAsync(request);
-        var txHash = result?.TxResponse?.Txhash;
+        BroadcastTxResponse broadcastResponse = null;
 
-        // Check for errors
-        if (result.TxResponse.Code > 0)
+        if (mode == BroadcastMode.Block)
         {
-            // Codespace SDK
-            // https://github.com/cosmos/cosmos-sdk/blob/main/types/errors/errors.go
-            if (result.TxResponse.Codespace.Equals("sdk", StringComparison.CurrentCultureIgnoreCase))
+            waitForCommit = true;
+            
+            var isBroadcastTimedOut = false;
+
+            try
             {
-                var isEnumParsed = System.Enum.TryParse(result.TxResponse.Code.ToString(), true, out CosmosSdkErrorEnum errorEnum);
-                if (isEnumParsed)
+                broadcastResponse = await ServiceClient.BroadcastTxAsync(request);
+            }
+            catch (Exception ex)
+            {
+                if (ex.ToString().ToLower().Contains("timed out waiting for tx to be included in a block", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    return new SecretTx(new CosmosSdkException(errorEnum, result), txHash);
+                    isBroadcastTimedOut = true;
                 }
             }
-            else
+
+            if (!isBroadcastTimedOut)
             {
-                if (request.Mode == BroadcastMode.Sync)
+                return await _queries.DecodeTxResponse(broadcastResponse?.TxResponse);
+            }
+
+        }
+        else if (mode == BroadcastMode.Sync)
+        {
+            broadcastResponse = await ServiceClient.BroadcastTxAsync(request);
+
+            // Check for errors
+            if (broadcastResponse.TxResponse.Code > 0)
+            {
+                // Codespace SDK
+                // https://github.com/cosmos/cosmos-sdk/blob/main/types/errors/errors.go
+                if (broadcastResponse.TxResponse.Codespace.Equals("sdk", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    return new SecretTx(new Exception($"Broadcasting transaction failed with code {result?.TxResponse?.Code}(codespace: {result?.TxResponse?.Codespace}). Log: {result?.TxResponse?.RawLog}"), txHash);
+                    var isEnumParsed = System.Enum.TryParse(broadcastResponse.TxResponse.Code.ToString(), true, out CosmosSdkErrorEnum errorEnum);
+                    if (isEnumParsed)
+                    {
+                        return new SecretTx(new CosmosSdkException(errorEnum, broadcastResponse), txHash);
+                    }
+                }
+                else
+                {
+                    if (request.Mode == BroadcastMode.Sync)
+                    {
+                        return new SecretTx(new Exception($"Broadcasting transaction failed with code {broadcastResponse?.TxResponse?.Code}(codespace: {broadcastResponse?.TxResponse?.Codespace}). Log: {broadcastResponse?.TxResponse?.RawLog}"), txHash);
+                    }
                 }
             }
         }
+        else if (mode == BroadcastMode.Async)
+        {
+            broadcastResponse = await ServiceClient.BroadcastTxAsync(request);
+        }
+        else
+        {
+            throw new Exception($"Unknown broadcast mode '{mode}', must be either {BroadcastMode.Block}, {BroadcastMode.Sync} or {BroadcastMode.Async}");
+        }
 
         // no wait
-        if (!txOptions.WaitForCommit)
+        if (!waitForCommit)
         {
             return new SecretTx(txHash);
         }
 
+        var timeoutMs = txOptions.BroadcastTimeoutMs;
+        var checkIntervalMs = txOptions.BroadcastCheckIntervalMs;
+
         // wait BroadcastCheckIntervalMs before checking the first time on chain
-        await Task.Delay(TimeSpan.FromMilliseconds(txOptions.BroadcastCheckIntervalMs));
+        await Task.Delay(TimeSpan.FromMilliseconds(checkIntervalMs / 2));
 
         while (true)
         {
             SecretTx txResult = null;
-            Func<string, ComputeMsgToNonce, Task> getTx = async (hash, nonces) =>
+            Func<string, Task> getTx = async (hash) =>
             {
-                txResult = await GetTx(hash, nonces);
+                txResult = await _queries.GetTx(hash);
             };
 
-            await Task.WhenAny(
-                getTx(txHash, prepareResult.Nonces),
-                Task.Delay(TimeSpan.FromMilliseconds(txOptions.BroadcastCheckIntervalMs)));
+            await Task.WhenAny(getTx(txHash), Task.Delay(TimeSpan.FromMilliseconds(checkIntervalMs)));
 
             if (txResult != null)
             {
                 return txResult;
             }
 
-            if (start + TimeSpan.FromMilliseconds(txOptions.BroadcastTimeoutMs) < DateTime.Now)
+            if (start + TimeSpan.FromMilliseconds(timeoutMs) < DateTime.Now)
             {
                 throw new Exception($"Transaction ID {txHash} was submitted but was not yet found on the chain. You might want to check later.");
             }
         }
-    }
-
-    private readonly Regex _errorMessageRegEx = new Regex("; message index: (?<msgIndex>\\d+): encrypted: (?<encrypted>.+?): (?:instantiate|execute|query) contract failed", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-    public async Task<SecretTx> GetTx(string hash, ComputeMsgToNonce nonces = null)
-    {
-        var request = new GetTxRequest()
-        {
-            Hash = hash
-        };
-
-        GetTxResponse encryptedResult = null;
-        try
-        {
-            encryptedResult = await client.GetTxAsync(request);
-        }
-        catch (RpcException rpcEx)
-        {
-            if (rpcEx.StatusCode == StatusCode.NotFound)
-            {
-                return null;
-            }
-            else
-            {
-                throw rpcEx;
-            }
-        }
-
-        if (encryptedResult == null)
-        {
-            return null;
-        }
-
-        var secretTx = new SecretTx(encryptedResult);
-
-        Func<int, byte[]> getNounce = (msgIndex) =>
-        {
-            if (msgIndex < nonces.Count())
-            {
-                var nonce = nonces[msgIndex];
-                if (nonce != null && nonce.Length == 32)
-                {
-                    return nonce;
-                }
-            }
-            return null;
-        };
-
-        // decode result
-        if (encryptedResult != null && encryptedResult.TxResponse != null && nonces != null)
-        {
-            var tx = encryptedResult.TxResponse;
-            List<CosmosJsonLog> jsonLogs = null;
-            var arrayLog = new List<CosmosArrayLog>();
-            var rawLog = (string)tx.RawLog.Clone();
-
-            if (tx.Code == 0 && !string.IsNullOrEmpty(tx.RawLog))
-            {
-                jsonLogs = JsonConvert.DeserializeObject<List<CosmosJsonLog>>(tx.RawLog);
-
-                for (int i = 0; i < jsonLogs.Count(); i++)
-                {
-                    var log = jsonLogs[i];
-                    if (!log.MsgIndex.HasValue)
-                    {
-                        log.MsgIndex = i;
-                    }
-
-                    foreach (var ev in log.Events)
-                    {
-                        foreach (var attr in ev.Attributes)
-                        {
-                            // Try to decrypt
-                            if (ev.MessageType.Equals("wasm", StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                var nonce = getNounce(log.MsgIndex.GetValueOrDefault());
-                                if (nonce != null)
-                                {
-                                    try
-                                    {
-                                        if (attr.Key.IsBase64String())
-                                        {
-                                            attr.Key = Encoding.UTF8.GetString(await Encryption.Decrypt(Convert.FromBase64String(attr.Key), nonce));
-                                        }                                        
-                                    }
-                                    catch { }
-                                    try
-                                    {
-                                        if (attr.Value.IsBase64String())
-                                        {
-                                            attr.Value = Encoding.UTF8.GetString(await Encryption.Decrypt(Convert.FromBase64String(attr.Value), nonce));
-                                        }                                        
-                                    }
-                                    catch { }
-                                }
-                            }                            
-
-                            arrayLog.Add(new CosmosArrayLog()
-                            {
-                                MsgIndex = log.MsgIndex.GetValueOrDefault(),
-                                EventType = ev.MessageType,
-                                Key = attr.Key,
-                                Value = attr.Value,
-                            });
-                        }
-                    }
-                }
-            }
-            else if (tx.Code != 0 && !string.IsNullOrEmpty(tx.RawLog))
-            {
-                try
-                {
-                    var errorMatches = _errorMessageRegEx.Match(tx.RawLog);
-                    if (errorMatches.Success &&
-                        !string.IsNullOrEmpty(errorMatches.Groups["msgIndex"]?.Value) &&
-                        !string.IsNullOrEmpty(errorMatches.Groups["encrypted"]?.Value))
-                    {
-                        var encryptedError = Convert.FromBase64String(errorMatches.Groups["encrypted"].Value);
-                        var msgIndex = Convert.ToInt32(errorMatches.Groups["msgIndex"].Value);
-                        var nonce = getNounce(msgIndex);
-                        if (nonce != null)
-                        {
-                            var decryptedBase64Error = Encoding.UTF8.GetString(await Encryption.Decrypt(encryptedError, nonce));
-
-                            rawLog = rawLog.Replace($"encrypted: {errorMatches.Groups["encrypted"].Value}", decryptedBase64Error);
-                        }
-                    }
-
-                    // Check for errors
-                    // Cosmos SDK Errors
-                    // https://github.com/cosmos/cosmos-sdk/blob/main/types/errors/errors.go
-                    if (tx.Codespace.Equals("sdk", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        var isEnumParsed = System.Enum.TryParse(tx.Code.ToString(), true, out CosmosSdkErrorEnum errorEnum);
-                        if (isEnumParsed)
-                        {
-                            secretTx.Exceptions.Add(new CosmosSdkException(errorEnum, encryptedResult));
-                            //throw new CosmosSdkException(errorEnum, encryptedResult);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Not encrypted or can't decrypt because not original sender
-                    secretTx.Exceptions.Add(new Exception("Not encrypted or can't decrypt because not original sender"));
-                    secretTx.Exceptions.Add(ex);
-                }
-            }
-
-            var txMsgData = TxMsgData.Parser.ParseFrom(Convert.FromHexString(tx.Data));
-            var data = new byte[txMsgData.Data.Count][];
-            for (int msgIndex = 0; msgIndex < txMsgData.Data.Count; msgIndex++)
-            {
-                var msgData = txMsgData.Data[msgIndex].Data.ToByteArray();
-                if (msgData.Length > 0)
-                {
-                    var nonce = getNounce(msgIndex);
-                    if (nonce != null)
-                    {
-                        try
-                        {
-                            var decryptedDataBase64 = Encoding.UTF8.GetString(await Encryption.Decrypt(txMsgData.Data[msgIndex].Data.ToByteArray(), nonce));
-                            data[msgIndex] = Convert.FromBase64String(decryptedDataBase64);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Not encrypted or can't decrypt because not original sender
-                            data[msgIndex] = txMsgData.Data[msgIndex].Data.ToByteArray();
-                        }
-                    }
-                }
-            }
-
-            secretTx.RawLog = rawLog;
-            secretTx.JsonLog = jsonLogs;
-            secretTx.ArrayLog = arrayLog;
-            secretTx.Data = data;
-            secretTx.Success = true;
-        }
-
-        return secretTx;
     }
 
 }

@@ -18,7 +18,7 @@ public class CreateClientOptions
     public string ChainId { get; private set; }
 
     /// <summary>
-    /// A wallet for signing transactions & permits. When `wallet` is supplied, `walletAddress` and `chainId` must be supplied too.
+    /// A wallet for signing transactions and permits. When `wallet` is supplied, `walletAddress` and `chainId` must be supplied too.
     /// </summary>
     /// <value>The wallet.</value>
     public Wallet Wallet { get; set; }
@@ -54,7 +54,7 @@ public class CreateClientOptions
         this.ChainId = chainId;
         this.Wallet = wallet;
         this.WalletAddress = walletAddress;
-        if (String.IsNullOrEmpty(walletAddress) && this.Wallet != null)
+        if (string.IsNullOrWhiteSpace(walletAddress) && this.Wallet != null)
         {
             this.WalletAddress = this.Wallet.Address;
         }
