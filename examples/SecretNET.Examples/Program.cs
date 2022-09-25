@@ -5,6 +5,7 @@ global using SecretNET;
 global using SecretNET.Tx;
 global using SecretNET.Common;
 global using SecretNET.Common.Storage;
+using System.Reflection.Metadata;
 
 
 // See https://aka.ms/new-console-template for more information
@@ -40,7 +41,7 @@ Action<string, SecretTx> logSecretTx = (name, tx) =>
     if (tx != null && (tx.Code > 0 || (tx.Exceptions?.Any()).GetValueOrDefault()))
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        if (tx.Code > 0 && !string.IsNullOrEmpty(tx.Codespace))
+        if (tx.Code > 0 && !string.IsNullOrWhiteSpace(tx.Codespace))
         {
             Console.WriteLine($"\r\n!!!!!!!!!!!! Something went wrong => Code: {tx.Code}; Codespace: {tx.Codespace} !!!!!!!!!!!!");
         }
@@ -126,11 +127,45 @@ Console.WriteLine($"Balance: {(float.Parse(response.Amount) / 1000000f)} SCRT");
 var subaccountWallet = await wallet.GetSubaccount(1);
 Console.WriteLine($"\r\nSubaccount.Address: {subaccountWallet.Address}");
 
-var sendResponse = await secretClient.Tx.Bank.Send(subaccountWallet.Address, 1000000);
+var sendResponse = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: null);
 Console.WriteLine($"BroadcastResponse: {(sendResponse.Code == 0 ? "Success" : "Error (see log)")}");
 
 var r1 = await secretClient.Query.Bank.Balance(subaccountWallet.Address);
 Console.WriteLine($"Subaccount Balance: {(float.Parse(r1.Amount) / 1000000f)} SCRT\r\n");
+
+//Console.ReadLine();
+
+#endregion
+
+#region *** Simulate and broadcast a complex transaction  ***
+
+var sendToAlice = new Cosmos.Bank.V1Beta1.MsgSend()
+{
+    FromAddress = wallet.Address,
+    ToAddress = subaccountWallet.Address
+};
+sendToAlice.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
+
+var sendToEve = new Cosmos.Bank.V1Beta1.MsgSend()
+{
+    FromAddress = wallet.Address,
+    ToAddress = subaccountWallet.Address // use the same address for simplicity
+};
+sendToEve.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
+
+var messages = new[] { sendToAlice, sendToEve };
+
+var simulate = await secretClient.Tx.Simulate(messages);
+
+Console.WriteLine($"Simulate => GasUsed {simulate.GasInfo.GasUsed} uscrt");
+
+var tx = await secretClient.Tx.Broadcast(messages, new TxOptions
+{
+    // Adjust gasLimit up by 10% to account for gas estimation error
+    GasLimit = (int)Math.Ceiling(simulate.GasInfo.GasUsed * 1.1),
+});
+
+logSecretTx("Broadcast result", tx);
 
 //Console.ReadLine();
 
@@ -156,7 +191,7 @@ Console.WriteLine("AccountResponse:\r\n" + JsonConvert.SerializeObject(accountRe
 writeHeadline("Get my Codes with source");
 
 var codesResponse = await secretClient.Query.Compute.Codes();
-var withSource = codesResponse.Where(c => !String.IsNullOrEmpty(c.Source) && c.CreatorAddress == wallet.Address).ToList();
+var withSource = codesResponse.Where(c => !string.IsNullOrWhiteSpace(c.Source) && c.CreatorAddress == wallet.Address).ToList();
 Console.WriteLine($"My Codes with source (Count: {withSource.Count} ):\r\n" + JsonConvert.SerializeObject(withSource, Formatting.Indented) + "\r\n");
 
 //Console.ReadLine();
@@ -172,7 +207,7 @@ writeHeadline("Upload Contract (mysimplecounter.wasm.gz)");
 // *** Upload Contract ***
 // https://secretjs.scrt.network/#secretjstxcomputestorecode
 
-byte[] wasmByteCode = File.ReadAllBytes(@"C:\_GitHub\mhorn69\secretNET\Resources\SmartContracts\mysimplecounter.wasm.gz");
+byte[] wasmByteCode = File.ReadAllBytes(@"..\..\..\..\..\Resources\mysimplecounter.wasm.gz");
 
 // MsgStoreCode
 var msgStoreCodeCounter = new MsgStoreCode(wasmByteCode,
@@ -191,20 +226,22 @@ string contractCodeHash = null;
 if (storeCodeResponse.Response.CodeId > 0)
 {
     var codeId = storeCodeResponse.Response.CodeId;
-    var initMsg = new { count = 100 };
-    Console.WriteLine("InstantiateContract:\r\n" + JsonConvert.SerializeObject(initMsg, Formatting.Indented) + "\r\n");
+    contractCodeHash = await secretClient.Query.Compute.GetCodeHashByCodeId(codeId);    
 
-    var msgInstantiateCounterContract = new SecretNET.Tx.MsgInstantiateContract(codeId, $"MySimpleCouter {codeId}", initMsg);
+    var msgInitContract = new MsgInstantiateContract(
+                            codeId: codeId, 
+                            label: $"MySimpleCouter {codeId}", 
+                            initMsg: new { count = 100 }, 
+                            codeHash: contractCodeHash); // optional but way faster
 
-    var instantiateCounterContractResponse = await secretClient.Tx.Compute.InstantiateContract(msgInstantiateCounterContract, txOptions: txOptionsUpload);
-    logSecretTx("InstantiateContract", instantiateCounterContractResponse);
+    var initContractResponse = await secretClient.Tx.Compute.InstantiateContract(msgInitContract, txOptions: txOptionsUpload);
+    logSecretTx("InstantiateContract", initContractResponse);
 
-    contractAddress = instantiateCounterContractResponse.Response.Address;
-    if (!string.IsNullOrEmpty(contractAddress))
-    {
-        contractCodeHash = await secretClient.Query.Compute.GetCodeHash(contractAddress);
-        Console.WriteLine("ContractCodeHash: " + contractCodeHash);
-    }
+    contractAddress = initContractResponse?.Response?.Address;
+
+    Console.WriteLine("Contract CodeHash: " + contractCodeHash);
+    Console.WriteLine("Contract Address: " + contractAddress);
+
 }
 
 //Console.ReadLine();
@@ -239,7 +276,7 @@ var executeMsg = new { increment = new { } };
 
 Console.WriteLine("Execute : " + JsonConvert.SerializeObject(executeMsg, Formatting.Indented) + "\r\n");
 
-var msgExecuteContract = new SecretNET.Tx.MsgExecuteContract(contractAddress, executeMsg, contractCodeHash);
+var msgExecuteContract = new MsgExecuteContract(contractAddress: contractAddress, msg: executeMsg, codeHash: contractCodeHash, sender: null, sentFunds: null);
 
 var executeContractResponse = await secretClient.Tx.Compute.ExecuteContract(msgExecuteContract, txOptionsExecute);
 logSecretTx("ExecuteContract", executeContractResponse);

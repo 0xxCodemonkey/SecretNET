@@ -44,9 +44,10 @@ public class SecretNetworkClient : ISecretNetworkClient
 
     /// <summary>
     /// WalletAddress is the specific account address in the wallet that is permitted to sign transactions and permits.
+    /// If no wallet is attached the `CreateClientOptions.WalletAddress` is returned.
     /// </summary>
     /// <value>The wallet address.</value>
-    public string WalletAddress { get { return _wallet?.Address; } }
+    public string WalletAddress { get { return !string.IsNullOrWhiteSpace(_wallet?.Address) ? _wallet?.Address : _createClientOptions?.WalletAddress; } }
 
     /// <summary>
     /// Passing `encryptionSeed` will allow tx decryption at a later time. Ignored if `encryptionUtils` is supplied.
@@ -500,7 +501,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         if (msg.MsgType.IsProtoType(MsgGrantAuthorization.MsgExecuteContract))    
         {
             var msgExecuteContract = (Tx.MsgExecuteContract)msg;
-            if (String.IsNullOrEmpty(msgExecuteContract.CodeHash))
+            if (string.IsNullOrWhiteSpace(msgExecuteContract.CodeHash))
             {
                 msgExecuteContract.CodeHash = await Query.Compute.GetCodeHash(msgExecuteContract.ContractAddress);
             }
@@ -508,7 +509,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         else if (msg.MsgType.IsProtoType(MsgGrantAuthorization.MsgInstantiateContract))
         {
             var msgInstantiateContract = (Tx.MsgInstantiateContract)msg;
-            if (String.IsNullOrEmpty(msgInstantiateContract.CodeHash))
+            if (string.IsNullOrWhiteSpace(msgInstantiateContract.CodeHash))
             {
                 msgInstantiateContract.CodeHash = await Query.Compute.GetCodeHashByCodeId(msgInstantiateContract.CodeId);
             }

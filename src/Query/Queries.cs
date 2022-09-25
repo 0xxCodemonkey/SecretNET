@@ -89,7 +89,7 @@ public class Queries : GprcBase
     /// <returns>SecretTx.</returns>
     public async Task<SecretTx> GetTx(string hash, bool tryToDecrypt = true)
     {
-        var result = await TxsQuery($"tx.hash='{hash}'", tryToDecrypt);
+        var result = await TxsQuery($"tx.hash='{hash.ToUpper()}'", tryToDecrypt);
         return result?[0];
     }
 
@@ -392,7 +392,7 @@ public class Queries : GprcBase
             var arrayLog = new List<CosmosArrayLog>();
             var rawLog = (string)tx.RawLog.Clone();
 
-            if (tx.Code == 0 && !string.IsNullOrEmpty(tx.RawLog))
+            if (tx.Code == 0 && !string.IsNullOrWhiteSpace(tx.RawLog))
             {
                 jsonLogs = JsonConvert.DeserializeObject<List<CosmosJsonLog>>(tx.RawLog);
 
@@ -444,14 +444,14 @@ public class Queries : GprcBase
                     }
                 }
             }
-            else if (tx.Code != 0 && !string.IsNullOrEmpty(tx.RawLog))
+            else if (tx.Code != 0 && !string.IsNullOrWhiteSpace(tx.RawLog))
             {
                 try
                 {
                     var errorMatches = _errorMessageRegEx.Match(tx.RawLog);
                     if (errorMatches.Success &&
-                        !string.IsNullOrEmpty(errorMatches.Groups["msgIndex"]?.Value) &&
-                        !string.IsNullOrEmpty(errorMatches.Groups["encrypted"]?.Value))
+                        !string.IsNullOrWhiteSpace(errorMatches.Groups["msgIndex"]?.Value) &&
+                        !string.IsNullOrWhiteSpace(errorMatches.Groups["encrypted"]?.Value))
                     {
                         var encryptedError = Convert.FromBase64String(errorMatches.Groups["encrypted"].Value);
                         var msgIndex = Convert.ToInt32(errorMatches.Groups["msgIndex"].Value);

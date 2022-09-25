@@ -54,7 +54,7 @@ public class CreateClientOptions
         this.ChainId = chainId;
         this.Wallet = wallet;
         this.WalletAddress = walletAddress;
-        if (String.IsNullOrEmpty(walletAddress) && this.Wallet != null)
+        if (string.IsNullOrWhiteSpace(walletAddress) && this.Wallet != null)
         {
             this.WalletAddress = this.Wallet.Address;
         }

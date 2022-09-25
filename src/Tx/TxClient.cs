@@ -215,7 +215,7 @@ public class TxClient : GprcBase
     /// <returns>SimulateResponse.</returns>
     public async Task<SimulateResponse> Simulate(MsgBase message, TxOptions txOptions = null)
     {
-        if (message is MsgExecuteContract && string.IsNullOrEmpty(((MsgExecuteContract)message).Sender))
+        if (message is MsgExecuteContract && string.IsNullOrWhiteSpace(((MsgExecuteContract)message).Sender))
         {
             ((MsgExecuteContract)message).Sender = WalletAddress;
         }
@@ -223,7 +223,40 @@ public class TxClient : GprcBase
     }
 
     /// <summary>
-    /// Simulates the specified Tx / messages.
+    /// Simulates the specified message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SimulateResponse.</returns>
+    public async Task<SimulateResponse> Simulate(IMessage message, TxOptions txOptions = null)
+    {
+        if (message is MsgExecuteContract && string.IsNullOrWhiteSpace(((MsgExecuteContract)message).Sender))
+        {
+            ((MsgExecuteContract)message).Sender = WalletAddress;
+        }
+        return await Simulate(new IMessage[] { message }, txOptions);
+    }
+
+    /// <summary>
+    /// Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. Can be used to get a gas estimation or to see the output without actually committing a transaction on-chain.
+    /// The input should be exactly how you'd use it in Tx.Broadcast(), except that you don't have to pass in gasLimit, gasPriceInFeeDenom and feeDenom.
+    /// </summary>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SimulateResponse.</returns>
+    public async Task<SimulateResponse> Simulate(IMessage[] messages, TxOptions txOptions = null)
+    {
+        var msgBaseList = new List<MsgBase>();
+        foreach (IMessage msg in messages)
+        {
+            msgBaseList.Add(new Msg(msg));
+        }
+        return await Simulate(msgBaseList.ToArray(), txOptions);
+    }
+
+    /// <summary>
+    /// Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. Can be used to get a gas estimation or to see the output without actually committing a transaction on-chain.
+    /// The input should be exactly how you'd use it in Tx.Broadcast(), except that you don't have to pass in gasLimit, gasPriceInFeeDenom and feeDenom.
     /// </summary>
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
@@ -232,7 +265,7 @@ public class TxClient : GprcBase
     {
         foreach (var msg in messages)
         {
-            if (msg is MsgExecuteContract && string.IsNullOrEmpty(((MsgExecuteContract)msg).Sender))
+            if (msg is MsgExecuteContract && string.IsNullOrWhiteSpace(((MsgExecuteContract)msg).Sender))
             {
                 ((MsgExecuteContract)msg).Sender = WalletAddress;
             }
@@ -271,7 +304,7 @@ public class TxClient : GprcBase
     }
 
     /// <summary>
-    /// Broadcasts the specified Tx / message.
+    /// Used to send a single transactions / messages.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="message">The message.</param>
@@ -283,7 +316,7 @@ public class TxClient : GprcBase
     }
 
     /// <summary>
-    /// Broadcasts the specified Tx / messages.
+    /// Used to send a single transactions / messages.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="message">The message.</param>
@@ -295,7 +328,8 @@ public class TxClient : GprcBase
     }
 
     /// <summary>
-    /// Broadcasts the specified Tx / messages.
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// The result tries to convert the first message result to T.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="messages">The messages.</param>
@@ -312,7 +346,8 @@ public class TxClient : GprcBase
     }
 
     /// <summary>
-    /// Broadcasts the specified Tx / messages.
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// The result tries to convert the first message result to T.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="messages">The messages.</param>
@@ -329,7 +364,7 @@ public class TxClient : GprcBase
     }
 
     /// <summary>
-    /// Broadcasts the specified Tx / messages.
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
     /// </summary>
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
@@ -341,6 +376,23 @@ public class TxClient : GprcBase
         var prepareResult = await secretClient.PrepareAndSign(messages, txOptions);
 
         return await BroadcastTx(prepareResult, txOptions);        
+    }
+
+    /// <summary>
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// </summary>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SecretTx.</returns>
+    public async Task<SecretTx> Broadcast(IMessage[] messages, TxOptions txOptions = null)
+    {
+        var msgBaseList = new List<MsgBase>();
+        foreach (IMessage msg in messages)
+        {
+            msgBaseList.Add(new Msg(msg));
+        }
+
+        return await Broadcast(msgBaseList.ToArray(), txOptions);
     }
 
     private async Task<SecretTx> BroadcastTx(byte[] TxBytes, TxOptions txOptions)

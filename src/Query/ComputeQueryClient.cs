@@ -50,14 +50,14 @@ public class ComputeQueryClient : GprcBase
     /// <returns>SecretQueryContractResult&lt;R&gt;.</returns>
     public async Task<SecretQueryContractResult<R>> QueryContract<R>(string contractAddress, object queryMsg, string codeHash = null, Metadata metadata = null) where R : class
     {
-        if (string.IsNullOrEmpty(codeHash))
+        if (string.IsNullOrWhiteSpace(codeHash))
         {
             codeHash = await GetCodeHash(contractAddress, metadata);
         }
 
         SecretQueryContractResult<R> result = null;
 
-        if (!string.IsNullOrEmpty(codeHash))
+        if (!string.IsNullOrWhiteSpace(codeHash))
         {
             var queryMsgString = queryMsg is string ? queryMsg : JsonConvert.SerializeObject(queryMsg);
             var encryptedQuery = await Encryption.Encrypt(codeHash, queryMsgString);
@@ -91,8 +91,8 @@ public class ComputeQueryClient : GprcBase
                     {
                         var errorMatch = _errorMessageRegEx.Match(ex.Message);
                         if (errorMatch.Success &&
-                        !string.IsNullOrEmpty(errorMatch.Groups["error"]?.Value) &&
-                        !string.IsNullOrEmpty(errorMatch.Groups["encrypted"]?.Value))
+                        !string.IsNullOrWhiteSpace(errorMatch.Groups["error"]?.Value) &&
+                        !string.IsNullOrWhiteSpace(errorMatch.Groups["encrypted"]?.Value))
                         {
                             var encryptedError = Convert.FromBase64String(errorMatch.Groups["encrypted"].Value);
                             var error = errorMatch.Groups["error"].Value;
@@ -150,7 +150,7 @@ public class ComputeQueryClient : GprcBase
         if (codeInfoResult != null && codeInfoResult.CodeId > 0)
         {
             var code = await Code(codeInfoResult.CodeId, metadata);
-            if (code.CodeInfo != null && !String.IsNullOrEmpty(code.CodeInfo?.CodeHash))
+            if (code.CodeInfo != null && !string.IsNullOrWhiteSpace(code.CodeInfo?.CodeHash))
             {
                 if (!_codeHashCache.ContainsKey(contractAddress))
                 {
@@ -178,7 +178,7 @@ public class ComputeQueryClient : GprcBase
         }
 
         var code = await Code(codeId, metadata);
-        if (code.CodeInfo != null && !String.IsNullOrEmpty(code.CodeInfo.CodeHash))
+        if (code.CodeInfo != null && !string.IsNullOrWhiteSpace(code.CodeInfo.CodeHash))
         {
             if (!_codeHashCacheByCodeId.ContainsKey(codeId))
             {

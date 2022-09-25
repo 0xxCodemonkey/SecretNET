@@ -52,7 +52,7 @@ public abstract class MsgExecuteContractBase : MsgBase
 
     public void WarnIfCodeHashMissing()
     {
-        if (String.IsNullOrEmpty(CodeHash))
+        if (string.IsNullOrWhiteSpace(CodeHash))
         {
             _warnCodeHash = true;
             Debug.WriteLine(GetMissingCodeHashWarning());
@@ -92,7 +92,7 @@ public class MsgExecuteContract : MsgExecuteContractBase
         Msg = msg;
         SentFunds = sentFunds;
 
-        if (!String.IsNullOrEmpty(codeHash))
+        if (!string.IsNullOrWhiteSpace(codeHash))
         {
             CodeHash = codeHash.Replace("0x", "").ToLower();
         }
@@ -160,7 +160,7 @@ public class MsgInstantiateContract : MsgExecuteContractBase
         InitFunds = initFunds;
         Sender = sender;
 
-        if (!String.IsNullOrEmpty(codeHash))
+        if (!string.IsNullOrWhiteSpace(codeHash))
         {
             CodeHash = codeHash.Replace("0x", "").ToLower();
         }

@@ -17,7 +17,7 @@ public class ComputeTx
     /// <returns></returns>
     public async Task<SecretTx> ExecuteContract(MsgExecuteContract msg, TxOptions txOptions = null)
     {
-        if (string.IsNullOrEmpty(msg.Sender))
+        if (string.IsNullOrWhiteSpace(msg.Sender))
         {
             msg.Sender = _tx.secretClient.WalletAddress;
         }
@@ -56,7 +56,7 @@ public class ComputeTx
             msg.WasmByteCode = await msg.WasmByteCode.CompressGzip();
         }
 
-        if (string.IsNullOrEmpty(msg.Sender))
+        if (string.IsNullOrWhiteSpace(msg.Sender))
         {
             msg.Sender = _tx.secretClient.WalletAddress;
         }
@@ -73,7 +73,7 @@ public class ComputeTx
     /// <returns></returns>
     public async Task<SingleSecretTx<Secret.Compute.V1Beta1.MsgInstantiateContractResponse>> InstantiateContract(MsgInstantiateContract msg, TxOptions txOptions = null)
     {
-        if (string.IsNullOrEmpty(msg.Sender))
+        if (string.IsNullOrWhiteSpace(msg.Sender))
         {
             msg.Sender = _tx.secretClient.WalletAddress;
         }

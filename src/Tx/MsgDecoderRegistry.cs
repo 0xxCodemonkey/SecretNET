@@ -172,7 +172,7 @@ internal static class MsgDecoderRegistry
 
     public static Func<Any, IMessage> Get(string typeUrl)
     {
-        if (!String.IsNullOrEmpty(typeUrl))
+        if (!string.IsNullOrWhiteSpace(typeUrl))
         {
             var regKey = typeUrl.CleanUpTypeurl().ToLower();
             if (Registry.ContainsKey(regKey))

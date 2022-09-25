@@ -50,7 +50,7 @@ public partial class SecretEncryptionUtils
         _privateKey = generatedKeyPair.PrivateKey;
         _publicKey = generatedKeyPair.PublicKey;
 
-        if (!String.IsNullOrEmpty(_chainId) && _mainnetChainIds.Contains(_chainId))
+        if (!string.IsNullOrWhiteSpace(_chainId) && _mainnetChainIds.Contains(_chainId))
         {
             // Major speedup
             // TODO: not sure if this is the best approach for detecting mainnet
