@@ -1,4 +1,8 @@
 
+<p align="center">
+  <img src="./resources/Secret.NET_Logo.png" type="image/png" width="40%" />
+</p>
+
 # Secret.NET Core Library
 **Secret.NET** (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is a .NET Client to interact with the [Secret Network blockchain](https://scrt.network/) (L1 / Cosmos based), **the first privacy smart contract blockchain** that processes and stores data on-chain in encrypted form (SGX). 
 

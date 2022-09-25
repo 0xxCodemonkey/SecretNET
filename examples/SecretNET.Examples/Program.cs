@@ -1,10 +1,10 @@
-﻿global using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 // SecretNET
-global using SecretNET;
-global using SecretNET.Tx;
-global using SecretNET.Common;
-global using SecretNET.Common.Storage;
+using SecretNET;
+using SecretNET.Tx;
+using SecretNET.Common;
+using SecretNET.Common.Storage;
 using System.Reflection.Metadata;
 
 
@@ -89,12 +89,13 @@ Wallet wallet = null;
 if (await storageProvider.HasPrivateKey())
 {
     var storedMnemonic = await storageProvider.GetFirstMnemonic();
-    wallet = await Wallet.Create(storedMnemonic, options: createWalletOptions);    
+    wallet = await Wallet.Create(storedMnemonic, options: createWalletOptions);
+    Console.WriteLine("wallet.Address: " + wallet.Address);
 }
 else
 {
     wallet = await Wallet.Create(options: createWalletOptions);
-
+    Console.WriteLine("wallet.Address: " + wallet.Address);
     Console.WriteLine("Please first fund the wallet with some SCRT via https://faucet.pulsar.scrttestnet.com/ ");
     Console.ReadLine();
 }
@@ -104,8 +105,6 @@ var chainId = "pulsar-2";
 
 var createClientOptions = new CreateClientOptions(gprcUrl, chainId, wallet);
 var secretClient = new SecretNetworkClient(createClientOptions);
-
-Console.WriteLine("wallet.Address: " + wallet.Address);
 
 
 #region *** Get Balance ***
