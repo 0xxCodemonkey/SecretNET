@@ -228,7 +228,7 @@ secretNetworkClient.Wallet = walletFromMnemonic;
 ### Querier (`secretClient.Query`)
 The querier can only send queries and get chain information. Access to all query types can be done via ```SecretNetworkClient.Query```.
 
-You can find a full list of all query methods below under ['xx'](#all-queries-eg-accounts-bank-compute-gov-feegrant-etc) or in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
+You can find a full list of all query methods below under ['All query methods'](#all-query-methods) or in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm)
 
 #### `secretClient.Query.GetTx(string hash, bool tryToDecrypt = true)`
 Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string.
@@ -254,7 +254,7 @@ To create a query for txs where AddrA transferred funds: `transfer.sender = 'Add
 
 See `txsQuery` under https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm
 
-### Get SCRT Balance
+#### Get SCRT Balance
 
 ```csharp
 var response = await secretClient.Query.Bank.Balance("secret1ap26qrlp8mcq2pg6r47w43l0y8zkqm8a450s03");
@@ -302,6 +302,8 @@ You can find **more examples** in the [ready to run example CLI project](https:/
 
 ## Transactions
 On a signer Secret.NET client, `SecretNetworkClient.Tx` is used to broadcast transactions. Every function under `SecretNetworkClient.Tx` can receive an optional `TxOptions`.
+
+You can find a full list of all transaction methods below under ['All transaction methods'](#all-transaction-methods) or in the [**Full API »**]([https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Tx.TxClient.htm))
 
 ### Broadcasting transactions
 Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
@@ -420,7 +422,7 @@ You can find more examples in the [ready to run example CLI project](https://git
 
 # Overview of all query and transaction methods
 
-## All queries (eg. accounts, bank, compute, gov, feegrant, etc.)
+## All query methods
 - secretClient.Query.Auth
 - secretClient.Query.Authz
 - secretClient.Query.Bank
@@ -442,6 +444,11 @@ You can find more examples in the [ready to run example CLI project](https://git
 - secretClient.Query.Upgrade
 
 See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm)
+
+### [secretClient.Query](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.Queries.htm)
+- `GetTx(string hash, bool tryToDecrypt = true)` => Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string. (see [above](#secretclientquerygettxstring-hash-bool-trytodecrypt--true))
+- `TxsQuery(string query, bool tryToDecrypt = false)` => Returns all transactions that match a query.  (see [above](#secretclientquerytxsquerystring-query-bool-trytodecrypt--false))
+- `GetTxsEvent(GetTxsEventRequest request, bool tryToDecrypt = false)` => Returns all transactions that matches the specified events (`GetTxsEventRequest.Events`).
 
 ### [secretClient.Query.Auth](https://0xxcodemonkey.github.io/SecretNET/html/AllMembers.T-SecretNET.Query.AuthQueryClient.htm)
 - `Account(string address)` => Returns account details based on address.
@@ -586,7 +593,5 @@ See all details in the [**Full API »**](https://0xxcodemonkey.github.io/SecretN
 - `CurrentPlan(QueryCurrentPlanRequest request)` => CurrentPlan queries the current upgrade plan.
 - `ModuleVersions(QueryModuleVersionsRequest request)` => ModuleVersions queries the list of module versions from state. Since: cosmos-sdk 0.43.
 
-
-
-## All transactions (eg. )
-
+## All transaction methods
+- x
