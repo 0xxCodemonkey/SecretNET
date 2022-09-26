@@ -5,7 +5,7 @@
 This allows [unique use cases](https://docs.scrt.network/secret-network-documentation/secret-network-overview/use-cases) like **Secret NFTs where you can store public and private data** e.g., encryption keys, passwords or other secrets. 
 
 <p align="center">
-  <img src="./resources/Secret.NET_Logo.png" type="image/png" width="40%" />
+  <img src="./resources/Secret.NET_banner.png" type="image/png" width="100%" />
 </p>
 
 
