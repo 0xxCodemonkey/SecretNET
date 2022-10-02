@@ -2,6 +2,7 @@
 using SecretNET.Query;
 using SecretNET.Tx;
 using SecretNET.Crypto;
+using SecretNET.Api;
 
 namespace SecretNET;
 
@@ -47,7 +48,7 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// If no wallet is attached the `CreateClientOptions.WalletAddress` is returned.
     /// </summary>
     /// <value>The wallet address.</value>
-    public string WalletAddress { get { return !string.IsNullOrWhiteSpace(_wallet?.Address) ? _wallet?.Address : _createClientOptions?.WalletAddress; } }
+    public string WalletAddress { get { return !string.IsNullOrWhiteSpace(_wallet?.Address) ? _wallet?.Address : _createClientOptions.WalletAddress; } }
 
     /// <summary>
     /// Passing `encryptionSeed` will allow tx decryption at a later time. Ignored if `encryptionUtils` is supplied.
@@ -60,6 +61,25 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// </summary>
     /// <value>The encryption utils.</value>
     public SecretEncryptionUtils EncryptionUtils { get; private set; }
+
+    /// <summary>
+    /// Transaction approval callback for a user approval of an transaction.
+    /// </summary>
+    /// <value>The transaction approval callback.</value>
+    public Func<TransactionApprovalData, Task<UserApprovalDecision>> TransactionApprovalCallback { get; set; }
+
+    /// <summary>
+    /// WARNING: On mainnet it's recommended to not simulate every transaction as this can burden your node provider.
+    /// Instead, use this while testing to determine the gas limit for each of your app's transactions (use TxOptions.GasLimit), then in production use hard-coded.
+    /// </summary>
+    /// <value><c>true</c> if [always simulate transactions]; otherwise, <c>false</c>.</value>
+    public bool AlwaysSimulateTransactions { get; set; }
+
+    /// <summary>
+    /// Gas estimation is known to be a bit off, so you might need to adjust it a bit before broadcasting (default is 1.1 / 10%).
+    /// </summary>
+    /// <value>The gas estimation mltiplier.</value>
+    public float GasEstimationMltiplier { get; set; }
 
     #endregion
 
@@ -85,7 +105,16 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// <param name="grpcMessageInterceptor">The GRPC message interceptor.</param>
     public SecretNetworkClient(CreateClientOptions options, GrpcChannelOptions grpcChannelOptions = null, Interceptor grpcMessageInterceptor = null)
     {
+        if (options == null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
         _createClientOptions = options;
+        AlwaysSimulateTransactions = _createClientOptions.AlwaysSimulateTransactions;
+        GasEstimationMltiplier = _createClientOptions.GasEstimationMltiplier;
+        TransactionApprovalCallback = _createClientOptions.TransactionApprovalCallback;
+
         Wallet = _createClientOptions.Wallet;
 
         if (grpcChannelOptions == null)
@@ -195,31 +224,43 @@ public class SecretNetworkClient : ISecretNetworkClient
         SignerData signerData = explicitSignerData;
         if (signerData == null)
         {
-            var response = await Query.Auth.Account(this.Wallet.Address);
-            if (response == null)
-            {
-                throw new Exception($"Cannot find account '${Wallet.Address}', make sure it has a balance.");
-            }
-
-            if (!response.IsProtoType("cosmos.auth.v1beta1.BaseAccount"))
-            {
-                throw new Exception($"Cannot sign with account of type '{response.Descriptor.FullName}', can only sign with 'BaseAccount'.");
-            }
-
-            var baseAccount = (Cosmos.Auth.V1Beta1.BaseAccount)response;
-
-            signerData = new SignerData()
-            {
-                AccountNumber = baseAccount.AccountNumber,
-                Sequence = baseAccount.Sequence,
-                ChainID = this.ChainId
-            };            
+            signerData = await GetSignerData(this.Wallet.Address);
         }
 
         // Since SecretNET currently not support Ledger, Amino signing is currently only used for permits
         return Wallet.WalletSignType == WalletSignType.DirectSigner
             ? await SignDirect(messages, fee, signerData, memo)
             : await SignAmino(messages, fee, signerData, memo);
+    }
+
+    /// <summary>
+    /// Gets the signer data for the given wallet address.
+    /// </summary>
+    /// <param name="walletAddress">The wallet address.</param>
+    /// <returns>SignerData.</returns>
+    public async Task<SignerData> GetSignerData(string walletAddress)
+    {
+        var response = await Query.Auth.Account(walletAddress);
+        if (response == null)
+        {
+            throw new Exception($"Cannot find account '${walletAddress}', make sure it has a balance.");
+        }
+
+        if (!response.IsProtoType("cosmos.auth.v1beta1.BaseAccount"))
+        {
+            throw new Exception($"Cannot sign with account of type '{response.Descriptor.FullName}', can only sign with 'BaseAccount'.");
+        }
+
+        var baseAccount = (Cosmos.Auth.V1Beta1.BaseAccount)response;
+
+        var signerData = new SignerData()
+        {
+            AccountNumber = baseAccount.AccountNumber,
+            Sequence = baseAccount.Sequence,
+            ChainID = this.ChainId
+        };
+
+        return signerData;
     }
 
     /// <summary>
@@ -363,6 +404,8 @@ public class SecretNetworkClient : ISecretNetworkClient
     }
 
     // internal
+
+    
 
     internal static StdSignature EncodeSecp256k1Signature(PubKey pubKey, byte[] signature)
     {

@@ -18,7 +18,7 @@ public class FeegrantTx
     public async Task<SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgGrantAllowanceResponse>> GrantAllowance(Cosmos.Feegrant.V1Beta1.MsgGrantAllowance msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgGrantAllowanceResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgGrantAllowanceResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class FeegrantTx
     public async Task<SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgRevokeAllowanceResponse>> RevokeAllowance(Cosmos.Feegrant.V1Beta1.MsgRevokeAllowance msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgRevokeAllowanceResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Feegrant.V1Beta1.MsgRevokeAllowanceResponse>(txResult) : null;
     }
 
 }

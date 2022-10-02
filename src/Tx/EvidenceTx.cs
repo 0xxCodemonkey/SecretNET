@@ -19,7 +19,7 @@ public class EvidenceTx
     public async Task<SingleSecretTx<Cosmos.Evidence.V1Beta1.MsgSubmitEvidenceResponse>> SubmitEvidence(Cosmos.Evidence.V1Beta1.MsgSubmitEvidence msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Evidence.V1Beta1.MsgSubmitEvidenceResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Evidence.V1Beta1.MsgSubmitEvidenceResponse>(txResult) : null;
     }
 
 }

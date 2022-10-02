@@ -58,25 +58,6 @@ Action<string, SecretTx> logSecretTx = (name, tx) =>
     }
 };
 
-// TxOptions
-var txOptions = new TxOptions()
-{
-    GasLimit = 60_000,
-    GasPriceInFeeDenom = 0.26F
-};
-
-var txOptionsExecute = new TxOptions()
-{
-    GasLimit = 300_000,
-    GasPriceInFeeDenom = 0.26F
-};
-
-var txOptionsUpload = new TxOptions()
-{
-    GasLimit = 12_000_000,
-    GasPriceInFeeDenom = 0.26F
-};
-
 #endregion
 
 writeHeadline("Setup SecretNetworkClient / Wallet");
@@ -103,7 +84,11 @@ else
 var gprcUrl = "https://grpc.testnet.secretsaturn.net"; // get from https://github.com/scrtlabs/api-registry
 var chainId = "pulsar-2";
 
-var createClientOptions = new CreateClientOptions(gprcUrl, chainId, wallet);
+var createClientOptions = new CreateClientOptions(gprcUrl, chainId, wallet)
+{
+    AlwaysSimulateTransactions = true, // WARNING: On mainnet it's recommended to not simulate every transaction as this can burden your node provider. 
+};
+
 var secretClient = new SecretNetworkClient(createClientOptions);
 
 
@@ -126,8 +111,8 @@ Console.WriteLine($"Balance: {(float.Parse(response.Amount) / 1000000f)} SCRT");
 var subaccountWallet = await wallet.GetSubaccount(1);
 Console.WriteLine($"\r\nSubaccount.Address: {subaccountWallet.Address}");
 
-var sendResponse = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: null);
-Console.WriteLine($"BroadcastResponse: {(sendResponse.Code == 0 ? "Success" : "Error (see log)")}");
+var sendResponse = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: "uscrt");
+Console.WriteLine($"BroadcastResponse: {(sendResponse.Code == 0 ? "Success" : "Error (see response log)")}");
 
 var r1 = await secretClient.Query.Bank.Balance(subaccountWallet.Address);
 Console.WriteLine($"Subaccount Balance: {(float.Parse(r1.Amount) / 1000000f)} SCRT\r\n");
@@ -161,12 +146,38 @@ Console.WriteLine($"Simulate => GasUsed {simulate.GasInfo.GasUsed} uscrt");
 var tx = await secretClient.Tx.Broadcast(messages, new TxOptions
 {
     // Adjust gasLimit up by 10% to account for gas estimation error
-    GasLimit = (int)Math.Ceiling(simulate.GasInfo.GasUsed * 1.1),
+    GasLimit = (ulong)Math.Ceiling(simulate.GasInfo.GasUsed * 1.1),
 });
 
 logSecretTx("Broadcast result", tx);
 
 //Console.ReadLine();
+
+#endregion
+
+#region *** Use of TransactionApprovalCallback ***
+
+// Skip transaction
+secretClient.TransactionApprovalCallback = async (approvalData) =>
+{
+    Console.WriteLine("Approve Transaction:");
+    Console.WriteLine("TxData:\r\n" + JsonConvert.SerializeObject(approvalData, Formatting.Indented) + "\r\n");
+
+    Console.WriteLine("Approve? (y/n):");
+    var approve = (Console.ReadLine()?.Equals("y", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault();
+    return new UserApprovalDecision(approve);
+};
+
+var sendResponseApprove = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: "uscrt");
+if (sendResponseApprove != null)
+{
+    Console.WriteLine("Transaction was approved.");
+    Console.WriteLine($"BroadcastResponse: {(sendResponseApprove.Code == 0 ? "Success" : "Error (see response log)")}");
+}
+else
+{
+    Console.WriteLine("Transaction was not approved!");
+}
 
 #endregion
 
@@ -214,7 +225,7 @@ var msgStoreCodeCounter = new MsgStoreCode(wasmByteCode,
                         builder: "enigmampc/secret-contract-optimizer:latest"  // Builder is a valid docker image name with tag, optional
                         );
 
-var storeCodeResponse = await secretClient.Tx.Compute.StoreCode(msgStoreCodeCounter, txOptions: txOptionsUpload);
+var storeCodeResponse = await secretClient.Tx.Compute.StoreCode(msgStoreCodeCounter);
 logSecretTx("StoreCodeResponse", storeCodeResponse);
 
 // *** Init Contract ***
@@ -233,7 +244,7 @@ if (storeCodeResponse.Response.CodeId > 0)
                             initMsg: new { count = 100 }, 
                             codeHash: contractCodeHash); // optional but way faster
 
-    var initContractResponse = await secretClient.Tx.Compute.InstantiateContract(msgInitContract, txOptions: txOptionsUpload);
+    var initContractResponse = await secretClient.Tx.Compute.InstantiateContract(msgInitContract);
     logSecretTx("InstantiateContract", initContractResponse);
 
     contractAddress = initContractResponse?.Response?.Address;
@@ -277,7 +288,7 @@ Console.WriteLine("Execute : " + JsonConvert.SerializeObject(executeMsg, Formatt
 
 var msgExecuteContract = new MsgExecuteContract(contractAddress: contractAddress, msg: executeMsg, codeHash: contractCodeHash, sender: null, sentFunds: null);
 
-var executeContractResponse = await secretClient.Tx.Compute.ExecuteContract(msgExecuteContract, txOptionsExecute);
+var executeContractResponse = await secretClient.Tx.Compute.ExecuteContract(msgExecuteContract);
 logSecretTx("ExecuteContract", executeContractResponse);
 
 Thread.Sleep(1000); // give some time to let it settle

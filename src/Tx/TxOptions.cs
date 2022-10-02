@@ -15,7 +15,14 @@ namespace SecretNET.Tx
         /// Defaults to `25_000`.
         /// </summary>
         /// <value>The gas limit.</value>
-        public int GasLimit { get; set; } = 25000;
+        public ulong GasLimit { get; set; } = 25_000;
+
+        /// <summary>
+        /// If AlwaysSimulateTransactions is set on the SecretNetworkClient, the transaction is simulate to get the estimated gas fee.
+        /// If SkipSimulate is set in the TxOptions, the simulation is skipped.
+        /// </summary>
+        /// <value><c>true</c> if [skip simulate]; otherwise, <c>false</c>.</value>
+        public bool SkipSimulate { get; set; } = false;
 
         /// <summary>
         /// E.g. gasPriceInFeeDenom=0.25 and feeDenom="uscrt" => Total fee for tx is `0.25 * gasLimit`uscrt. Defaults to `0.25`.

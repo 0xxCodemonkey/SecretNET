@@ -56,8 +56,9 @@ public class TendermintQueryClient : GprcBase
     /// </summary>
     /// <param name="request">The request.</param>
     /// <returns>GetLatestBlockResponse.</returns>
-    public async Task<GetLatestBlockResponse> GetLatestBlock(GetLatestBlockRequest request)
+    public async Task<GetLatestBlockResponse> GetLatestBlock(GetLatestBlockRequest request = null)
     {
+        request = request ?? new GetLatestBlockRequest();
         var result = await client.GetLatestBlockAsync(request);
         return result;
     }

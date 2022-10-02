@@ -8,7 +8,6 @@ This allows [unique use cases](https://docs.scrt.network/secret-network-document
   <img src="./resources/Secret.NET_banner.png" type="image/png" width="100%" />
 </p>
 
-
 # Key Features
 - Written in .NET 6 including MAUI Support.
 - Can be used in MAUI Apps on Android, iOS, Windows and Mac.
@@ -23,8 +22,8 @@ This allows [unique use cases](https://docs.scrt.network/secret-network-document
 
 ## Additional packages
 In addition to the Secret.NET Core Library, the following complementary packages are available:
-- [**Full Token (SNIP-20) client**](https://github.com/0xxCodemonkey/SecretNET.Token), which exposes all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
-- [**Full NFT (SNIP-721 / SNIP-722) client**](https://github.com/0xxCodemonkey/SecretNET.NFT), which exposes all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
+- [**Full Token client**](https://github.com/0xxCodemonkey/SecretNET.Token), providing all methods of the [SNIP-20 reference implementation](https://github.com/scrtlabs/snip20-reference-impl).
+- [**Full NFT client**](https://github.com/0xxCodemonkey/SecretNET.NFT), providing all methods of the [SNIP-721 reference implementation](https://github.com/baedrik/snip721-reference-impl).
 - **UI Package** (coming soon), which contains typical MAUI controls such as Confirm Transaction, Wallet Setup, Scan Keplr QR, etc. 
 
 ## Full API-documentation
@@ -138,6 +137,9 @@ var myWallet = await SecretNET.Wallet.Create("detect unique diary skate horse ho
 // chainId e.g. "secret-4" or "pulsar-2"
 var secretClient = new SecretNetworkClient(grpcWebUrl, chainId, wallet: myWallet); // wallet needed for transactions
 
+// You can set a TransactionApprovalCallback to approve a transaction before submitting it:
+// secretClient.TransactionApprovalCallback => Func<TransactionApprovalData, Task<UserApprovalDecision>>
+
 // simple counter contract
 var contractAddress = "secret12j8e6aeyy9ff7drfks3knxva0pxj847fle8zsf"; // pulsar-2
 var contractCodeHash = "3d528d0d9889d5887abd3e497243ed6e5a4da008091e20ee420eca39874209ad";
@@ -157,6 +159,11 @@ var executeContractResult = await secretClient.Tx.Compute.ExecuteContract(
 				msg: msgExecuteContract, 
 				txOptions: txOptionsExecute);
 ```
+
+<p style="background-color:#6C9Df8; padding:10px">
+<b>SecretNET unfortunately cannot be connected to localsecret (Docker) yet</b>, as the docker image currently does not provide an encrypted connection on gRPC-web port 9091.</br>
+As far as I know, .NET cannot be connected to an unencrypted port via gRPC-web unless it offers HTTP/2 exclusively, which is not the case with localsecret (it also runs HTTP 1.1 on port 9091). See <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-6.0#call-insecure-grpc-services-with-net-core-client">here</a> and <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/grpc/aspnetcore?view=aspnetcore-6.0&tabs=visual-studio#protocol-negotiation">here</a>.
+</p>
 
 You can find **more examples** in the [ready to run example CLI project](https://github.com/0xxCodemonkey/SecretNET/blob/main/examples/SecretNET.Examples/Program.cs).
 

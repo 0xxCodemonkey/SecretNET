@@ -18,7 +18,7 @@ public class StakingTx
     public async Task<SingleSecretTx<Cosmos.Staking.V1Beta1.MsgBeginRedelegateResponse>> BeginRedelegate(Cosmos.Staking.V1Beta1.MsgBeginRedelegate msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgBeginRedelegateResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgBeginRedelegateResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class StakingTx
     public async Task<SingleSecretTx<Cosmos.Staking.V1Beta1.MsgCreateValidatorResponse>> CreateValidator(Cosmos.Staking.V1Beta1.MsgCreateValidator msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgCreateValidatorResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgCreateValidatorResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class StakingTx
     public async Task<SingleSecretTx<Cosmos.Staking.V1Beta1.MsgDelegateResponse>> Delegate (Cosmos.Staking.V1Beta1.MsgDelegate msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgDelegateResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgDelegateResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public class StakingTx
     public async Task<SingleSecretTx<Cosmos.Staking.V1Beta1.MsgEditValidatorResponse>> EditValidator(Cosmos.Staking.V1Beta1.MsgEditValidator msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgEditValidatorResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgEditValidatorResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public class StakingTx
     public async Task<SingleSecretTx<Cosmos.Staking.V1Beta1.MsgUndelegateResponse>> Undelegate(Cosmos.Staking.V1Beta1.MsgUndelegate msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgUndelegateResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Staking.V1Beta1.MsgUndelegateResponse>(txResult) : null;
     }
 
 }

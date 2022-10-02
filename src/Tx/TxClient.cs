@@ -369,21 +369,6 @@ public class TxClient : GprcBase
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>SecretTx.</returns>
-    public async Task<SecretTx> Broadcast(MsgBase[] messages, TxOptions txOptions = null)
-    {
-        txOptions = txOptions != null ? txOptions : new TxOptions();       
-
-        var prepareResult = await secretClient.PrepareAndSign(messages, txOptions);
-
-        return await BroadcastTx(prepareResult, txOptions);        
-    }
-
-    /// <summary>
-    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
-    /// </summary>
-    /// <param name="messages">The messages.</param>
-    /// <param name="txOptions">The tx options.</param>
-    /// <returns>SecretTx.</returns>
     public async Task<SecretTx> Broadcast(IMessage[] messages, TxOptions txOptions = null)
     {
         var msgBaseList = new List<MsgBase>();
@@ -395,17 +380,74 @@ public class TxClient : GprcBase
         return await Broadcast(msgBaseList.ToArray(), txOptions);
     }
 
-    private async Task<SecretTx> BroadcastTx(byte[] TxBytes, TxOptions txOptions)
+    /// <summary>
+    /// Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
+    /// </summary>
+    /// <param name="messages">The messages.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SecretTx.</returns>
+    public async Task<SecretTx> Broadcast(MsgBase[] messages, TxOptions txOptions)
     {
+        txOptions = txOptions != null ? txOptions : new TxOptions();
+
+        if (secretClient.AlwaysSimulateTransactions && !txOptions.SkipSimulate)
+        {
+            var simulateTx = await Simulate(messages, txOptions);
+            txOptions.GasLimit = (ulong)((simulateTx?.GasInfo?.GasUsed).GetValueOrDefault() * this.secretClient.GasEstimationMltiplier);
+        }
+
+        if (txOptions.GasLimit == 0)
+        {
+            throw new ArgumentOutOfRangeException("The GasLimit must be greater than zero in the TxOptions or simulation must be activated.");
+        }
+
+        if (secretClient.TransactionApprovalCallback != null)
+        {
+            if (txOptions.ExplicitSignerData == null)
+            {
+                txOptions.ExplicitSignerData = await secretClient.GetSignerData(secretClient.Wallet.Address);
+            }
+
+            var approvalData = new TransactionApprovalData(messages) {
+                SignerData = txOptions.ExplicitSignerData,
+                EstimatedGasFee = txOptions.GasLimit,
+                FeeDenom = txOptions.FeeDenom,
+                Memo = txOptions.Memo,
+                FeeGranter = txOptions.FeeGranter,
+            };
+
+            var userDecision = await this.secretClient.TransactionApprovalCallback(approvalData);
+            if (userDecision != null)
+            {
+                if (userDecision.ApproveTransaction)
+                {
+                    if (userDecision.GasLimit > 0)
+                    {
+                        txOptions.GasLimit = userDecision.GasLimit;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("UserApprovalDecision must have a value, when an TransactionApprovalCallback ist used.");
+            }
+        }
+
+        var txBytes = await secretClient.PrepareAndSign(messages, txOptions);
+
         var start = DateTime.Now;
-        var txHash = SecretNET.Crypto.Hashes.SHA256(TxBytes).ToHexString().ToUpper();
+        var txHash = SecretNET.Crypto.Hashes.SHA256(txBytes).ToHexString().ToUpper();
 
         var mode = txOptions.BroadcastMode;
         var waitForCommit = txOptions.WaitForCommit;
 
         var request = new BroadcastTxRequest()
         {
-            TxBytes = ByteString.CopyFrom(TxBytes),
+            TxBytes = ByteString.CopyFrom(txBytes),
             Mode = mode,
         };
 

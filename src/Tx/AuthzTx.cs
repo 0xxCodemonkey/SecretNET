@@ -20,7 +20,7 @@ public class AuthzTx
     public async Task<SingleSecretTx<Cosmos.Authz.V1Beta1.MsgExecResponse>> Exec(Cosmos.Authz.V1Beta1.MsgExec msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgExecResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgExecResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class AuthzTx
     public async Task<SingleSecretTx<Cosmos.Authz.V1Beta1.MsgGrantResponse>> Grant(Cosmos.Authz.V1Beta1.MsgGrant msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgGrantResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgGrantResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public class AuthzTx
     public async Task<SingleSecretTx<Cosmos.Authz.V1Beta1.MsgRevokeResponse>> Revoke(Cosmos.Authz.V1Beta1.MsgRevoke msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgRevokeResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Authz.V1Beta1.MsgRevokeResponse>(txResult) : null;
     }
 
 }

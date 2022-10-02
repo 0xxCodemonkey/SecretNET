@@ -17,7 +17,7 @@ public class DistributionTx
     public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgFundCommunityPoolResponse>> FundCommunityPool(Cosmos.Distribution.V1Beta1.MsgFundCommunityPool msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgFundCommunityPoolResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgFundCommunityPoolResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class DistributionTx
     public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddressResponse>> SetWithdrawAddress(Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddress msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddressResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgSetWithdrawAddressResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class DistributionTx
     public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorRewardResponse>> WithdrawDelegatorReward(Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorReward msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorRewardResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawDelegatorRewardResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class DistributionTx
     public async Task<SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommissionResponse>> WithdrawValidatorCommission(Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommission msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommissionResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Distribution.V1Beta1.MsgWithdrawValidatorCommissionResponse>(txResult) : null;
     }
 
 }

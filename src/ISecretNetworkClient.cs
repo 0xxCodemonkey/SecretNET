@@ -37,6 +37,25 @@ public interface ISecretNetworkClient
     /// <value>The encryption utils.</value>
     public SecretEncryptionUtils EncryptionUtils { get; }
 
+    /// <summary>
+    /// Transaction approval callback for a user approval of an transaction.
+    /// </summary>
+    /// <value>The transaction approval callback.</value>
+    public Func<TransactionApprovalData, Task<UserApprovalDecision>> TransactionApprovalCallback { get; }
+
+    /// <summary>
+    /// WARNING: On mainnet it's recommended to not simulate every transaction as this can burden your node provider. 
+    /// Instead, use this while testing to determine the gas limit for each of your app's transactions (use TxOptions.GasLimit), then in production use hard-coded.
+    /// </summary>
+    /// <value><c>true</c> if [always simulate transactions]; otherwise, <c>false</c>.</value>
+    public bool AlwaysSimulateTransactions { get; }
+
+    /// <summary>
+    /// Gas estimation is known to be a bit off, so you might need to adjust it a bit before broadcasting (default is 1.1 / 10%).
+    /// </summary>
+    /// <value>The gas estimation mltiplier.</value>
+    public float GasEstimationMltiplier { get; }
+
     // Signing
 
     /// <summary>
@@ -66,5 +85,12 @@ public interface ISecretNetworkClient
     /// <param name="memo">The memo.</param>
     /// <returns>Task&lt;System.ValueTuple&lt;TxRaw, ComputeMsgToNonce&gt;&gt;.</returns>
     public Task<TxRaw> SignDirect(Tx.MsgBase[] messages, StdFee fee, SignerData signerData, string memo = null);
+
+    /// <summary>
+    /// Gets the signer data for the given wallet address.
+    /// </summary>
+    /// <param name="walletAddress">The wallet address.</param>
+    /// <returns>SignerData.</returns>
+    public Task<SignerData> GetSignerData(string walletAddress);
 
 }

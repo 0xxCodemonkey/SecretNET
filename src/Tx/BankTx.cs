@@ -20,7 +20,7 @@ public class BankTx
     public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>> Send(Cosmos.Bank.V1Beta1.MsgSend msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class BankTx
         msgSend.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = amount.ToString(), Denom = denom });
 
         var txResult = await _tx.Broadcast(msgSend, txOptions);
-        return new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgSendResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class BankTx
     public async Task<SingleSecretTx<Cosmos.Bank.V1Beta1.MsgMultiSendResponse>> MultiSend(Cosmos.Bank.V1Beta1.MsgMultiSend msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgMultiSendResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Bank.V1Beta1.MsgMultiSendResponse>(txResult) : null;
     }
 
 }

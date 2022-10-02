@@ -18,7 +18,7 @@ public class CrisisTx
     public async Task<SingleSecretTx<Cosmos.Crisis.V1Beta1.MsgVerifyInvariantResponse>> VerifyInvariant(Cosmos.Crisis.V1Beta1.MsgVerifyInvariant msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Crisis.V1Beta1.MsgVerifyInvariantResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Crisis.V1Beta1.MsgVerifyInvariantResponse>(txResult) : null;
     }
 
 }

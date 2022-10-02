@@ -42,6 +42,25 @@ public class CreateClientOptions
     public SecretEncryptionUtils EncryptionUtils { get; set; }
 
     /// <summary>
+    /// Transaction approval callback for a user approval of an transaction.
+    /// </summary>
+    /// <value>The transaction approval callback.</value>
+    public Func<TransactionApprovalData, Task<UserApprovalDecision>> TransactionApprovalCallback { get; set; }
+
+    /// <summary>
+    /// WARNING: On mainnet it's recommended to not simulate every transaction as this can burden your node provider. 
+    /// Instead, use this while testing to determine the gas limit for each of your app's transactions (use TxOptions.GasLimit), then in production use hard-coded.
+    /// </summary>
+    /// <value><c>true</c> if [always simulate transactions]; otherwise, <c>false</c>.</value>
+    public bool AlwaysSimulateTransactions { get; set; }
+
+    /// <summary>
+    /// Gas estimation is known to be a bit off, so you might need to adjust it a bit before broadcasting (default is 1.1 / 10%).
+    /// </summary>
+    /// <value>The gas estimation mltiplier.</value>
+    public float GasEstimationMltiplier { get; set; } = 1.1f;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CreateClientOptions" /> class.
     /// </summary>
     /// <param name="grpcWebUrl">The GRPC web URL.</param>

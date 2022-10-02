@@ -62,7 +62,7 @@ public class ComputeTx
         }
 
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Secret.Compute.V1Beta1.MsgStoreCodeResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Secret.Compute.V1Beta1.MsgStoreCodeResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public class ComputeTx
         }
 
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Secret.Compute.V1Beta1.MsgInstantiateContractResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Secret.Compute.V1Beta1.MsgInstantiateContractResponse>(txResult) : null;
     }
 
 }

@@ -18,7 +18,7 @@ public class GovTx
     public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgDepositResponse>> Deposit(Cosmos.Gov.V1Beta1.MsgDeposit msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgDepositResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgDepositResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class GovTx
     public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>> SubmitProposal(Cosmos.Gov.V1Beta1.MsgSubmitProposal msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class GovTx
     public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteResponse>> Vote(Cosmos.Gov.V1Beta1.MsgVote msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteResponse>(txResult) : null;
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public class GovTx
     public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteWeightedResponse>> VoteWeighted(Cosmos.Gov.V1Beta1.MsgVoteWeighted msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
-        return new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteWeightedResponse>(txResult);
+        return txResult != null ? new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgVoteWeightedResponse>(txResult) : null;
     }
 
 }
