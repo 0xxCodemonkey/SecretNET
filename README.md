@@ -160,12 +160,10 @@ var executeContractResult = await secretClient.Tx.Compute.ExecuteContract(
 				txOptions: txOptionsExecute);
 ```
 
-<p style="background-color:#6C9Df8; padding:10px">
-<b>SecretNET unfortunately cannot be connected to localsecret (Docker) yet</b>, as the docker image currently does not provide an encrypted connection on gRPC-web port 9091.</br>
-As far as I know, .NET cannot be connected to an unencrypted port via gRPC-web unless it offers HTTP/2 exclusively, which is not the case with localsecret (it also runs HTTP 1.1 on port 9091). See <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-6.0#call-insecure-grpc-services-with-net-core-client">here</a> and <a target="_blank" href="https://learn.microsoft.com/en-us/aspnet/core/grpc/aspnetcore?view=aspnetcore-6.0&tabs=visual-studio#protocol-negotiation">here</a>.
-</p>
-
 You can find **more examples** in the [ready to run example CLI project](https://github.com/0xxCodemonkey/SecretNET/blob/main/examples/SecretNET.Examples/Program.cs).
+
+:information_source: **SecretNET unfortunately cannot be connected to localsecret (Docker) yet**, as the docker image currently does not provide an encrypted connection on gRPC-web port 9091.</br>
+As far as I know, .NET cannot be connected to an unencrypted port via gRPC-web unless it offers HTTP/2 exclusively, which is not the case with localsecret (it also runs HTTP 1.1 on port 9091). See [here](https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-6.0#call-insecure-grpc-services-with-net-core-client) and [here](https://learn.microsoft.com/en-us/aspnet/core/grpc/aspnetcore?view=aspnetcore-6.0&tabs=visual-studio#protocol-negotiation).
 
 # API
 ## Creating / Initializing the wallet
