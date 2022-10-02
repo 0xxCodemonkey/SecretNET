@@ -52,6 +52,9 @@
   <HelpKINode Title="Allowance method" Url="html/M-SecretNET.Query.FeegrantQueryClient.Allowance.htm" />
   <HelpKINode Title="Allowances method" Url="html/M-SecretNET.Query.FeegrantQueryClient.Allowances.htm" />
   <HelpKINode Title="AllowedTokens property" Url="html/P-SecretNET.AccessControl.Permit_Params.AllowedTokens.htm" />
+  <HelpKINode Title="AlwaysSimulateTransactions property" Url="html/P-SecretNET.Common.CreateClientOptions.AlwaysSimulateTransactions.htm" />
+  <HelpKINode Title="AlwaysSimulateTransactions property" Url="html/P-SecretNET.ISecretNetworkClient.AlwaysSimulateTransactions.htm" />
+  <HelpKINode Title="AlwaysSimulateTransactions property" Url="html/P-SecretNET.SecretNetworkClient.AlwaysSimulateTransactions.htm" />
   <HelpKINode Title="AminoMsg class" Url="html/AllMembers.T-SecretNET.Api.AminoMsg.htm" />
   <HelpKINode Title="AminoMsg class" Url="html/T-SecretNET.Api.AminoMsg.htm" />
   <HelpKINode Title="AminoMsg class">
@@ -71,6 +74,18 @@
   <HelpKINode Title="Amount property" Url="html/P-SecretNET.Tx.Coin.Amount.htm" />
   <HelpKINode Title="AnnualProvisions method" Url="html/M-SecretNET.Query.MintQueryClient.AnnualProvisions.htm" />
   <HelpKINode Title="AppliedPlan method" Url="html/M-SecretNET.Query.UpgradeQueryClient.AppliedPlan.htm" />
+  <HelpKINode Title="ApprovalMsgInfo class" Url="html/AllMembers.T-SecretNET.Common.ApprovalMsgInfo.htm" />
+  <HelpKINode Title="ApprovalMsgInfo class" Url="html/T-SecretNET.Common.ApprovalMsgInfo.htm" />
+  <HelpKINode Title="ApprovalMsgInfo class">
+    <HelpKINode Title="about ApprovalMsgInfo class" Url="html/T-SecretNET.Common.ApprovalMsgInfo.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.ApprovalMsgInfo.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.ApprovalMsgInfo.-ctor.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.ApprovalMsgInfo.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ApprovalMsgInfo.ApprovalMsgInfo constructor" Url="html/M-SecretNET.Common.ApprovalMsgInfo.-ctor.htm" />
+  <HelpKINode Title="ApprovalMsgInfo.Type property" Url="html/P-SecretNET.Common.ApprovalMsgInfo.Type.htm" />
+  <HelpKINode Title="ApprovalMsgInfo.Value property" Url="html/P-SecretNET.Common.ApprovalMsgInfo.Value.htm" />
+  <HelpKINode Title="ApproveTransaction property" Url="html/P-SecretNET.Common.UserApprovalDecision.ApproveTransaction.htm" />
   <HelpKINode Title="ArrayLog property" Url="html/P-SecretNET.Tx.SecretTx.ArrayLog.htm" />
   <HelpKINode Title="AsBase64 property" Url="html/P-SecretNET.Api.EncodedPubKey.AsBase64.htm" />
   <HelpKINode Title="AsBase64 property" Url="html/P-SecretNET.Api.Pubkey.AsBase64.htm" />
@@ -155,12 +170,12 @@
   <HelpKINode Title="BytesToAddress method" Url="html/M-SecretNET.SecretNetworkClient.BytesToAddress.htm" />
   <HelpKINode Title="CAddBit method" Url="html/M-SecretNET.Crypto.Secp256k1.Scalar.CAddBit.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.AccessControl.Permit_Params.ChainId.htm" />
-  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Api.StdSignDoc.ChainId.htm" />
-  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
-  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.ISignerData.ChainID.htm" />
   <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.SignerData.ChainID.htm" />
+  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Api.StdSignDoc.ChainId.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Common.CreateClientOptions.ChainId.htm" />
+  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
+  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="Channel method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.Channel.htm" />
   <HelpKINode Title="ChannelClientState method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.ChannelClientState.htm" />
   <HelpKINode Title="ChannelCloseConfirm method" Url="html/M-SecretNET.Tx.IbcChannelTx.ChannelCloseConfirm.htm" />
@@ -372,11 +387,14 @@
     <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.CreateClientOptions.-ctor.htm" />
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.CreateClientOptions.htm" />
   </HelpKINode>
+  <HelpKINode Title="CreateClientOptions.AlwaysSimulateTransactions property" Url="html/P-SecretNET.Common.CreateClientOptions.AlwaysSimulateTransactions.htm" />
   <HelpKINode Title="CreateClientOptions.ChainId property" Url="html/P-SecretNET.Common.CreateClientOptions.ChainId.htm" />
   <HelpKINode Title="CreateClientOptions.CreateClientOptions constructor" Url="html/M-SecretNET.Common.CreateClientOptions.-ctor.htm" />
   <HelpKINode Title="CreateClientOptions.EncryptionSeed property" Url="html/P-SecretNET.Common.CreateClientOptions.EncryptionSeed.htm" />
   <HelpKINode Title="CreateClientOptions.EncryptionUtils property" Url="html/P-SecretNET.Common.CreateClientOptions.EncryptionUtils.htm" />
+  <HelpKINode Title="CreateClientOptions.GasEstimationMltiplier property" Url="html/P-SecretNET.Common.CreateClientOptions.GasEstimationMltiplier.htm" />
   <HelpKINode Title="CreateClientOptions.GrpcWebUrl property" Url="html/P-SecretNET.Common.CreateClientOptions.GrpcWebUrl.htm" />
+  <HelpKINode Title="CreateClientOptions.TransactionApprovalCallback property" Url="html/P-SecretNET.Common.CreateClientOptions.TransactionApprovalCallback.htm" />
   <HelpKINode Title="CreateClientOptions.Wallet property" Url="html/P-SecretNET.Common.CreateClientOptions.Wallet.htm" />
   <HelpKINode Title="CreateClientOptions.WalletAddress property" Url="html/P-SecretNET.Common.CreateClientOptions.WalletAddress.htm" />
   <HelpKINode Title="Created property" Url="html/P-SecretNET.Query.SecretContractInfo.Created.htm" />
@@ -662,6 +680,7 @@
   <HelpKINode Title="ErrWrongPassword field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrWrongPassword.htm" />
   <HelpKINode Title="ErrWrongSequence enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
   <HelpKINode Title="ErrWrongSequence field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrWrongSequence.htm" />
+  <HelpKINode Title="EstimatedGasFee property" Url="html/P-SecretNET.Common.TransactionApprovalData.EstimatedGasFee.htm" />
   <HelpKINode Title="Events property" Url="html/P-SecretNET.Api.CosmosJsonLog.Events.htm" />
   <HelpKINode Title="Events property" Url="html/P-SecretNET.Tx.SecretTx.Events.htm" />
   <HelpKINode Title="EventType property" Url="html/P-SecretNET.Api.CosmosArrayLog.EventType.htm" />
@@ -741,11 +760,13 @@
   <HelpKINode Title="FE.WriteToSpan method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.WriteToSpan.htm" />
   <HelpKINode Title="FE.Zero property" Url="html/P-SecretNET.Crypto.Secp256k1.FE.Zero.htm" />
   <HelpKINode Title="Fee property" Url="html/P-SecretNET.Api.StdSignDoc.Fee.htm" />
+  <HelpKINode Title="FeeDenom property" Url="html/P-SecretNET.Common.TransactionApprovalData.FeeDenom.htm" />
   <HelpKINode Title="FeeDenom property" Url="html/P-SecretNET.Tx.TxOptions.FeeDenom.htm" />
   <HelpKINode Title="Feegrant property" Url="html/P-SecretNET.Query.Queries.Feegrant.htm" />
   <HelpKINode Title="Feegrant property" Url="html/P-SecretNET.Tx.TxClient.Feegrant.htm" />
   <HelpKINode Title="FeeGranter property" Url="html/P-SecretNET.Api.StdFee.FeeGranter.htm" />
   <HelpKINode Title="FeeGranter property" Url="html/P-SecretNET.Api.StdFeeAmino.FeeGranter.htm" />
+  <HelpKINode Title="FeeGranter property" Url="html/P-SecretNET.Common.TransactionApprovalData.FeeGranter.htm" />
   <HelpKINode Title="FeeGranter property" Url="html/P-SecretNET.Tx.TxOptions.FeeGranter.htm" />
   <HelpKINode Title="FeegrantQueryClient class" Url="html/AllMembers.T-SecretNET.Query.FeegrantQueryClient.htm" />
   <HelpKINode Title="FeegrantQueryClient class" Url="html/T-SecretNET.Query.FeegrantQueryClient.htm" />
@@ -793,6 +814,10 @@
   <HelpKINode Title="FundCommunityPool method" Url="html/M-SecretNET.Tx.DistributionTx.FundCommunityPool.htm" />
   <HelpKINode Title="Gas property" Url="html/P-SecretNET.Api.StdFee.Gas.htm" />
   <HelpKINode Title="Gas property" Url="html/P-SecretNET.Api.StdFeeAmino.Gas.htm" />
+  <HelpKINode Title="GasEstimationMltiplier property" Url="html/P-SecretNET.Common.CreateClientOptions.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="GasEstimationMltiplier property" Url="html/P-SecretNET.ISecretNetworkClient.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="GasEstimationMltiplier property" Url="html/P-SecretNET.SecretNetworkClient.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="GasLimit property" Url="html/P-SecretNET.Common.UserApprovalDecision.GasLimit.htm" />
   <HelpKINode Title="GasLimit property" Url="html/P-SecretNET.Tx.TxOptions.GasLimit.htm" />
   <HelpKINode Title="GasPriceInFeeDenom property" Url="html/P-SecretNET.Tx.TxOptions.GasPriceInFeeDenom.htm" />
   <HelpKINode Title="GasUsed property" Url="html/P-SecretNET.Tx.SecretTx.GasUsed.htm" />
@@ -940,6 +965,8 @@
   <HelpKINode Title="GetSerializeSize method" Url="html/M-SecretNET.Crypto.uint160.GetSerializeSize.htm" />
   <HelpKINode Title="GetSerializeSize method" Url="html/M-SecretNET.Crypto.uint256.GetSerializeSize.htm" />
   <HelpKINode Title="GetSharedPubkey method" Url="html/M-SecretNET.Crypto.PubKey.GetSharedPubkey.htm" />
+  <HelpKINode Title="GetSignerData method" Url="html/M-SecretNET.ISecretNetworkClient.GetSignerData.htm" />
+  <HelpKINode Title="GetSignerData method" Url="html/M-SecretNET.SecretNetworkClient.GetSignerData.htm" />
   <HelpKINode Title="GetStoredKeyAdressList method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetStoredKeyAdressList.htm" />
   <HelpKINode Title="GetStoredKeyAdressList method" Url="html/M-SecretNET.Common.Storage.IPrivateKeyStorage.GetStoredKeyAdressList.htm" />
   <HelpKINode Title="GetStoredMnemonicAdressList method" Url="html/M-SecretNET.Common.Storage.HotPrivateKeyStorageBase.GetStoredMnemonicAdressList.htm" />
@@ -997,7 +1024,7 @@
   <HelpKINode Title="GreaterThan operator" Url="html/M-SecretNET.Crypto.uint256.op_GreaterThan.htm" />
   <HelpKINode Title="GreaterThanOrEqual operator" Url="html/M-SecretNET.Crypto.uint160.op_GreaterThanOrEqual.htm" />
   <HelpKINode Title="GreaterThanOrEqual operator" Url="html/M-SecretNET.Crypto.uint256.op_GreaterThanOrEqual.htm" />
-  <HelpKINode Title="GrpcMsg property" Url="html/P-SecretNET.Tx.Msg.GrpcMsg.htm" />
+  <HelpKINode Title="GrpcMsg property" Url="html/P-SecretNET.Tx.MsgBase.GrpcMsg.htm" />
   <HelpKINode Title="GrpcWebUrl property" Url="html/P-SecretNET.Common.CreateClientOptions.GrpcWebUrl.htm" />
   <HelpKINode Title="GrpcWebUrl property" Url="html/P-SecretNET.ISecretNetworkClient.GrpcWebUrl.htm" />
   <HelpKINode Title="GrpcWebUrl property" Url="html/P-SecretNET.SecretNetworkClient.GrpcWebUrl.htm" />
@@ -1308,12 +1335,16 @@
     <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.ISecretNetworkClient.htm" />
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.ISecretNetworkClient.htm" />
   </HelpKINode>
+  <HelpKINode Title="ISecretNetworkClient.AlwaysSimulateTransactions property" Url="html/P-SecretNET.ISecretNetworkClient.AlwaysSimulateTransactions.htm" />
   <HelpKINode Title="ISecretNetworkClient.ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="ISecretNetworkClient.EncryptionUtils property" Url="html/P-SecretNET.ISecretNetworkClient.EncryptionUtils.htm" />
+  <HelpKINode Title="ISecretNetworkClient.GasEstimationMltiplier property" Url="html/P-SecretNET.ISecretNetworkClient.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="ISecretNetworkClient.GetSignerData method" Url="html/M-SecretNET.ISecretNetworkClient.GetSignerData.htm" />
   <HelpKINode Title="ISecretNetworkClient.GrpcWebUrl property" Url="html/P-SecretNET.ISecretNetworkClient.GrpcWebUrl.htm" />
   <HelpKINode Title="ISecretNetworkClient.PrepareAndSign method" Url="html/M-SecretNET.ISecretNetworkClient.PrepareAndSign.htm" />
   <HelpKINode Title="ISecretNetworkClient.Sign method" Url="html/M-SecretNET.ISecretNetworkClient.Sign.htm" />
   <HelpKINode Title="ISecretNetworkClient.SignDirect method" Url="html/M-SecretNET.ISecretNetworkClient.SignDirect.htm" />
+  <HelpKINode Title="ISecretNetworkClient.TransactionApprovalCallback property" Url="html/P-SecretNET.ISecretNetworkClient.TransactionApprovalCallback.htm" />
   <HelpKINode Title="ISecretNetworkClient.Wallet property" Url="html/P-SecretNET.ISecretNetworkClient.Wallet.htm" />
   <HelpKINode Title="ISecretNetworkClient.WalletAddress property" Url="html/P-SecretNET.ISecretNetworkClient.WalletAddress.htm" />
   <HelpKINode Title="IsEven property" Url="html/P-SecretNET.Crypto.Secp256k1.Scalar.IsEven.htm" />
@@ -1450,7 +1481,9 @@
   <HelpKINode Title="MauiSecureStorage.MauiSecureStorage constructor" Url="html/M-SecretNET.Common.Storage.MauiSecureStorage.-ctor.htm" />
   <HelpKINode Title="MaxLength field" Url="html/F-SecretNET.Crypto.Secp256k1.SecpECDSASignature.MaxLength.htm" />
   <HelpKINode Title="Memo property" Url="html/P-SecretNET.Api.StdSignDoc.Memo.htm" />
+  <HelpKINode Title="Memo property" Url="html/P-SecretNET.Common.TransactionApprovalData.Memo.htm" />
   <HelpKINode Title="Memo property" Url="html/P-SecretNET.Tx.TxOptions.Memo.htm" />
+  <HelpKINode Title="Messages property" Url="html/P-SecretNET.Common.TransactionApprovalData.Messages.htm" />
   <HelpKINode Title="MessageType property" Url="html/P-SecretNET.Api.CosmosJsonLogEvent.MessageType.htm" />
   <HelpKINode Title="Mint property" Url="html/P-SecretNET.Query.Queries.Mint.htm" />
   <HelpKINode Title="MintQueryClient class" Url="html/AllMembers.T-SecretNET.Query.MintQueryClient.htm" />
@@ -1492,7 +1525,6 @@
   <HelpKINode Title="Msg property" Url="html/P-SecretNET.Tx.MsgExecuteContract-1.Msg.htm" />
   <HelpKINode Title="Msg property" Url="html/P-SecretNET.Tx.MsgExecuteContractBase.Msg.htm" />
   <HelpKINode Title="Msg.AminoMsg property" Url="html/P-SecretNET.Tx.Msg.AminoMsg.htm" />
-  <HelpKINode Title="Msg.GrpcMsg property" Url="html/P-SecretNET.Tx.Msg.GrpcMsg.htm" />
   <HelpKINode Title="Msg.Msg constructor" Url="html/M-SecretNET.Tx.Msg.-ctor.htm" />
   <HelpKINode Title="Msg.MsgType property" Url="html/P-SecretNET.Tx.Msg.MsgType.htm" />
   <HelpKINode Title="Msg.ToAmino method" Url="html/M-SecretNET.Tx.Msg.ToAmino.htm" />
@@ -1506,6 +1538,7 @@
     <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.MsgBase.htm" />
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.MsgBase.htm" />
   </HelpKINode>
+  <HelpKINode Title="MsgBase.GrpcMsg property" Url="html/P-SecretNET.Tx.MsgBase.GrpcMsg.htm" />
   <HelpKINode Title="MsgBase.MsgType property" Url="html/P-SecretNET.Tx.MsgBase.MsgType.htm" />
   <HelpKINode Title="MsgBase.ToAmino method" Url="html/M-SecretNET.Tx.MsgBase.ToAmino.htm" />
   <HelpKINode Title="MsgBase.ToProto method" Url="html/M-SecretNET.Tx.MsgBase.ToProto.htm" />
@@ -1841,31 +1874,25 @@
   <HelpKINode Title="PrivateKeyStorageEncryptionEnum.SecureStorage field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.SecureStorage.htm" />
   <HelpKINode Title="Proposal method" Url="html/M-SecretNET.Query.GovQueryClient.Proposal.htm" />
   <HelpKINode Title="Proposals method" Url="html/M-SecretNET.Query.GovQueryClient.Proposals.htm" />
-  <HelpKINode Title="Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
-  <HelpKINode Title="Pubkey class">
-    <HelpKINode Title="about Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
-  </HelpKINode>
   <HelpKINode Title="PubKey class" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
-  <HelpKINode Title="Pubkey class">
-    <HelpKINode Title="constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="PubKey class">
-    <HelpKINode Title="about PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
-  </HelpKINode>
   <HelpKINode Title="Pubkey class" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
   <HelpKINode Title="PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
   <HelpKINode Title="PubKey class">
+    <HelpKINode Title="about PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
     <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
     <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
+  <HelpKINode Title="PubKey class">
+    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
   </HelpKINode>
   <HelpKINode Title="Pubkey class">
+    <HelpKINode Title="about Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Api.Pubkey.htm" />
-  </HelpKINode>
-  <HelpKINode Title="PubKey class">
-    <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
-    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Crypto.PubKey.htm" />
   </HelpKINode>
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Api.StdSignature.PubKey.htm" />
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Api.StdSignatureAmino.PubKey.htm" />
@@ -1883,8 +1910,8 @@
   <HelpKINode Title="PubKey.GetSharedPubkey method" Url="html/M-SecretNET.Crypto.PubKey.GetSharedPubkey.htm" />
   <HelpKINode Title="PubKey.Inequality operator" Url="html/M-SecretNET.Crypto.PubKey.op_Inequality.htm" />
   <HelpKINode Title="PubKey.IsCompressed property" Url="html/P-SecretNET.Crypto.PubKey.IsCompressed.htm" />
-  <HelpKINode Title="Pubkey.Pubkey constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
   <HelpKINode Title="PubKey.PubKey constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
+  <HelpKINode Title="Pubkey.Pubkey constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
   <HelpKINode Title="PubKey.SanityCheck method" Url="html/Overload-SecretNET.Crypto.PubKey.SanityCheck.htm" />
   <HelpKINode Title="PubKey.ToBytes method" Url="html/Overload-SecretNET.Crypto.PubKey.ToBytes.htm" />
   <HelpKINode Title="PubKey.ToHex method" Url="html/M-SecretNET.Crypto.PubKey.ToHex.htm" />
@@ -2187,6 +2214,8 @@
   <HelpKINode Title="SecretNET.Api.StdSignDoc class" Url="html/AllMembers.T-SecretNET.Api.StdSignDoc.htm" />
   <HelpKINode Title="SecretNET.Api.StdSignDoc class" Url="html/T-SecretNET.Api.StdSignDoc.htm" />
   <HelpKINode Title="SecretNET.Common namespace" Url="html/N-SecretNET.Common.htm" />
+  <HelpKINode Title="SecretNET.Common.ApprovalMsgInfo class" Url="html/AllMembers.T-SecretNET.Common.ApprovalMsgInfo.htm" />
+  <HelpKINode Title="SecretNET.Common.ApprovalMsgInfo class" Url="html/T-SecretNET.Common.ApprovalMsgInfo.htm" />
   <HelpKINode Title="SecretNET.Common.CreateClientOptions class" Url="html/AllMembers.T-SecretNET.Common.CreateClientOptions.htm" />
   <HelpKINode Title="SecretNET.Common.CreateClientOptions class" Url="html/T-SecretNET.Common.CreateClientOptions.htm" />
   <HelpKINode Title="SecretNET.Common.CreateWalletOptions class" Url="html/AllMembers.T-SecretNET.Common.CreateWalletOptions.htm" />
@@ -2206,6 +2235,10 @@
   <HelpKINode Title="SecretNET.Common.Storage.MauiSecureStorage class" Url="html/AllMembers.T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
   <HelpKINode Title="SecretNET.Common.Storage.MauiSecureStorage class" Url="html/T-SecretNET.Common.Storage.MauiSecureStorage.htm" />
   <HelpKINode Title="SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum enumeration" Url="html/T-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.htm" />
+  <HelpKINode Title="SecretNET.Common.TransactionApprovalData class" Url="html/AllMembers.T-SecretNET.Common.TransactionApprovalData.htm" />
+  <HelpKINode Title="SecretNET.Common.TransactionApprovalData class" Url="html/T-SecretNET.Common.TransactionApprovalData.htm" />
+  <HelpKINode Title="SecretNET.Common.UserApprovalDecision class" Url="html/AllMembers.T-SecretNET.Common.UserApprovalDecision.htm" />
+  <HelpKINode Title="SecretNET.Common.UserApprovalDecision class" Url="html/T-SecretNET.Common.UserApprovalDecision.htm" />
   <HelpKINode Title="SecretNET.Common.Utils class" Url="html/AllMembers.T-SecretNET.Common.Utils.htm" />
   <HelpKINode Title="SecretNET.Common.Utils class" Url="html/T-SecretNET.Common.Utils.htm" />
   <HelpKINode Title="SecretNET.Crypto namespace" Url="html/N-SecretNET.Crypto.htm" />
@@ -2401,10 +2434,13 @@
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.SecretNetworkClient.htm" />
   </HelpKINode>
   <HelpKINode Title="SecretNetworkClient.AddressToBytes method" Url="html/M-SecretNET.SecretNetworkClient.AddressToBytes.htm" />
+  <HelpKINode Title="SecretNetworkClient.AlwaysSimulateTransactions property" Url="html/P-SecretNET.SecretNetworkClient.AlwaysSimulateTransactions.htm" />
   <HelpKINode Title="SecretNetworkClient.BytesToAddress method" Url="html/M-SecretNET.SecretNetworkClient.BytesToAddress.htm" />
   <HelpKINode Title="SecretNetworkClient.ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="SecretNetworkClient.EncryptionSeed property" Url="html/P-SecretNET.SecretNetworkClient.EncryptionSeed.htm" />
   <HelpKINode Title="SecretNetworkClient.EncryptionUtils property" Url="html/P-SecretNET.SecretNetworkClient.EncryptionUtils.htm" />
+  <HelpKINode Title="SecretNetworkClient.GasEstimationMltiplier property" Url="html/P-SecretNET.SecretNetworkClient.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="SecretNetworkClient.GetSignerData method" Url="html/M-SecretNET.SecretNetworkClient.GetSignerData.htm" />
   <HelpKINode Title="SecretNetworkClient.GrpcWebUrl property" Url="html/P-SecretNET.SecretNetworkClient.GrpcWebUrl.htm" />
   <HelpKINode Title="SecretNetworkClient.Permit property" Url="html/P-SecretNET.SecretNetworkClient.Permit.htm" />
   <HelpKINode Title="SecretNetworkClient.PrepareAndSign method" Url="html/M-SecretNET.SecretNetworkClient.PrepareAndSign.htm" />
@@ -2413,6 +2449,7 @@
   <HelpKINode Title="SecretNetworkClient.Sign method" Url="html/M-SecretNET.SecretNetworkClient.Sign.htm" />
   <HelpKINode Title="SecretNetworkClient.SignAmino method" Url="html/M-SecretNET.SecretNetworkClient.SignAmino.htm" />
   <HelpKINode Title="SecretNetworkClient.SignDirect method" Url="html/M-SecretNET.SecretNetworkClient.SignDirect.htm" />
+  <HelpKINode Title="SecretNetworkClient.TransactionApprovalCallback property" Url="html/P-SecretNET.SecretNetworkClient.TransactionApprovalCallback.htm" />
   <HelpKINode Title="SecretNetworkClient.Tx property" Url="html/P-SecretNET.SecretNetworkClient.Tx.htm" />
   <HelpKINode Title="SecretNetworkClient.Wallet property" Url="html/P-SecretNET.SecretNetworkClient.Wallet.htm" />
   <HelpKINode Title="SecretNetworkClient.WalletAddress property" Url="html/P-SecretNET.SecretNetworkClient.WalletAddress.htm" />
@@ -2557,6 +2594,7 @@
     <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.SignerData.htm" />
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Api.SignerData.htm" />
   </HelpKINode>
+  <HelpKINode Title="SignerData property" Url="html/P-SecretNET.Common.TransactionApprovalData.SignerData.htm" />
   <HelpKINode Title="SignerData.AccountNumber property" Url="html/P-SecretNET.Api.SignerData.AccountNumber.htm" />
   <HelpKINode Title="SignerData.ChainID property" Url="html/P-SecretNET.Api.SignerData.ChainID.htm" />
   <HelpKINode Title="SignerData.Sequence property" Url="html/P-SecretNET.Api.SignerData.Sequence.htm" />
@@ -2590,6 +2628,7 @@
   <HelpKINode Title="SipHash method" Url="html/M-SecretNET.Crypto.Hashes.SipHash.htm" />
   <HelpKINode Title="Size property" Url="html/P-SecretNET.Crypto.uint160.Size.htm" />
   <HelpKINode Title="Size property" Url="html/P-SecretNET.Crypto.uint256.Size.htm" />
+  <HelpKINode Title="SkipSimulate property" Url="html/P-SecretNET.Tx.TxOptions.SkipSimulate.htm" />
   <HelpKINode Title="Slashing property" Url="html/P-SecretNET.Query.Queries.Slashing.htm" />
   <HelpKINode Title="Slashing property" Url="html/P-SecretNET.Tx.TxClient.Slashing.htm" />
   <HelpKINode Title="SlashingQueryClient class" Url="html/AllMembers.T-SecretNET.Query.SlashingQueryClient.htm" />
@@ -2819,6 +2858,24 @@
   <HelpKINode Title="TotalSupply method" Url="html/M-SecretNET.Query.BankQueryClient.TotalSupply.htm" />
   <HelpKINode Title="ToUInt32 method" Url="html/Overload-SecretNET.Common.Utils.ToUInt32.htm" />
   <HelpKINode Title="ToUInt64 method" Url="html/Overload-SecretNET.Common.Utils.ToUInt64.htm" />
+  <HelpKINode Title="TransactionApprovalCallback property" Url="html/P-SecretNET.Common.CreateClientOptions.TransactionApprovalCallback.htm" />
+  <HelpKINode Title="TransactionApprovalCallback property" Url="html/P-SecretNET.ISecretNetworkClient.TransactionApprovalCallback.htm" />
+  <HelpKINode Title="TransactionApprovalCallback property" Url="html/P-SecretNET.SecretNetworkClient.TransactionApprovalCallback.htm" />
+  <HelpKINode Title="TransactionApprovalData class" Url="html/AllMembers.T-SecretNET.Common.TransactionApprovalData.htm" />
+  <HelpKINode Title="TransactionApprovalData class" Url="html/T-SecretNET.Common.TransactionApprovalData.htm" />
+  <HelpKINode Title="TransactionApprovalData class">
+    <HelpKINode Title="about TransactionApprovalData class" Url="html/T-SecretNET.Common.TransactionApprovalData.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.TransactionApprovalData.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.TransactionApprovalData.-ctor.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.TransactionApprovalData.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TransactionApprovalData.EstimatedGasFee property" Url="html/P-SecretNET.Common.TransactionApprovalData.EstimatedGasFee.htm" />
+  <HelpKINode Title="TransactionApprovalData.FeeDenom property" Url="html/P-SecretNET.Common.TransactionApprovalData.FeeDenom.htm" />
+  <HelpKINode Title="TransactionApprovalData.FeeGranter property" Url="html/P-SecretNET.Common.TransactionApprovalData.FeeGranter.htm" />
+  <HelpKINode Title="TransactionApprovalData.Memo property" Url="html/P-SecretNET.Common.TransactionApprovalData.Memo.htm" />
+  <HelpKINode Title="TransactionApprovalData.Messages property" Url="html/P-SecretNET.Common.TransactionApprovalData.Messages.htm" />
+  <HelpKINode Title="TransactionApprovalData.SignerData property" Url="html/P-SecretNET.Common.TransactionApprovalData.SignerData.htm" />
+  <HelpKINode Title="TransactionApprovalData.TransactionApprovalData constructor" Url="html/M-SecretNET.Common.TransactionApprovalData.-ctor.htm" />
   <HelpKINode Title="Transfer method" Url="html/M-SecretNET.Tx.IbcTransferTx.Transfer.htm" />
   <HelpKINode Title="TryAdd(Of TKey, TValue) method" Url="html/M-SecretNET.Common.Utils.TryAdd--2.htm" />
   <HelpKINode Title="TryAdd&lt;TKey, TValue&gt; method" Url="html/M-SecretNET.Common.Utils.TryAdd--2.htm" />
@@ -2887,6 +2944,7 @@
   <HelpKINode Title="TxOptions.GasLimit property" Url="html/P-SecretNET.Tx.TxOptions.GasLimit.htm" />
   <HelpKINode Title="TxOptions.GasPriceInFeeDenom property" Url="html/P-SecretNET.Tx.TxOptions.GasPriceInFeeDenom.htm" />
   <HelpKINode Title="TxOptions.Memo property" Url="html/P-SecretNET.Tx.TxOptions.Memo.htm" />
+  <HelpKINode Title="TxOptions.SkipSimulate property" Url="html/P-SecretNET.Tx.TxOptions.SkipSimulate.htm" />
   <HelpKINode Title="TxOptions.WaitForCommit property" Url="html/P-SecretNET.Tx.TxOptions.WaitForCommit.htm" />
   <HelpKINode Title="TxResponse property" Url="html/P-SecretNET.Api.CosmosSdkException.TxResponse.htm" />
   <HelpKINode Title="TxResponse property" Url="html/P-SecretNET.Tx.SecretTx.TxResponse.htm" />
@@ -2894,6 +2952,7 @@
   <HelpKINode Title="Type property" Url="html/P-SecretNET.Api.AminoMsg.Type.htm" />
   <HelpKINode Title="Type property" Url="html/P-SecretNET.Api.EncodedPubKey.Type.htm" />
   <HelpKINode Title="Type property" Url="html/P-SecretNET.Api.Pubkey.Type.htm" />
+  <HelpKINode Title="Type property" Url="html/P-SecretNET.Common.ApprovalMsgInfo.Type.htm" />
   <HelpKINode Title="uint160 class" Url="html/AllMembers.T-SecretNET.Crypto.uint160.htm" />
   <HelpKINode Title="uint160 class" Url="html/T-SecretNET.Crypto.uint160.htm" />
   <HelpKINode Title="uint160 class">
@@ -2983,6 +3042,17 @@
   <HelpKINode Title="UpgradeQueryClient.ModuleVersions method" Url="html/M-SecretNET.Query.UpgradeQueryClient.ModuleVersions.htm" />
   <HelpKINode Title="UpgradeQueryClient.UpgradedConsensusState method" Url="html/M-SecretNET.Query.UpgradeQueryClient.UpgradedConsensusState.htm" />
   <HelpKINode Title="UseAdditionalEntropy property" Url="html/P-SecretNET.Crypto.RandomUtils.UseAdditionalEntropy.htm" />
+  <HelpKINode Title="UserApprovalDecision class" Url="html/AllMembers.T-SecretNET.Common.UserApprovalDecision.htm" />
+  <HelpKINode Title="UserApprovalDecision class" Url="html/T-SecretNET.Common.UserApprovalDecision.htm" />
+  <HelpKINode Title="UserApprovalDecision class">
+    <HelpKINode Title="about UserApprovalDecision class" Url="html/T-SecretNET.Common.UserApprovalDecision.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Common.UserApprovalDecision.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Common.UserApprovalDecision.-ctor.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Common.UserApprovalDecision.htm" />
+  </HelpKINode>
+  <HelpKINode Title="UserApprovalDecision.ApproveTransaction property" Url="html/P-SecretNET.Common.UserApprovalDecision.ApproveTransaction.htm" />
+  <HelpKINode Title="UserApprovalDecision.GasLimit property" Url="html/P-SecretNET.Common.UserApprovalDecision.GasLimit.htm" />
+  <HelpKINode Title="UserApprovalDecision.UserApprovalDecision constructor" Url="html/M-SecretNET.Common.UserApprovalDecision.-ctor.htm" />
   <HelpKINode Title="Utils class" Url="html/AllMembers.T-SecretNET.Common.Utils.htm" />
   <HelpKINode Title="Utils class" Url="html/T-SecretNET.Common.Utils.htm" />
   <HelpKINode Title="Utils class">
@@ -3019,6 +3089,7 @@
   <HelpKINode Title="Value property" Url="html/P-SecretNET.Api.AminoMsg.Value.htm" />
   <HelpKINode Title="Value property" Url="html/P-SecretNET.Api.CosmosArrayLog.Value.htm" />
   <HelpKINode Title="Value property" Url="html/P-SecretNET.Api.CosmosJsonLogKeyValue.Value.htm" />
+  <HelpKINode Title="Value property" Url="html/P-SecretNET.Common.ApprovalMsgInfo.Value.htm" />
   <HelpKINode Title="VerifyInvariant method" Url="html/M-SecretNET.Tx.CrisisTx.VerifyInvariant.htm" />
   <HelpKINode Title="Vesting property" Url="html/P-SecretNET.Tx.TxClient.Vesting.htm" />
   <HelpKINode Title="VestingTx class" Url="html/AllMembers.T-SecretNET.Tx.VestingTx.htm" />
