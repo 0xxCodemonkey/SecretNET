@@ -393,7 +393,7 @@ public class TxClient : GprcBase
         if (secretClient.AlwaysSimulateTransactions && !txOptions.SkipSimulate)
         {
             var simulateTx = await Simulate(messages, txOptions);
-            txOptions.GasLimit = (ulong)((simulateTx?.GasInfo?.GasUsed).GetValueOrDefault() * this.secretClient.GasEstimationMltiplier);
+            txOptions.GasLimit = (ulong)((simulateTx?.GasInfo?.GasUsed).GetValueOrDefault() * this.secretClient.GasEstimationMultiplier);
         }
 
         if (txOptions.GasLimit == 0)

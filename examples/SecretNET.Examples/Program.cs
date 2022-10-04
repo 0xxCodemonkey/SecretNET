@@ -70,6 +70,7 @@ Wallet wallet = null;
 if (await storageProvider.HasPrivateKey())
 {
     var storedMnemonic = await storageProvider.GetFirstMnemonic();
+    Console.WriteLine("Use stored mnemonic: " + storedMnemonic);
     wallet = await Wallet.Create(storedMnemonic, options: createWalletOptions);
     Console.WriteLine("wallet.Address: " + wallet.Address);
 }

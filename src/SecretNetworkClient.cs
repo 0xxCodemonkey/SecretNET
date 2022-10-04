@@ -79,7 +79,7 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// Gas estimation is known to be a bit off, so you might need to adjust it a bit before broadcasting (default is 1.1 / 10%).
     /// </summary>
     /// <value>The gas estimation mltiplier.</value>
-    public float GasEstimationMltiplier { get; set; }
+    public float GasEstimationMultiplier { get; set; }
 
     #endregion
 
@@ -112,7 +112,7 @@ public class SecretNetworkClient : ISecretNetworkClient
 
         _createClientOptions = options;
         AlwaysSimulateTransactions = _createClientOptions.AlwaysSimulateTransactions;
-        GasEstimationMltiplier = _createClientOptions.GasEstimationMltiplier;
+        GasEstimationMultiplier = _createClientOptions.GasEstimationMultiplier;
         TransactionApprovalCallback = _createClientOptions.TransactionApprovalCallback;
 
         Wallet = _createClientOptions.Wallet;

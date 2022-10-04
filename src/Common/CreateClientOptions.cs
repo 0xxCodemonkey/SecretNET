@@ -58,7 +58,7 @@ public class CreateClientOptions
     /// Gas estimation is known to be a bit off, so you might need to adjust it a bit before broadcasting (default is 1.1 / 10%).
     /// </summary>
     /// <value>The gas estimation mltiplier.</value>
-    public float GasEstimationMltiplier { get; set; } = 1.1f;
+    public float GasEstimationMultiplier { get; set; } = 1.1f;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CreateClientOptions" /> class.

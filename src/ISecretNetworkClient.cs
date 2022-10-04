@@ -54,7 +54,7 @@ public interface ISecretNetworkClient
     /// Gas estimation is known to be a bit off, so you might need to adjust it a bit before broadcasting (default is 1.1 / 10%).
     /// </summary>
     /// <value>The gas estimation mltiplier.</value>
-    public float GasEstimationMltiplier { get; }
+    public float GasEstimationMultiplier { get; }
 
     // Signing
 
