@@ -24,4 +24,10 @@ public class SecretQueryContractResult<T>
     {
         Exception = exception;
     }
+
+    public SecretQueryContractResult(SmartContractException exception)
+    {
+        Exception = exception;
+        RawResponse = exception.RawResult;
+    }
 }

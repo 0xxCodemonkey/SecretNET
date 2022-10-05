@@ -79,8 +79,15 @@ public class ComputeQueryClient : GprcBase
                         var utf8Str = Encoding.UTF8.GetString(decryptedBase64Result);
                         var resultBytes = Convert.FromBase64String(utf8Str);
                         var resultString = Encoding.UTF8.GetString(resultBytes);
-
-                        R queryResult = JsonConvert.DeserializeObject<R>(resultString);
+                        R queryResult = null;
+                        if (typeof(R) == typeof(string))
+                        {
+                            queryResult = resultString as R;
+                        }
+                        else
+                        {
+                            queryResult = JsonConvert.DeserializeObject<R>(resultString);
+                        }
                         result = new SecretQueryContractResult<R>(queryResult);
                         result.RawResponse = resultString;
                     }
