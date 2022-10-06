@@ -89,6 +89,7 @@
   <HelpKINode Title="ArrayLog property" Url="html/P-SecretNET.Tx.SecretTx.ArrayLog.htm" />
   <HelpKINode Title="AsBase64 property" Url="html/P-SecretNET.Api.EncodedPubKey.AsBase64.htm" />
   <HelpKINode Title="AsBase64 property" Url="html/P-SecretNET.Api.Pubkey.AsBase64.htm" />
+  <HelpKINode Title="AsProposalContent method" Url="html/M-SecretNET.Tx.ProposalBaseClass.AsProposalContent.htm" />
   <HelpKINode Title="At method" Url="html/M-SecretNET.Crypto.Secp256k1.Scalar.At.htm" />
   <HelpKINode Title="Attributes property" Url="html/P-SecretNET.Api.CosmosJsonLogEvent.Attributes.htm" />
   <HelpKINode Title="Auth property" Url="html/P-SecretNET.Query.Queries.Auth.htm" />
@@ -161,21 +162,33 @@
   <HelpKINode Title="BIP32Hash method" Url="html/Overload-SecretNET.Crypto.Hashes.BIP32Hash.htm" />
   <HelpKINode Title="BlockHeight property" Url="html/P-SecretNET.Query.AbsoluteTxPosition.BlockHeight.htm" />
   <HelpKINode Title="Broadcast method" Url="html/Overload-SecretNET.Tx.TxClient.Broadcast.htm" />
+  <HelpKINode Title="BroadcastCheckIntervalMs field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.BroadcastCheckIntervalMs.htm" />
   <HelpKINode Title="BroadcastCheckIntervalMs property" Url="html/P-SecretNET.Tx.TxOptions.BroadcastCheckIntervalMs.htm" />
   <HelpKINode Title="BroadcastMode property" Url="html/P-SecretNET.Tx.TxOptions.BroadcastMode.htm" />
+  <HelpKINode Title="BroadcastTimeoutMs field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.BroadcastTimeoutMs.htm" />
   <HelpKINode Title="BroadcastTimeoutMs property" Url="html/P-SecretNET.Tx.TxOptions.BroadcastTimeoutMs.htm" />
   <HelpKINode Title="BroadcastTxResponse property" Url="html/P-SecretNET.Api.CosmosSdkException.BroadcastTxResponse.htm" />
   <HelpKINode Title="Builder property" Url="html/P-SecretNET.Query.SecretCodeInfo.Builder.htm" />
   <HelpKINode Title="Builder property" Url="html/P-SecretNET.Tx.MsgStoreCode.Builder.htm" />
   <HelpKINode Title="BytesToAddress method" Url="html/M-SecretNET.SecretNetworkClient.BytesToAddress.htm" />
   <HelpKINode Title="CAddBit method" Url="html/M-SecretNET.Crypto.Secp256k1.Scalar.CAddBit.htm" />
+  <HelpKINode Title="CancelSoftwareUpgradeProposal class" Url="html/AllMembers.T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+  <HelpKINode Title="CancelSoftwareUpgradeProposal class" Url="html/T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+  <HelpKINode Title="CancelSoftwareUpgradeProposal class">
+    <HelpKINode Title="about CancelSoftwareUpgradeProposal class" Url="html/T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Tx.CancelSoftwareUpgradeProposal.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CancelSoftwareUpgradeProposal.CancelSoftwareUpgradeProposal constructor" Url="html/M-SecretNET.Tx.CancelSoftwareUpgradeProposal.-ctor.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.AccessControl.Permit_Params.ChainId.htm" />
-  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.ISignerData.ChainID.htm" />
-  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.SignerData.ChainID.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Api.StdSignDoc.ChainId.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.Common.CreateClientOptions.ChainId.htm" />
-  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
+  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.ISignerData.ChainID.htm" />
+  <HelpKINode Title="ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
+  <HelpKINode Title="ChainID property" Url="html/P-SecretNET.Api.SignerData.ChainID.htm" />
   <HelpKINode Title="Channel method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.Channel.htm" />
   <HelpKINode Title="ChannelClientState method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.ChannelClientState.htm" />
   <HelpKINode Title="ChannelCloseConfirm method" Url="html/M-SecretNET.Tx.IbcChannelTx.ChannelCloseConfirm.htm" />
@@ -203,6 +216,16 @@
   <HelpKINode Title="ClientState method" Url="html/M-SecretNET.Query.IbcClientQueryClient.ClientState.htm" />
   <HelpKINode Title="ClientStates method" Url="html/M-SecretNET.Query.IbcClientQueryClient.ClientStates.htm" />
   <HelpKINode Title="ClientStatus method" Url="html/M-SecretNET.Query.IbcClientQueryClient.ClientStatus.htm" />
+  <HelpKINode Title="ClientUpdateProposal class" Url="html/AllMembers.T-SecretNET.Tx.ClientUpdateProposal.htm" />
+  <HelpKINode Title="ClientUpdateProposal class" Url="html/T-SecretNET.Tx.ClientUpdateProposal.htm" />
+  <HelpKINode Title="ClientUpdateProposal class">
+    <HelpKINode Title="about ClientUpdateProposal class" Url="html/T-SecretNET.Tx.ClientUpdateProposal.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.ClientUpdateProposal.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Tx.ClientUpdateProposal.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.ClientUpdateProposal.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.ClientUpdateProposal.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ClientUpdateProposal.ClientUpdateProposal constructor" Url="html/M-SecretNET.Tx.ClientUpdateProposal.-ctor.htm" />
   <HelpKINode Title="CMov method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.CMov.htm" />
   <HelpKINode Title="CMov method" Url="html/M-SecretNET.Crypto.Secp256k1.FEStorage.CMov.htm" />
   <HelpKINode Title="CMov method" Url="html/M-SecretNET.Crypto.Secp256k1.GEStorage.CMov.htm" />
@@ -227,6 +250,16 @@
   <HelpKINode Title="Coin.Denom property" Url="html/P-SecretNET.Tx.Coin.Denom.htm" />
   <HelpKINode Title="CoinType property" Url="html/P-SecretNET.Common.CreateWalletOptions.CoinType.htm" />
   <HelpKINode Title="CommunityPool method" Url="html/M-SecretNET.Query.DistributionQueryClient.CommunityPool.htm" />
+  <HelpKINode Title="CommunityPoolSpendProposal class" Url="html/AllMembers.T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
+  <HelpKINode Title="CommunityPoolSpendProposal class" Url="html/T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
+  <HelpKINode Title="CommunityPoolSpendProposal class">
+    <HelpKINode Title="about CommunityPoolSpendProposal class" Url="html/T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Tx.CommunityPoolSpendProposal.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CommunityPoolSpendProposal.CommunityPoolSpendProposal constructor" Url="html/M-SecretNET.Tx.CommunityPoolSpendProposal.-ctor.htm" />
   <HelpKINode Title="CompareTo method" Url="html/M-SecretNET.Crypto.PubKey.CompareTo.htm" />
   <HelpKINode Title="CompareTo method" Url="html/Overload-SecretNET.Crypto.uint160.CompareTo.htm" />
   <HelpKINode Title="CompareTo method" Url="html/Overload-SecretNET.Crypto.uint256.CompareTo.htm" />
@@ -281,6 +314,7 @@
   <HelpKINode Title="CONST method" Url="html/M-SecretNET.Crypto.Secp256k1.GEJ.CONST.htm" />
   <HelpKINode Title="CONST method" Url="html/M-SecretNET.Crypto.Secp256k1.GEStorage.CONST.htm" />
   <HelpKINode Title="CONST method" Url="html/M-SecretNET.Crypto.Secp256k1.Scalar.CONST.htm" />
+  <HelpKINode Title="ContentMessage property" Url="html/P-SecretNET.Tx.ProposalBaseClass.ContentMessage.htm" />
   <HelpKINode Title="ContractAddress property" Url="html/P-SecretNET.Tx.MsgExecuteContract.ContractAddress.htm" />
   <HelpKINode Title="ContractInfo method" Url="html/M-SecretNET.Query.ComputeQueryClient.ContractInfo.htm" />
   <HelpKINode Title="ContractsByCode method" Url="html/M-SecretNET.Query.ComputeQueryClient.ContractsByCode.htm" />
@@ -392,7 +426,7 @@
   <HelpKINode Title="CreateClientOptions.CreateClientOptions constructor" Url="html/M-SecretNET.Common.CreateClientOptions.-ctor.htm" />
   <HelpKINode Title="CreateClientOptions.EncryptionSeed property" Url="html/P-SecretNET.Common.CreateClientOptions.EncryptionSeed.htm" />
   <HelpKINode Title="CreateClientOptions.EncryptionUtils property" Url="html/P-SecretNET.Common.CreateClientOptions.EncryptionUtils.htm" />
-  <HelpKINode Title="CreateClientOptions.GasEstimationMltiplier property" Url="html/P-SecretNET.Common.CreateClientOptions.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="CreateClientOptions.GasEstimationMultiplier property" Url="html/P-SecretNET.Common.CreateClientOptions.GasEstimationMultiplier.htm" />
   <HelpKINode Title="CreateClientOptions.GrpcWebUrl property" Url="html/P-SecretNET.Common.CreateClientOptions.GrpcWebUrl.htm" />
   <HelpKINode Title="CreateClientOptions.TransactionApprovalCallback property" Url="html/P-SecretNET.Common.CreateClientOptions.TransactionApprovalCallback.htm" />
   <HelpKINode Title="CreateClientOptions.Wallet property" Url="html/P-SecretNET.Common.CreateClientOptions.Wallet.htm" />
@@ -604,82 +638,164 @@
   <HelpKINode Title="EqualsVariable method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.EqualsVariable.htm" />
   <HelpKINode Title="EqualsXVariable method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.EqualsXVariable.htm" />
   <HelpKINode Title="ErrAppConfig enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrAppConfig enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrAppConfig field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrAppConfig.htm" />
+  <HelpKINode Title="ErrAppConfig field" Url="html/F-SecretNET.Tx.TxResultCode.ErrAppConfig.htm" />
   <HelpKINode Title="ErrConflict enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrConflict enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrConflict field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrConflict.htm" />
+  <HelpKINode Title="ErrConflict field" Url="html/F-SecretNET.Tx.TxResultCode.ErrConflict.htm" />
   <HelpKINode Title="ErrInsufficientFee enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInsufficientFee enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInsufficientFee field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInsufficientFee.htm" />
+  <HelpKINode Title="ErrInsufficientFee field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInsufficientFee.htm" />
   <HelpKINode Title="ErrInsufficientFunds enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInsufficientFunds enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInsufficientFunds field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInsufficientFunds.htm" />
+  <HelpKINode Title="ErrInsufficientFunds field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInsufficientFunds.htm" />
+  <HelpKINode Title="ErrInternal enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
+  <HelpKINode Title="ErrInternal field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInternal.htm" />
   <HelpKINode Title="ErrInvalidAddress enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidAddress enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidAddress field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidAddress.htm" />
+  <HelpKINode Title="ErrInvalidAddress field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidAddress.htm" />
   <HelpKINode Title="ErrInvalidChainID enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidChainID enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidChainID field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidChainID.htm" />
+  <HelpKINode Title="ErrInvalidChainID field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidChainID.htm" />
   <HelpKINode Title="ErrInvalidCoins enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidCoins enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidCoins field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidCoins.htm" />
+  <HelpKINode Title="ErrInvalidCoins field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidCoins.htm" />
   <HelpKINode Title="ErrInvalidHeight enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidHeight enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidHeight field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidHeight.htm" />
+  <HelpKINode Title="ErrInvalidHeight field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidHeight.htm" />
   <HelpKINode Title="ErrInvalidPubKey enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidPubKey enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidPubKey field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidPubKey.htm" />
+  <HelpKINode Title="ErrInvalidPubKey field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidPubKey.htm" />
   <HelpKINode Title="ErrInvalidRequest enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidRequest enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidRequest field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidRequest.htm" />
+  <HelpKINode Title="ErrInvalidRequest field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidRequest.htm" />
   <HelpKINode Title="ErrInvalidSequence enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidSequence enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidSequence field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidSequence.htm" />
+  <HelpKINode Title="ErrInvalidSequence field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidSequence.htm" />
   <HelpKINode Title="ErrInvalidType enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidType enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidType field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidType.htm" />
+  <HelpKINode Title="ErrInvalidType field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidType.htm" />
   <HelpKINode Title="ErrInvalidVersion enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrInvalidVersion enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrInvalidVersion field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrInvalidVersion.htm" />
+  <HelpKINode Title="ErrInvalidVersion field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidVersion.htm" />
   <HelpKINode Title="ErrIO enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrIO enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrIO field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrIO.htm" />
+  <HelpKINode Title="ErrIO field" Url="html/F-SecretNET.Tx.TxResultCode.ErrIO.htm" />
   <HelpKINode Title="ErrJSONMarshal enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrJSONMarshal enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrJSONMarshal field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrJSONMarshal.htm" />
+  <HelpKINode Title="ErrJSONMarshal field" Url="html/F-SecretNET.Tx.TxResultCode.ErrJSONMarshal.htm" />
   <HelpKINode Title="ErrJSONUnmarshal enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrJSONUnmarshal enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrJSONUnmarshal field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrJSONUnmarshal.htm" />
+  <HelpKINode Title="ErrJSONUnmarshal field" Url="html/F-SecretNET.Tx.TxResultCode.ErrJSONUnmarshal.htm" />
   <HelpKINode Title="ErrKeyNotFound enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrKeyNotFound enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrKeyNotFound field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrKeyNotFound.htm" />
+  <HelpKINode Title="ErrKeyNotFound field" Url="html/F-SecretNET.Tx.TxResultCode.ErrKeyNotFound.htm" />
   <HelpKINode Title="ErrLogic enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrLogic enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrLogic field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrLogic.htm" />
+  <HelpKINode Title="ErrLogic field" Url="html/F-SecretNET.Tx.TxResultCode.ErrLogic.htm" />
   <HelpKINode Title="ErrMemoTooLarge enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrMemoTooLarge enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrMemoTooLarge field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrMemoTooLarge.htm" />
+  <HelpKINode Title="ErrMemoTooLarge field" Url="html/F-SecretNET.Tx.TxResultCode.ErrMemoTooLarge.htm" />
   <HelpKINode Title="ErrMempoolIsFull enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrMempoolIsFull enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrMempoolIsFull field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrMempoolIsFull.htm" />
+  <HelpKINode Title="ErrMempoolIsFull field" Url="html/F-SecretNET.Tx.TxResultCode.ErrMempoolIsFull.htm" />
   <HelpKINode Title="ErrNoSignatures enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrNoSignatures enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrNoSignatures field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrNoSignatures.htm" />
+  <HelpKINode Title="ErrNoSignatures field" Url="html/F-SecretNET.Tx.TxResultCode.ErrNoSignatures.htm" />
   <HelpKINode Title="ErrNotFound enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrNotFound enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrNotFound field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrNotFound.htm" />
+  <HelpKINode Title="ErrNotFound field" Url="html/F-SecretNET.Tx.TxResultCode.ErrNotFound.htm" />
   <HelpKINode Title="ErrNotSupported enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrNotSupported enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrNotSupported field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrNotSupported.htm" />
+  <HelpKINode Title="ErrNotSupported field" Url="html/F-SecretNET.Tx.TxResultCode.ErrNotSupported.htm" />
   <HelpKINode Title="ErrorInvalidGasAdjustment enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrorInvalidGasAdjustment enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrorInvalidGasAdjustment field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrorInvalidGasAdjustment.htm" />
+  <HelpKINode Title="ErrorInvalidGasAdjustment field" Url="html/F-SecretNET.Tx.TxResultCode.ErrorInvalidGasAdjustment.htm" />
   <HelpKINode Title="ErrorInvalidSigner enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrorInvalidSigner enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrorInvalidSigner field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrorInvalidSigner.htm" />
+  <HelpKINode Title="ErrorInvalidSigner field" Url="html/F-SecretNET.Tx.TxResultCode.ErrorInvalidSigner.htm" />
   <HelpKINode Title="ErrorResult property" Url="html/P-SecretNET.Api.SmartContractException.ErrorResult.htm" />
   <HelpKINode Title="ErrOutOfGas enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrOutOfGas enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrOutOfGas field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrOutOfGas.htm" />
+  <HelpKINode Title="ErrOutOfGas field" Url="html/F-SecretNET.Tx.TxResultCode.ErrOutOfGas.htm" />
+  <HelpKINode Title="ErrPackAny enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
+  <HelpKINode Title="ErrPackAny field" Url="html/F-SecretNET.Tx.TxResultCode.ErrPackAny.htm" />
+  <HelpKINode Title="ErrPanic enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
+  <HelpKINode Title="ErrPanic field" Url="html/F-SecretNET.Tx.TxResultCode.ErrPanic.htm" />
   <HelpKINode Title="ErrTooManySignatures enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrTooManySignatures enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrTooManySignatures field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrTooManySignatures.htm" />
+  <HelpKINode Title="ErrTooManySignatures field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTooManySignatures.htm" />
   <HelpKINode Title="ErrTxDecode enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrTxDecode enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrTxDecode field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrTxDecode.htm" />
+  <HelpKINode Title="ErrTxDecode field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxDecode.htm" />
   <HelpKINode Title="ErrTxInMempoolCache enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrTxInMempoolCache enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrTxInMempoolCache field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrTxInMempoolCache.htm" />
+  <HelpKINode Title="ErrTxInMempoolCache field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxInMempoolCache.htm" />
   <HelpKINode Title="ErrTxTimeoutHeight enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrTxTimeoutHeight enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrTxTimeoutHeight field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrTxTimeoutHeight.htm" />
+  <HelpKINode Title="ErrTxTimeoutHeight field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxTimeoutHeight.htm" />
   <HelpKINode Title="ErrTxTooLarge enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrTxTooLarge enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrTxTooLarge field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrTxTooLarge.htm" />
+  <HelpKINode Title="ErrTxTooLarge field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxTooLarge.htm" />
   <HelpKINode Title="ErrUnauthorized enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrUnauthorized enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrUnauthorized field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrUnauthorized.htm" />
+  <HelpKINode Title="ErrUnauthorized field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnauthorized.htm" />
   <HelpKINode Title="ErrUnknownAddress enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrUnknownAddress enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrUnknownAddress field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrUnknownAddress.htm" />
+  <HelpKINode Title="ErrUnknownAddress field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnknownAddress.htm" />
   <HelpKINode Title="ErrUnknownExtensionOptions enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrUnknownExtensionOptions enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrUnknownExtensionOptions field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrUnknownExtensionOptions.htm" />
+  <HelpKINode Title="ErrUnknownExtensionOptions field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnknownExtensionOptions.htm" />
   <HelpKINode Title="ErrUnknownRequest enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrUnknownRequest enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrUnknownRequest field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrUnknownRequest.htm" />
+  <HelpKINode Title="ErrUnknownRequest field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnknownRequest.htm" />
   <HelpKINode Title="ErrUnpackAny enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrUnpackAny enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrUnpackAny field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrUnpackAny.htm" />
+  <HelpKINode Title="ErrUnpackAny field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnpackAny.htm" />
   <HelpKINode Title="ErrWrongPassword enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrWrongPassword enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrWrongPassword field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrWrongPassword.htm" />
+  <HelpKINode Title="ErrWrongPassword field" Url="html/F-SecretNET.Tx.TxResultCode.ErrWrongPassword.htm" />
   <HelpKINode Title="ErrWrongSequence enumeration member" Url="html/T-SecretNET.Api.CosmosSdkErrorEnum.htm" />
+  <HelpKINode Title="ErrWrongSequence enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
   <HelpKINode Title="ErrWrongSequence field" Url="html/F-SecretNET.Api.CosmosSdkErrorEnum.ErrWrongSequence.htm" />
+  <HelpKINode Title="ErrWrongSequence field" Url="html/F-SecretNET.Tx.TxResultCode.ErrWrongSequence.htm" />
   <HelpKINode Title="EstimatedGasFee property" Url="html/P-SecretNET.Common.TransactionApprovalData.EstimatedGasFee.htm" />
   <HelpKINode Title="Events property" Url="html/P-SecretNET.Api.CosmosJsonLog.Events.htm" />
   <HelpKINode Title="Events property" Url="html/P-SecretNET.Tx.SecretTx.Events.htm" />
@@ -760,6 +876,7 @@
   <HelpKINode Title="FE.WriteToSpan method" Url="html/M-SecretNET.Crypto.Secp256k1.FE.WriteToSpan.htm" />
   <HelpKINode Title="FE.Zero property" Url="html/P-SecretNET.Crypto.Secp256k1.FE.Zero.htm" />
   <HelpKINode Title="Fee property" Url="html/P-SecretNET.Api.StdSignDoc.Fee.htm" />
+  <HelpKINode Title="FeeDenom field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.FeeDenom.htm" />
   <HelpKINode Title="FeeDenom property" Url="html/P-SecretNET.Common.TransactionApprovalData.FeeDenom.htm" />
   <HelpKINode Title="FeeDenom property" Url="html/P-SecretNET.Tx.TxOptions.FeeDenom.htm" />
   <HelpKINode Title="Feegrant property" Url="html/P-SecretNET.Query.Queries.Feegrant.htm" />
@@ -814,11 +931,13 @@
   <HelpKINode Title="FundCommunityPool method" Url="html/M-SecretNET.Tx.DistributionTx.FundCommunityPool.htm" />
   <HelpKINode Title="Gas property" Url="html/P-SecretNET.Api.StdFee.Gas.htm" />
   <HelpKINode Title="Gas property" Url="html/P-SecretNET.Api.StdFeeAmino.Gas.htm" />
-  <HelpKINode Title="GasEstimationMltiplier property" Url="html/P-SecretNET.Common.CreateClientOptions.GasEstimationMltiplier.htm" />
-  <HelpKINode Title="GasEstimationMltiplier property" Url="html/P-SecretNET.ISecretNetworkClient.GasEstimationMltiplier.htm" />
-  <HelpKINode Title="GasEstimationMltiplier property" Url="html/P-SecretNET.SecretNetworkClient.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="GasEstimationMultiplier property" Url="html/P-SecretNET.Common.CreateClientOptions.GasEstimationMultiplier.htm" />
+  <HelpKINode Title="GasEstimationMultiplier property" Url="html/P-SecretNET.ISecretNetworkClient.GasEstimationMultiplier.htm" />
+  <HelpKINode Title="GasEstimationMultiplier property" Url="html/P-SecretNET.SecretNetworkClient.GasEstimationMultiplier.htm" />
+  <HelpKINode Title="GasLimit field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.GasLimit.htm" />
   <HelpKINode Title="GasLimit property" Url="html/P-SecretNET.Common.UserApprovalDecision.GasLimit.htm" />
   <HelpKINode Title="GasLimit property" Url="html/P-SecretNET.Tx.TxOptions.GasLimit.htm" />
+  <HelpKINode Title="GasPriceInFeeDenom field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.GasPriceInFeeDenom.htm" />
   <HelpKINode Title="GasPriceInFeeDenom property" Url="html/P-SecretNET.Tx.TxOptions.GasPriceInFeeDenom.htm" />
   <HelpKINode Title="GasUsed property" Url="html/P-SecretNET.Tx.SecretTx.GasUsed.htm" />
   <HelpKINode Title="GasWanted property" Url="html/P-SecretNET.Tx.SecretTx.GasWanted.htm" />
@@ -1007,7 +1126,6 @@
     <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.GovTx.htm" />
   </HelpKINode>
   <HelpKINode Title="GovTx.Deposit method" Url="html/M-SecretNET.Tx.GovTx.Deposit.htm" />
-  <HelpKINode Title="GovTx.SubmitProposal method" Url="html/M-SecretNET.Tx.GovTx.SubmitProposal.htm" />
   <HelpKINode Title="GovTx.Vote method" Url="html/M-SecretNET.Tx.GovTx.Vote.htm" />
   <HelpKINode Title="GovTx.VoteWeighted method" Url="html/M-SecretNET.Tx.GovTx.VoteWeighted.htm" />
   <HelpKINode Title="GprcBase class" Url="html/T-SecretNET.Common.GprcBase.htm" />
@@ -1262,6 +1380,7 @@
   <HelpKINode Title="Infinity property" Url="html/P-SecretNET.Crypto.Secp256k1.GEJ.Infinity.htm" />
   <HelpKINode Title="Inflation method" Url="html/M-SecretNET.Query.MintQueryClient.Inflation.htm" />
   <HelpKINode Title="InitFunds property" Url="html/P-SecretNET.Tx.MsgInstantiateContract.InitFunds.htm" />
+  <HelpKINode Title="InitialDeposit property" Url="html/P-SecretNET.Tx.ProposalBaseClass.InitialDeposit.htm" />
   <HelpKINode Title="Initialize method" Url="html/M-SecretNET.Crypto.Secp256k1.HMACSHA256.Initialize.htm" />
   <HelpKINode Title="InitWallet method" Url="html/M-SecretNET.Wallet.InitWallet.htm" />
   <HelpKINode Title="InMemory enumeration member" Url="html/T-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.htm" />
@@ -1338,7 +1457,7 @@
   <HelpKINode Title="ISecretNetworkClient.AlwaysSimulateTransactions property" Url="html/P-SecretNET.ISecretNetworkClient.AlwaysSimulateTransactions.htm" />
   <HelpKINode Title="ISecretNetworkClient.ChainId property" Url="html/P-SecretNET.ISecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="ISecretNetworkClient.EncryptionUtils property" Url="html/P-SecretNET.ISecretNetworkClient.EncryptionUtils.htm" />
-  <HelpKINode Title="ISecretNetworkClient.GasEstimationMltiplier property" Url="html/P-SecretNET.ISecretNetworkClient.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="ISecretNetworkClient.GasEstimationMultiplier property" Url="html/P-SecretNET.ISecretNetworkClient.GasEstimationMultiplier.htm" />
   <HelpKINode Title="ISecretNetworkClient.GetSignerData method" Url="html/M-SecretNET.ISecretNetworkClient.GetSignerData.htm" />
   <HelpKINode Title="ISecretNetworkClient.GrpcWebUrl property" Url="html/P-SecretNET.ISecretNetworkClient.GrpcWebUrl.htm" />
   <HelpKINode Title="ISecretNetworkClient.PrepareAndSign method" Url="html/M-SecretNET.ISecretNetworkClient.PrepareAndSign.htm" />
@@ -1796,6 +1915,16 @@
   <HelpKINode Title="PacketReceipt method" Url="html/M-SecretNET.Query.IbcChannelQueryClient.PacketReceipt.htm" />
   <HelpKINode Title="Padding property" Url="html/P-SecretNET.AccessControl.CreateViewingKeyOptions_Payload.Padding.htm" />
   <HelpKINode Title="Padding property" Url="html/P-SecretNET.AccessControl.SetViewingKeyRequest_Payload.Padding.htm" />
+  <HelpKINode Title="ParameterChangeProposal class" Url="html/AllMembers.T-SecretNET.Tx.ParameterChangeProposal.htm" />
+  <HelpKINode Title="ParameterChangeProposal class" Url="html/T-SecretNET.Tx.ParameterChangeProposal.htm" />
+  <HelpKINode Title="ParameterChangeProposal class">
+    <HelpKINode Title="about ParameterChangeProposal class" Url="html/T-SecretNET.Tx.ParameterChangeProposal.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.ParameterChangeProposal.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Tx.ParameterChangeProposal.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.ParameterChangeProposal.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.ParameterChangeProposal.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ParameterChangeProposal.ParameterChangeProposal constructor" Url="html/M-SecretNET.Tx.ParameterChangeProposal.-ctor.htm" />
   <HelpKINode Title="Params method" Url="html/M-SecretNET.Query.BankQueryClient.Params.htm" />
   <HelpKINode Title="Params method" Url="html/M-SecretNET.Query.GovQueryClient.Params.htm" />
   <HelpKINode Title="Params method" Url="html/M-SecretNET.Query.IbcTransferQueryClient.Params.htm" />
@@ -1873,25 +2002,46 @@
   <HelpKINode Title="PrivateKeyStorageEncryptionEnum.Password field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.Password.htm" />
   <HelpKINode Title="PrivateKeyStorageEncryptionEnum.SecureStorage field" Url="html/F-SecretNET.Common.Storage.PrivateKeyStorageEncryptionEnum.SecureStorage.htm" />
   <HelpKINode Title="Proposal method" Url="html/M-SecretNET.Query.GovQueryClient.Proposal.htm" />
+  <HelpKINode Title="ProposalBaseClass class" Url="html/AllMembers.T-SecretNET.Tx.ProposalBaseClass.htm" />
+  <HelpKINode Title="ProposalBaseClass class" Url="html/T-SecretNET.Tx.ProposalBaseClass.htm" />
+  <HelpKINode Title="ProposalBaseClass class">
+    <HelpKINode Title="about ProposalBaseClass class" Url="html/T-SecretNET.Tx.ProposalBaseClass.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.ProposalBaseClass.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Tx.ProposalBaseClass.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.ProposalBaseClass.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.ProposalBaseClass.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ProposalBaseClass.AsProposalContent method" Url="html/M-SecretNET.Tx.ProposalBaseClass.AsProposalContent.htm" />
+  <HelpKINode Title="ProposalBaseClass.ContentMessage property" Url="html/P-SecretNET.Tx.ProposalBaseClass.ContentMessage.htm" />
+  <HelpKINode Title="ProposalBaseClass.InitialDeposit property" Url="html/P-SecretNET.Tx.ProposalBaseClass.InitialDeposit.htm" />
+  <HelpKINode Title="ProposalBaseClass.ProposalBaseClass constructor" Url="html/M-SecretNET.Tx.ProposalBaseClass.-ctor.htm" />
   <HelpKINode Title="Proposals method" Url="html/M-SecretNET.Query.GovQueryClient.Proposals.htm" />
-  <HelpKINode Title="PubKey class" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
-  <HelpKINode Title="Pubkey class" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
+  <HelpKINode Title="PubKey class">
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="about PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
+  </HelpKINode>
   <HelpKINode Title="PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
   <HelpKINode Title="PubKey class">
-    <HelpKINode Title="about PubKey class" Url="html/T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Crypto.PubKey.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Crypto.PubKey.htm" />
     <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
   </HelpKINode>
+  <HelpKINode Title="Pubkey class" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
   <HelpKINode Title="Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
   <HelpKINode Title="PubKey class">
-    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Crypto.PubKey.htm" />
   </HelpKINode>
   <HelpKINode Title="Pubkey class">
     <HelpKINode Title="about Pubkey class" Url="html/T-SecretNET.Api.Pubkey.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
     <HelpKINode Title="constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PubKey class" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
+  <HelpKINode Title="Pubkey class">
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Api.Pubkey.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PubKey class">
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Crypto.PubKey.htm" />
+    <HelpKINode Title="operators" Url="html/Operators.T-SecretNET.Crypto.PubKey.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Pubkey class">
     <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Api.Pubkey.htm" />
   </HelpKINode>
   <HelpKINode Title="PubKey property" Url="html/P-SecretNET.Api.StdSignature.PubKey.htm" />
@@ -1910,8 +2060,8 @@
   <HelpKINode Title="PubKey.GetSharedPubkey method" Url="html/M-SecretNET.Crypto.PubKey.GetSharedPubkey.htm" />
   <HelpKINode Title="PubKey.Inequality operator" Url="html/M-SecretNET.Crypto.PubKey.op_Inequality.htm" />
   <HelpKINode Title="PubKey.IsCompressed property" Url="html/P-SecretNET.Crypto.PubKey.IsCompressed.htm" />
-  <HelpKINode Title="PubKey.PubKey constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
   <HelpKINode Title="Pubkey.Pubkey constructor" Url="html/M-SecretNET.Api.Pubkey.-ctor.htm" />
+  <HelpKINode Title="PubKey.PubKey constructor" Url="html/Overload-SecretNET.Crypto.PubKey.-ctor.htm" />
   <HelpKINode Title="PubKey.SanityCheck method" Url="html/Overload-SecretNET.Crypto.PubKey.SanityCheck.htm" />
   <HelpKINode Title="PubKey.ToBytes method" Url="html/Overload-SecretNET.Crypto.PubKey.ToBytes.htm" />
   <HelpKINode Title="PubKey.ToHex method" Url="html/M-SecretNET.Crypto.PubKey.ToHex.htm" />
@@ -2363,8 +2513,14 @@
   <HelpKINode Title="SecretNET.Tx.AuthzTx class" Url="html/T-SecretNET.Tx.AuthzTx.htm" />
   <HelpKINode Title="SecretNET.Tx.BankTx class" Url="html/AllMembers.T-SecretNET.Tx.BankTx.htm" />
   <HelpKINode Title="SecretNET.Tx.BankTx class" Url="html/T-SecretNET.Tx.BankTx.htm" />
+  <HelpKINode Title="SecretNET.Tx.CancelSoftwareUpgradeProposal class" Url="html/AllMembers.T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.CancelSoftwareUpgradeProposal class" Url="html/T-SecretNET.Tx.CancelSoftwareUpgradeProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.ClientUpdateProposal class" Url="html/AllMembers.T-SecretNET.Tx.ClientUpdateProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.ClientUpdateProposal class" Url="html/T-SecretNET.Tx.ClientUpdateProposal.htm" />
   <HelpKINode Title="SecretNET.Tx.Coin class" Url="html/AllMembers.T-SecretNET.Tx.Coin.htm" />
   <HelpKINode Title="SecretNET.Tx.Coin class" Url="html/T-SecretNET.Tx.Coin.htm" />
+  <HelpKINode Title="SecretNET.Tx.CommunityPoolSpendProposal class" Url="html/AllMembers.T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.CommunityPoolSpendProposal class" Url="html/T-SecretNET.Tx.CommunityPoolSpendProposal.htm" />
   <HelpKINode Title="SecretNET.Tx.ComputeTx class" Url="html/AllMembers.T-SecretNET.Tx.ComputeTx.htm" />
   <HelpKINode Title="SecretNET.Tx.ComputeTx class" Url="html/T-SecretNET.Tx.ComputeTx.htm" />
   <HelpKINode Title="SecretNET.Tx.CrisisTx class" Url="html/AllMembers.T-SecretNET.Tx.CrisisTx.htm" />
@@ -2405,6 +2561,10 @@
   <HelpKINode Title="SecretNET.Tx.MsgStoreCode class" Url="html/T-SecretNET.Tx.MsgStoreCode.htm" />
   <HelpKINode Title="SecretNET.Tx.MsgTypeNames class" Url="html/AllMembers.T-SecretNET.Tx.MsgTypeNames.htm" />
   <HelpKINode Title="SecretNET.Tx.MsgTypeNames class" Url="html/T-SecretNET.Tx.MsgTypeNames.htm" />
+  <HelpKINode Title="SecretNET.Tx.ParameterChangeProposal class" Url="html/AllMembers.T-SecretNET.Tx.ParameterChangeProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.ParameterChangeProposal class" Url="html/T-SecretNET.Tx.ParameterChangeProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.ProposalBaseClass class" Url="html/AllMembers.T-SecretNET.Tx.ProposalBaseClass.htm" />
+  <HelpKINode Title="SecretNET.Tx.ProposalBaseClass class" Url="html/T-SecretNET.Tx.ProposalBaseClass.htm" />
   <HelpKINode Title="SecretNET.Tx.SecretTx class" Url="html/AllMembers.T-SecretNET.Tx.SecretTx.htm" />
   <HelpKINode Title="SecretNET.Tx.SecretTx class" Url="html/T-SecretNET.Tx.SecretTx.htm" />
   <HelpKINode Title="SecretNET.Tx.SingleSecretTx(Of T) class" Url="html/AllMembers.T-SecretNET.Tx.SingleSecretTx-1.htm" />
@@ -2413,12 +2573,21 @@
   <HelpKINode Title="SecretNET.Tx.SingleSecretTx&lt;T&gt; class" Url="html/T-SecretNET.Tx.SingleSecretTx-1.htm" />
   <HelpKINode Title="SecretNET.Tx.SlashingTx class" Url="html/AllMembers.T-SecretNET.Tx.SlashingTx.htm" />
   <HelpKINode Title="SecretNET.Tx.SlashingTx class" Url="html/T-SecretNET.Tx.SlashingTx.htm" />
+  <HelpKINode Title="SecretNET.Tx.SoftwareUpgradeProposal class" Url="html/AllMembers.T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.SoftwareUpgradeProposal class" Url="html/T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
   <HelpKINode Title="SecretNET.Tx.StakingTx class" Url="html/AllMembers.T-SecretNET.Tx.StakingTx.htm" />
   <HelpKINode Title="SecretNET.Tx.StakingTx class" Url="html/T-SecretNET.Tx.StakingTx.htm" />
+  <HelpKINode Title="SecretNET.Tx.TextProposal class" Url="html/AllMembers.T-SecretNET.Tx.TextProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.TextProposal class" Url="html/T-SecretNET.Tx.TextProposal.htm" />
   <HelpKINode Title="SecretNET.Tx.TxClient class" Url="html/AllMembers.T-SecretNET.Tx.TxClient.htm" />
   <HelpKINode Title="SecretNET.Tx.TxClient class" Url="html/T-SecretNET.Tx.TxClient.htm" />
   <HelpKINode Title="SecretNET.Tx.TxOptions class" Url="html/AllMembers.T-SecretNET.Tx.TxOptions.htm" />
   <HelpKINode Title="SecretNET.Tx.TxOptions class" Url="html/T-SecretNET.Tx.TxOptions.htm" />
+  <HelpKINode Title="SecretNET.Tx.TxOptionsDefaults class" Url="html/AllMembers.T-SecretNET.Tx.TxOptionsDefaults.htm" />
+  <HelpKINode Title="SecretNET.Tx.TxOptionsDefaults class" Url="html/T-SecretNET.Tx.TxOptionsDefaults.htm" />
+  <HelpKINode Title="SecretNET.Tx.TxResultCode enumeration" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
+  <HelpKINode Title="SecretNET.Tx.UpgradeProposal class" Url="html/AllMembers.T-SecretNET.Tx.UpgradeProposal.htm" />
+  <HelpKINode Title="SecretNET.Tx.UpgradeProposal class" Url="html/T-SecretNET.Tx.UpgradeProposal.htm" />
   <HelpKINode Title="SecretNET.Tx.VestingTx class" Url="html/AllMembers.T-SecretNET.Tx.VestingTx.htm" />
   <HelpKINode Title="SecretNET.Tx.VestingTx class" Url="html/T-SecretNET.Tx.VestingTx.htm" />
   <HelpKINode Title="SecretNET.Wallet class" Url="html/AllMembers.T-SecretNET.Wallet.htm" />
@@ -2439,7 +2608,7 @@
   <HelpKINode Title="SecretNetworkClient.ChainId property" Url="html/P-SecretNET.SecretNetworkClient.ChainId.htm" />
   <HelpKINode Title="SecretNetworkClient.EncryptionSeed property" Url="html/P-SecretNET.SecretNetworkClient.EncryptionSeed.htm" />
   <HelpKINode Title="SecretNetworkClient.EncryptionUtils property" Url="html/P-SecretNET.SecretNetworkClient.EncryptionUtils.htm" />
-  <HelpKINode Title="SecretNetworkClient.GasEstimationMltiplier property" Url="html/P-SecretNET.SecretNetworkClient.GasEstimationMltiplier.htm" />
+  <HelpKINode Title="SecretNetworkClient.GasEstimationMultiplier property" Url="html/P-SecretNET.SecretNetworkClient.GasEstimationMultiplier.htm" />
   <HelpKINode Title="SecretNetworkClient.GetSignerData method" Url="html/M-SecretNET.SecretNetworkClient.GetSignerData.htm" />
   <HelpKINode Title="SecretNetworkClient.GrpcWebUrl property" Url="html/P-SecretNET.SecretNetworkClient.GrpcWebUrl.htm" />
   <HelpKINode Title="SecretNetworkClient.Permit property" Url="html/P-SecretNET.SecretNetworkClient.Permit.htm" />
@@ -2662,6 +2831,16 @@
   <HelpKINode Title="SmartContractException.ErrorResult property" Url="html/P-SecretNET.Api.SmartContractException.ErrorResult.htm" />
   <HelpKINode Title="SmartContractException.RawResult property" Url="html/P-SecretNET.Api.SmartContractException.RawResult.htm" />
   <HelpKINode Title="SmartContractException.SmartContractException constructor" Url="html/M-SecretNET.Api.SmartContractException.-ctor.htm" />
+  <HelpKINode Title="SoftwareUpgradeProposal class" Url="html/AllMembers.T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
+  <HelpKINode Title="SoftwareUpgradeProposal class" Url="html/T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
+  <HelpKINode Title="SoftwareUpgradeProposal class">
+    <HelpKINode Title="about SoftwareUpgradeProposal class" Url="html/T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Tx.SoftwareUpgradeProposal.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.SoftwareUpgradeProposal.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SoftwareUpgradeProposal.SoftwareUpgradeProposal constructor" Url="html/M-SecretNET.Tx.SoftwareUpgradeProposal.-ctor.htm" />
   <HelpKINode Title="SortJObject method" Url="html/M-SecretNET.Common.Utils.SortJObject.htm" />
   <HelpKINode Title="Source property" Url="html/P-SecretNET.Query.SecretCodeInfo.Source.htm" />
   <HelpKINode Title="Source property" Url="html/P-SecretNET.Tx.MsgStoreCode.Source.htm" />
@@ -2788,7 +2967,8 @@
   <HelpKINode Title="Strauss field" Url="html/F-SecretNET.Crypto.Secp256k1.ECMultiImplementation.Strauss.htm" />
   <HelpKINode Title="SubmitEvidence method" Url="html/M-SecretNET.Tx.EvidenceTx.SubmitEvidence.htm" />
   <HelpKINode Title="SubmitMisbehaviour method" Url="html/M-SecretNET.Tx.IbcClientTx.SubmitMisbehaviour.htm" />
-  <HelpKINode Title="SubmitProposal method" Url="html/M-SecretNET.Tx.GovTx.SubmitProposal.htm" />
+  <HelpKINode Title="Success enumeration member" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
+  <HelpKINode Title="Success field" Url="html/F-SecretNET.Tx.TxResultCode.Success.htm" />
   <HelpKINode Title="Success property" Url="html/P-SecretNET.Tx.SecretTx.Success.htm" />
   <HelpKINode Title="SupplyOf method" Url="html/M-SecretNET.Query.BankQueryClient.SupplyOf.htm" />
   <HelpKINode Title="TallyResult method" Url="html/M-SecretNET.Query.GovQueryClient.TallyResult.htm" />
@@ -2810,6 +2990,16 @@
   <HelpKINode Title="tendermint_PubKeyMultisigThreshold field" Url="html/F-SecretNET.Api.EncodedPubKeyTypeEnum.tendermint_PubKeyMultisigThreshold.htm" />
   <HelpKINode Title="tendermint_PubKeySecp256k1 enumeration member" Url="html/T-SecretNET.Api.EncodedPubKeyTypeEnum.htm" />
   <HelpKINode Title="tendermint_PubKeySecp256k1 field" Url="html/F-SecretNET.Api.EncodedPubKeyTypeEnum.tendermint_PubKeySecp256k1.htm" />
+  <HelpKINode Title="TextProposal class" Url="html/AllMembers.T-SecretNET.Tx.TextProposal.htm" />
+  <HelpKINode Title="TextProposal class" Url="html/T-SecretNET.Tx.TextProposal.htm" />
+  <HelpKINode Title="TextProposal class">
+    <HelpKINode Title="about TextProposal class" Url="html/T-SecretNET.Tx.TextProposal.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.TextProposal.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload-SecretNET.Tx.TextProposal.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.TextProposal.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.TextProposal.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TextProposal.TextProposal constructor" Url="html/Overload-SecretNET.Tx.TextProposal.-ctor.htm" />
   <HelpKINode Title="Timeout method" Url="html/M-SecretNET.Tx.IbcChannelTx.Timeout.htm" />
   <HelpKINode Title="TimeoutOnClose method" Url="html/M-SecretNET.Tx.IbcChannelTx.TimeoutOnClose.htm" />
   <HelpKINode Title="ToAmino method" Url="html/M-SecretNET.Tx.Msg.ToAmino.htm" />
@@ -2946,8 +3136,63 @@
   <HelpKINode Title="TxOptions.Memo property" Url="html/P-SecretNET.Tx.TxOptions.Memo.htm" />
   <HelpKINode Title="TxOptions.SkipSimulate property" Url="html/P-SecretNET.Tx.TxOptions.SkipSimulate.htm" />
   <HelpKINode Title="TxOptions.WaitForCommit property" Url="html/P-SecretNET.Tx.TxOptions.WaitForCommit.htm" />
+  <HelpKINode Title="TxOptionsDefaults class" Url="html/AllMembers.T-SecretNET.Tx.TxOptionsDefaults.htm" />
+  <HelpKINode Title="TxOptionsDefaults class" Url="html/T-SecretNET.Tx.TxOptionsDefaults.htm" />
+  <HelpKINode Title="TxOptionsDefaults class">
+    <HelpKINode Title="about TxOptionsDefaults class" Url="html/T-SecretNET.Tx.TxOptionsDefaults.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.TxOptionsDefaults.htm" />
+    <HelpKINode Title="fields" Url="html/Fields.T-SecretNET.Tx.TxOptionsDefaults.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TxOptionsDefaults.BroadcastCheckIntervalMs field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.BroadcastCheckIntervalMs.htm" />
+  <HelpKINode Title="TxOptionsDefaults.BroadcastTimeoutMs field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.BroadcastTimeoutMs.htm" />
+  <HelpKINode Title="TxOptionsDefaults.FeeDenom field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.FeeDenom.htm" />
+  <HelpKINode Title="TxOptionsDefaults.GasLimit field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.GasLimit.htm" />
+  <HelpKINode Title="TxOptionsDefaults.GasPriceInFeeDenom field" Url="html/F-SecretNET.Tx.TxOptionsDefaults.GasPriceInFeeDenom.htm" />
   <HelpKINode Title="TxResponse property" Url="html/P-SecretNET.Api.CosmosSdkException.TxResponse.htm" />
   <HelpKINode Title="TxResponse property" Url="html/P-SecretNET.Tx.SecretTx.TxResponse.htm" />
+  <HelpKINode Title="TxResultCode enumeration" Url="html/T-SecretNET.Tx.TxResultCode.htm" />
+  <HelpKINode Title="TxResultCode.ErrAppConfig field" Url="html/F-SecretNET.Tx.TxResultCode.ErrAppConfig.htm" />
+  <HelpKINode Title="TxResultCode.ErrConflict field" Url="html/F-SecretNET.Tx.TxResultCode.ErrConflict.htm" />
+  <HelpKINode Title="TxResultCode.ErrInsufficientFee field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInsufficientFee.htm" />
+  <HelpKINode Title="TxResultCode.ErrInsufficientFunds field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInsufficientFunds.htm" />
+  <HelpKINode Title="TxResultCode.ErrInternal field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInternal.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidAddress field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidAddress.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidChainID field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidChainID.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidCoins field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidCoins.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidHeight field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidHeight.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidPubKey field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidPubKey.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidRequest field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidRequest.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidSequence field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidSequence.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidType field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidType.htm" />
+  <HelpKINode Title="TxResultCode.ErrInvalidVersion field" Url="html/F-SecretNET.Tx.TxResultCode.ErrInvalidVersion.htm" />
+  <HelpKINode Title="TxResultCode.ErrIO field" Url="html/F-SecretNET.Tx.TxResultCode.ErrIO.htm" />
+  <HelpKINode Title="TxResultCode.ErrJSONMarshal field" Url="html/F-SecretNET.Tx.TxResultCode.ErrJSONMarshal.htm" />
+  <HelpKINode Title="TxResultCode.ErrJSONUnmarshal field" Url="html/F-SecretNET.Tx.TxResultCode.ErrJSONUnmarshal.htm" />
+  <HelpKINode Title="TxResultCode.ErrKeyNotFound field" Url="html/F-SecretNET.Tx.TxResultCode.ErrKeyNotFound.htm" />
+  <HelpKINode Title="TxResultCode.ErrLogic field" Url="html/F-SecretNET.Tx.TxResultCode.ErrLogic.htm" />
+  <HelpKINode Title="TxResultCode.ErrMemoTooLarge field" Url="html/F-SecretNET.Tx.TxResultCode.ErrMemoTooLarge.htm" />
+  <HelpKINode Title="TxResultCode.ErrMempoolIsFull field" Url="html/F-SecretNET.Tx.TxResultCode.ErrMempoolIsFull.htm" />
+  <HelpKINode Title="TxResultCode.ErrNoSignatures field" Url="html/F-SecretNET.Tx.TxResultCode.ErrNoSignatures.htm" />
+  <HelpKINode Title="TxResultCode.ErrNotFound field" Url="html/F-SecretNET.Tx.TxResultCode.ErrNotFound.htm" />
+  <HelpKINode Title="TxResultCode.ErrNotSupported field" Url="html/F-SecretNET.Tx.TxResultCode.ErrNotSupported.htm" />
+  <HelpKINode Title="TxResultCode.ErrorInvalidGasAdjustment field" Url="html/F-SecretNET.Tx.TxResultCode.ErrorInvalidGasAdjustment.htm" />
+  <HelpKINode Title="TxResultCode.ErrorInvalidSigner field" Url="html/F-SecretNET.Tx.TxResultCode.ErrorInvalidSigner.htm" />
+  <HelpKINode Title="TxResultCode.ErrOutOfGas field" Url="html/F-SecretNET.Tx.TxResultCode.ErrOutOfGas.htm" />
+  <HelpKINode Title="TxResultCode.ErrPackAny field" Url="html/F-SecretNET.Tx.TxResultCode.ErrPackAny.htm" />
+  <HelpKINode Title="TxResultCode.ErrPanic field" Url="html/F-SecretNET.Tx.TxResultCode.ErrPanic.htm" />
+  <HelpKINode Title="TxResultCode.ErrTooManySignatures field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTooManySignatures.htm" />
+  <HelpKINode Title="TxResultCode.ErrTxDecode field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxDecode.htm" />
+  <HelpKINode Title="TxResultCode.ErrTxInMempoolCache field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxInMempoolCache.htm" />
+  <HelpKINode Title="TxResultCode.ErrTxTimeoutHeight field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxTimeoutHeight.htm" />
+  <HelpKINode Title="TxResultCode.ErrTxTooLarge field" Url="html/F-SecretNET.Tx.TxResultCode.ErrTxTooLarge.htm" />
+  <HelpKINode Title="TxResultCode.ErrUnauthorized field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnauthorized.htm" />
+  <HelpKINode Title="TxResultCode.ErrUnknownAddress field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnknownAddress.htm" />
+  <HelpKINode Title="TxResultCode.ErrUnknownExtensionOptions field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnknownExtensionOptions.htm" />
+  <HelpKINode Title="TxResultCode.ErrUnknownRequest field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnknownRequest.htm" />
+  <HelpKINode Title="TxResultCode.ErrUnpackAny field" Url="html/F-SecretNET.Tx.TxResultCode.ErrUnpackAny.htm" />
+  <HelpKINode Title="TxResultCode.ErrWrongPassword field" Url="html/F-SecretNET.Tx.TxResultCode.ErrWrongPassword.htm" />
+  <HelpKINode Title="TxResultCode.ErrWrongSequence field" Url="html/F-SecretNET.Tx.TxResultCode.ErrWrongSequence.htm" />
+  <HelpKINode Title="TxResultCode.Success field" Url="html/F-SecretNET.Tx.TxResultCode.Success.htm" />
   <HelpKINode Title="TxsQuery method" Url="html/M-SecretNET.Query.Queries.TxsQuery.htm" />
   <HelpKINode Title="Type property" Url="html/P-SecretNET.Api.AminoMsg.Type.htm" />
   <HelpKINode Title="Type property" Url="html/P-SecretNET.Api.EncodedPubKey.Type.htm" />
@@ -3030,6 +3275,16 @@
   <HelpKINode Title="UpgradedClientState method" Url="html/M-SecretNET.Query.IbcClientQueryClient.UpgradedClientState.htm" />
   <HelpKINode Title="UpgradedConsensusState method" Url="html/M-SecretNET.Query.IbcClientQueryClient.UpgradedConsensusState.htm" />
   <HelpKINode Title="UpgradedConsensusState method" Url="html/M-SecretNET.Query.UpgradeQueryClient.UpgradedConsensusState.htm" />
+  <HelpKINode Title="UpgradeProposal class" Url="html/AllMembers.T-SecretNET.Tx.UpgradeProposal.htm" />
+  <HelpKINode Title="UpgradeProposal class" Url="html/T-SecretNET.Tx.UpgradeProposal.htm" />
+  <HelpKINode Title="UpgradeProposal class">
+    <HelpKINode Title="about UpgradeProposal class" Url="html/T-SecretNET.Tx.UpgradeProposal.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-SecretNET.Tx.UpgradeProposal.htm" />
+    <HelpKINode Title="constructor" Url="html/M-SecretNET.Tx.UpgradeProposal.-ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-SecretNET.Tx.UpgradeProposal.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-SecretNET.Tx.UpgradeProposal.htm" />
+  </HelpKINode>
+  <HelpKINode Title="UpgradeProposal.UpgradeProposal constructor" Url="html/M-SecretNET.Tx.UpgradeProposal.-ctor.htm" />
   <HelpKINode Title="UpgradeQueryClient class" Url="html/AllMembers.T-SecretNET.Query.UpgradeQueryClient.htm" />
   <HelpKINode Title="UpgradeQueryClient class" Url="html/T-SecretNET.Query.UpgradeQueryClient.htm" />
   <HelpKINode Title="UpgradeQueryClient class">
