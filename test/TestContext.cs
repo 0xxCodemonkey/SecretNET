@@ -14,10 +14,17 @@ public class TestContext : IDisposable
     public List<Wallet> Wallets { get; set; } = new List<Wallet>();
 
 
-    // SimpleCounter SmartContractTests
+    // snip20-ibc
     public ulong ContractSnip20IbcCodeId = 0;
     public string ContractSnip20IbcCodeHash = null;
     public string ContractSnip20IbcContractAddress = null;
+
+    // proposal
+    public ulong TextProposalId = 0;
+    public ulong CommunityPoolSpendProposalId = 0;
+    public ulong ParameterChangeProposalId = 0;
+    public ulong SoftwareUpgradeProposalId = 0;
+    public ulong CancelSoftwareUpgradeProposalId = 0;
 
 
     /// <summary>
@@ -32,6 +39,8 @@ public class TestContext : IDisposable
     {
         var storageProvider = new InMemoryOnlyStorage();
         var createWalletOptions = new CreateWalletOptions(storageProvider);
+
+        //TODO: use localsecret if available
 
         // SecretNET unfortunately cannot be connected to localsecret (Docker) yet, so we have to test against testnet and need to use a funded wallet.
         // use ** your own Mnemonic here *** in this test and fund the wallet via https://faucet.pulsar.scrttestnet.com/

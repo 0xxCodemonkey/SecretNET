@@ -1,4 +1,6 @@
-﻿namespace SecretNET.Tx;
+﻿using SecretNET.Crypto.Secp256k1;
+
+namespace SecretNET.Tx;
 
 public class GovTx
 {
@@ -27,10 +29,30 @@ public class GovTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>> SubmitProposal(Cosmos.Gov.V1Beta1.MsgSubmitProposal msg, TxOptions txOptions = null)
+    private async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>> SubmitProposal(Cosmos.Gov.V1Beta1.MsgSubmitProposal msg, TxOptions txOptions = null)
     {
         var txResult = await _tx.Broadcast(msg, txOptions);
         return txResult != null ? new SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>(txResult) : null;
+    }
+
+    /// <summary>
+    /// Submits a typed proposal.
+    /// </summary>
+    /// <param name="proposal">The proposal.</param>
+    /// <param name="txOptions">The tx options.</param>
+    /// <returns>SingleSecretTx&lt;Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse&gt;.</returns>
+    public async Task<SingleSecretTx<Cosmos.Gov.V1Beta1.MsgSubmitProposalResponse>> SubmitProposal(ProposalBaseClass proposal, TxOptions txOptions = null)
+    {
+        var msgSubmitProposal = new Cosmos.Gov.V1Beta1.MsgSubmitProposal()
+        {
+            Proposer = _tx.Wallet.Address,
+            Content = proposal.AsProposalContent(),
+        };
+        if (proposal.InitialDeposit != null && proposal.InitialDeposit.Any())
+        {
+            msgSubmitProposal.InitialDeposit.Add(proposal.InitialDeposit.Select(c => new Cosmos.Base.V1Beta1.Coin() { Amount = c.Amount, Denom = c.Denom }).ToArray());
+        }
+        return await SubmitProposal(msgSubmitProposal, txOptions);
     }
 
     /// <summary>
