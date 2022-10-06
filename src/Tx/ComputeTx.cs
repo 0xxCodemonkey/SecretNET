@@ -31,7 +31,7 @@ public class ComputeTx
     /// <param name="msg"></param>
     /// <param name="txOptions"></param>
     /// <returns></returns>
-    public async Task<SingleSecretTx<T>> ExecuteContract<T>(MsgExecuteContract msg, TxOptions txOptions = null)
+    public async Task<SingleSecretTx<T>> ExecuteContract<T>(MsgExecuteContract msg, TxOptions txOptions = null) where T : class
     {
         var result = await ExecuteContract(msg, txOptions);
         if (result != null)

@@ -310,7 +310,7 @@ public class TxClient : GprcBase
     /// <param name="message">The message.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>SingleSecretTx&lt;T&gt;.</returns>
-    public async Task<SingleSecretTx<T>> Broadcast<T>(MsgBase message, TxOptions txOptions = null)
+    public async Task<SingleSecretTx<T>> Broadcast<T>(MsgBase message, TxOptions txOptions = null) where T : class
     {
         return await Broadcast<T>(new MsgBase[] { message }, txOptions);
     }
@@ -322,7 +322,7 @@ public class TxClient : GprcBase
     /// <param name="message">The message.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>SingleSecretTx&lt;T&gt;.</returns>
-    public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage message, TxOptions txOptions = null)
+    public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage message, TxOptions txOptions = null) where T : class
     {
         return await Broadcast<T>(new MsgBase[] { new Msg(message) }, txOptions);
     }
@@ -335,7 +335,7 @@ public class TxClient : GprcBase
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>SingleSecretTx&lt;T&gt;.</returns>
-    public async Task<SingleSecretTx<T>> Broadcast<T>(MsgBase[] messages, TxOptions txOptions = null)
+    public async Task<SingleSecretTx<T>> Broadcast<T>(MsgBase[] messages, TxOptions txOptions = null) where T : class
     {
         var result = await Broadcast(messages, txOptions);
         if (result != null)
@@ -353,7 +353,7 @@ public class TxClient : GprcBase
     /// <param name="messages">The messages.</param>
     /// <param name="txOptions">The tx options.</param>
     /// <returns>SingleSecretTx&lt;T&gt;.</returns>
-    public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage[] messages, TxOptions txOptions = null)
+    public async Task<SingleSecretTx<T>> Broadcast<T>(IMessage[] messages, TxOptions txOptions = null) where T : class
     {
         var msgBaseList = new List<MsgBase>();
         foreach(IMessage msg in messages)

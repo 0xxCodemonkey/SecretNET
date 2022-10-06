@@ -181,7 +181,7 @@ public class SmartContractTests : IClassFixture<TestContext>
             codeHash: _context.ContractSnip20IbcCodeHash);
 
         // Act
-        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<object>(executeMsg);
+        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<string>(executeMsg);
 
         // Assert
         Assert.NotNull(executeContractResult);
@@ -190,7 +190,7 @@ public class SmartContractTests : IClassFixture<TestContext>
         var resultAsString = Convert.ToString(executeContractResult?.Response);
         _output.WriteLine($"ResultAsString: {resultAsString}");
         Assert.True(!String.IsNullOrWhiteSpace(resultAsString));
-        Assert.Contains("\"create_viewing_key\": {\r\n    \"key\": \"", resultAsString);
+        Assert.Contains("{\"create_viewing_key\":{\"key\"", resultAsString);
 
     }
 
@@ -220,7 +220,7 @@ public class SmartContractTests : IClassFixture<TestContext>
         };
 
         // Act
-        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<object>(executeMsg, txOptions);
+        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<string>(executeMsg, txOptions);
 
         var getTxResult = await _context.SecretClient.Query.GetTx(executeContractResult.Txhash);
 
@@ -258,7 +258,7 @@ public class SmartContractTests : IClassFixture<TestContext>
         };
 
         // Act
-        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<object>(executeMsg, txOptions);
+        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<string>(executeMsg, txOptions);
 
         // Assert
         Assert.NotNull(executeContractResult);

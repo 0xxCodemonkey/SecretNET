@@ -222,7 +222,7 @@ public class CommonApiTests : IClassFixture<TestContext>
         var msgDeposit = new Cosmos.Gov.V1Beta1.MsgDeposit()
         {
             Depositor = _context.Wallet.Address,
-            ProposalId = _context.ProposalId,
+            ProposalId = _context.TextProposalId,
         };
         msgDeposit.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
 
@@ -236,11 +236,11 @@ public class CommonApiTests : IClassFixture<TestContext>
         var queryDepositResult = await _context.SecretClient.Query.Gov.Deposit(new Cosmos.Gov.V1Beta1.QueryDepositRequest()
         {
             Depositor = _context.Wallet.Address,
-            ProposalId = _context.ProposalId,
+            ProposalId = _context.TextProposalId,
         });
 
         Assert.NotNull(queryDepositResult);
-        Assert.True(Convert.ToString(queryDepositResult?.Deposit?.Amount[0]?.Amount) == "1");
+        Assert.True(Convert.ToString(queryDepositResult?.Deposit?.Amount[0]?.Amount) == "2");
     }
 
     [Fact, TestPriority(7)]

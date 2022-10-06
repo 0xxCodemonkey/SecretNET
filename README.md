@@ -155,12 +155,12 @@ var txOptionsExecute = new TxOptions()
     GasPriceInFeeDenom = 0.26F
 };
 
-var executeContractResult = await secretClient.Tx.Compute.ExecuteContract(
+var executeContractResult = await secretClient.Tx.Compute.ExecuteContract<string>(
 				msg: msgExecuteContract, 
 				txOptions: txOptionsExecute);
 ```
 
-You can find **more examples** in the [ready to run example CLI project](https://github.com/0xxCodemonkey/SecretNET/blob/main/examples/SecretNET.Examples/Program.cs).
+You can find **more examples** in the [ready to run example CLI project](https://github.com/0xxCodemonkey/SecretNET/blob/main/examples/SecretNET.Examples/Program.cs) or in the [tests](https://github.com/0xxCodemonkey/SecretNET/blob/main/test).
 
 :information_source: **SecretNET unfortunately cannot be connected to localsecret (Docker) yet**, as the docker image currently does not provide an encrypted connection on gRPC-web port 9091.</br>
 As far as I know, .NET cannot be connected to an unencrypted port via gRPC-web unless it offers HTTP/2 exclusively, which is not the case with localsecret (it also runs HTTP 1.1 on port 9091). See [here](https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-6.0#call-insecure-grpc-services-with-net-core-client) and [here](https://learn.microsoft.com/en-us/aspnet/core/grpc/aspnetcore?view=aspnetcore-6.0&tabs=visual-studio#protocol-negotiation).
@@ -282,7 +282,7 @@ var contractCodeHash = "3d528d0d9889d5887abd3e497243ed6e5a4da008091e20ee420eca39
 
 var getCountQueryMsg = new { get_count = new { } };
 
-var queryContractResult = await secretClient.Query.Compute.QueryContract<object>(
+var queryContractResult = await secretClient.Query.Compute.QueryContract<string>(
 				contractAddress: contractAddress, 
 				queryMsg: getCountQueryMsg, 
 				codeHash: contractCodeHash); // optional but way faster
@@ -417,8 +417,9 @@ var msgExecuteContract = new MsgExecuteContract(
 				sender: null, 		// optional => set to the wallet address
 				sentFunds: null 	// optional
 				);
-				
-var tx = await secretClient.Tx.Compute.ExecuteContract(msgExecuteContract, new TxOptions
+
+// Where T can be an object to JSON-deserialize or just type string
+var tx = await secretClient.Tx.Compute.ExecuteContract<T>(msgExecuteContract, new TxOptions
 {
     // Adjust gasLimit to you got from a simulate tx
     GasLimit = 150000,

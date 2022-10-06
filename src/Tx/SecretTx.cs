@@ -132,7 +132,7 @@ namespace SecretNET.Tx
         /// <typeparam name="T"></typeparam>
         /// <param name="msgIndex">Index of the MSG.</param>
         /// <returns>T.</returns>
-        public T GetResponseMsg<T>(int msgIndex = 0)
+        public T GetResponseMsg<T>(int msgIndex = 0) where T : class
         {
             T response = default(T);
             try
@@ -150,8 +150,15 @@ namespace SecretNET.Tx
                     }
                     else
                     {
-                        var jsonData = Encoding.UTF8.GetString(msgData);
-                        response = JsonConvert.DeserializeObject<T>(jsonData);
+                        var stringData = Encoding.UTF8.GetString(msgData);
+                        if (typeof(T) == typeof(string))
+                        {
+                            response = stringData as T;
+                        }
+                        else
+                        {
+                            response = JsonConvert.DeserializeObject<T>(stringData);
+                        }
                     }
                 }
             }
@@ -230,10 +237,24 @@ namespace SecretNET.Tx
         }
     }
 
-    public class SingleSecretTx<T> : SecretTx
+    /// <summary>
+    /// Class SingleSecretTx.
+    /// Implements the <see cref="SecretNET.Tx.SecretTx" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="SecretNET.Tx.SecretTx" />
+    public class SingleSecretTx<T> : SecretTx where T : class
     {
+        /// <summary>
+        /// Gets or sets the response.
+        /// </summary>
+        /// <value>The response.</value>
         public T Response { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SingleSecretTx{T}"/> class.
+        /// </summary>
+        /// <param name="secretTx">The secret tx.</param>
         public SingleSecretTx(SecretTx secretTx) : base(secretTx)
         {
             ParseData();
@@ -256,8 +277,15 @@ namespace SecretNET.Tx
                     }
                     else
                     {
-                        var jsonData = Encoding.UTF8.GetString(msgData);
-                        Response = JsonConvert.DeserializeObject<T>(jsonData);
+                        var stringData = Encoding.UTF8.GetString(msgData);
+                        if (typeof(T) == typeof(string))
+                        {
+                            Response = stringData as T;
+                        }
+                        else
+                        {
+                            Response = JsonConvert.DeserializeObject<T>(stringData);
+                        }
                     }                    
                 }
             }

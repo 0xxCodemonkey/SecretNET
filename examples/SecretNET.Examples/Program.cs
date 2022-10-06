@@ -180,6 +180,8 @@ else
     Console.WriteLine("Transaction was not approved!");
 }
 
+secretClient.TransactionApprovalCallback = null;
+
 #endregion
 
 #region *** Auth  ***
