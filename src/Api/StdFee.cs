@@ -60,7 +60,8 @@ public class StdFeeAmino
     [JsonProperty("gas")]
     public string Gas { get; set; }
 
-    [JsonProperty("granter")]
+    //[JsonProperty("granter")]
+    [JsonIgnore]
     public string FeeGranter { get; set; }
 
     public StdFeeAmino(Tx.Coin coin, string gas, string feeGranter = null) : this(new[] { coin }, gas, feeGranter)

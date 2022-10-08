@@ -29,6 +29,11 @@ In addition to the Secret.NET Core Library, the following complementary packages
 ## Full API-documentation
 You can find the **full API-documentation** here => [https://0xxcodemonkey.github.io/SecretNET](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
 
+## Informations about .NET MAUI: 
+- [What is .NET MAUI?](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui)
+- [Learn how to use .NET MAUI to build apps that run on mobile devices and on the desktop using C# and Visual Studio.](https://learn.microsoft.com/en-us/training/paths/build-apps-with-dotnet-maui/)
+- [Resources to Get Started with .NET MAUI](https://devblogs.microsoft.com/dotnet/learn-dotnet-maui/)
+
 # Table of Contents
 - [Key Features](#key-features)
   - [Additional packages](#additional-packages)
@@ -79,7 +84,7 @@ The Secret.NET Core Libray can be easily installed via Nuget:
 ``` bash 
 nuget install SecretNET
 ```
-[NuGet-Paket-Manager-Konsole](https://docs.microsoft.com/de-de/nuget/consume-packages/install-use-packages-powershell):
+[NuGet-Paket-Manager-Console](https://docs.microsoft.com/de-de/nuget/consume-packages/install-use-packages-powershell):
 ```  bash
 Install-Package SecretNET
 ```
@@ -92,7 +97,7 @@ nuget install SecretNET.NFT
 nuget install SecretNET.UI (coming soon)
 ```
 
-NuGet-Paket-Manager-Konsole:
+NuGet-Paket-Manager-Console:
 ```  bash
 Install-Package SecretNET.Token
 Install-Package SecretNET.NFT

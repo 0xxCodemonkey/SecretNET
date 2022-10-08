@@ -418,7 +418,8 @@ partial class ECMultContext
 		VERIFY_CHECK(carry == 0);
 		while (bit < 256)
 		{
-			VERIFY_CHECK(s.GetBits(bit++, 1) == 0);
+			bit++;
+            VERIFY_CHECK(s.GetBits(bit, 1) == 0);
 		}
 
 		return last_set_bit + 1;

@@ -403,6 +403,33 @@ public class SecretNetworkClient : ISecretNetworkClient
         return address;
     }
 
+    /// <summary>
+    /// Converts a base64 encoded PubKey to an address.
+    /// </summary>
+    /// <param name="base64Pubkey">The base64 pubkey.</param>
+    /// <returns>System.String.</returns>
+    public static string Base64PubkeyToAddress(string base64Pubkey)
+    {
+        var pubkeyBytes = Convert.FromBase64String(base64Pubkey);
+        return PubkeyToAddress(pubkeyBytes);
+    }
+
+    /// <summary>
+    /// Converts a PubKey to an address.
+    /// </summary>
+    /// <param name="pubkeyBytes">The pubkey bytes.</param>
+    /// <returns>System.String.</returns>
+    public static string PubkeyToAddress(byte[] pubkeyBytes)
+    {
+        var bech32encoder = Encoders.Bech32("secret");
+        var sha256Hash = Hashes.SHA256(pubkeyBytes.ToArray());
+        var ripemd160Hash = Hashes.RIPEMD160(sha256Hash, 0, sha256Hash.Length);
+
+        var bech32words = bech32encoder.ConvertBits(ripemd160Hash, 8, 5);
+        var address = bech32encoder.EncodeData(bech32words, Bech32EncodingType.BECH32);
+        return address;
+    }
+
     // internal
 
     
@@ -418,6 +445,21 @@ public class SecretNetworkClient : ISecretNetworkClient
         result.PubKey = EncodeSecp256k1Pubkey(pubKey);
 
         return result;
+    }
+
+    internal static EncodedPubKey EncodeSecp256k1Pubkey(PubKey pubKey)
+    {
+        var keyBytes = pubKey.ToBytes();
+        if (keyBytes.Length != 33 || (keyBytes[0] != 0x02 && keyBytes[0] != 0x03))
+        {
+            throw new Exception("Public key must be compressed secp256k1, i.e. 33 bytes starting with 0x02 or 0x03");
+        }
+
+        return new EncodedPubKey()
+        {
+            Type = EncodedPubKeyTypeEnum.tendermint_PubKeySecp256k1,
+            AsBase64 = Convert.ToBase64String(keyBytes)
+        };
     }
 
     internal static SignDoc MakeSignDocProto(byte[] bodyBytes, byte[] authInfoBytes, string chainId, ulong accountNumber)
@@ -492,22 +534,7 @@ public class SecretNetworkClient : ISecretNetworkClient
             signerInfos.Add(signerInfo);
         }
         return signerInfos.ToArray();
-    }
-
-    internal static EncodedPubKey EncodeSecp256k1Pubkey(PubKey pubKey)
-    {
-        var keyBytes = pubKey.ToBytes();
-        if (keyBytes.Length != 33 || (keyBytes[0] != 0x02 && keyBytes[0] != 0x03))
-        {
-            throw new Exception("Public key must be compressed secp256k1, i.e. 33 bytes starting with 0x02 or 0x03");
-        }
-
-        return new EncodedPubKey()
-        {
-            Type = EncodedPubKeyTypeEnum.tendermint_PubKeySecp256k1,
-            AsBase64 = Convert.ToBase64String(keyBytes)
-        };
-    }
+    }    
 
     internal static Any EncodePubkey(EncodedPubKey pubKey)
     {

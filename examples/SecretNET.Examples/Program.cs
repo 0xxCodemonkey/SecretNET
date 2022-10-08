@@ -102,8 +102,6 @@ writeHeadline("Get Balance");
 var response = await secretClient.Query.Bank.Balance(wallet.Address);
 Console.WriteLine($"Balance: {(float.Parse(response.Amount) / 1000000f)} SCRT");
 
-//Console.ReadLine();
-
 #endregion
 
 #region *** Get Subacccount and Send $SCRT ***
@@ -289,7 +287,10 @@ var executeMsg = new { increment = new { } };
 
 Console.WriteLine("Execute : " + JsonConvert.SerializeObject(executeMsg, Formatting.Indented) + "\r\n");
 
-var msgExecuteContract = new MsgExecuteContract(contractAddress: contractAddress, msg: executeMsg, codeHash: contractCodeHash, sender: null, sentFunds: null);
+var msgExecuteContract = new MsgExecuteContract(
+                            contractAddress: contractAddress, 
+                            msg: executeMsg, 
+                            codeHash: contractCodeHash);
 
 var executeContractResponse = await secretClient.Tx.Compute.ExecuteContract(msgExecuteContract);
 logSecretTx("ExecuteContract", executeContractResponse);
