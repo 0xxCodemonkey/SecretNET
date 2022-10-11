@@ -1,5 +1,7 @@
 using Cosmos.Bank.V1Beta1;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Newtonsoft.Json;
+using SecretNET.AccessControl;
 using SecretNET.Api;
 using SecretNET.Tests.Common;
 using SecretNET.Tx;
@@ -18,6 +20,8 @@ public class SmartContractTests : IClassFixture<TestContext>
         _output = output;
         _context = context;
     }
+
+    #region StoreCode / instantiate contract
 
     [Fact, TestPriority(0)]
     public async void StoreCode_Response_ReturnsCodeId()
@@ -163,6 +167,10 @@ public class SmartContractTests : IClassFixture<TestContext>
 
     }
 
+    #endregion
+
+    #region Execute contract
+
     [Fact, TestPriority(4)]
     public async void ExecuteContract_Response_ReturnsResult()
     {
@@ -173,9 +181,9 @@ public class SmartContractTests : IClassFixture<TestContext>
             contractAddress: _context.ContractSnip20IbcContractAddress,
             msg: new
             {
-                create_viewing_key = new
+                set_viewing_key = new
                 {
-                    entropy = "bla bla"
+                    key = _context.ViewingKey
                 }
             },
             codeHash: _context.ContractSnip20IbcCodeHash);
@@ -190,11 +198,51 @@ public class SmartContractTests : IClassFixture<TestContext>
         var resultAsString = Convert.ToString(executeContractResult?.Response);
         _output.WriteLine($"ResultAsString: {resultAsString}");
         Assert.True(!String.IsNullOrWhiteSpace(resultAsString));
-        Assert.Contains("{\"create_viewing_key\":{\"key\"", resultAsString);
+        Assert.Contains("{\"set_viewing_key\":{\"status\":\"success\"}}                                                                                                                                                                                                                      ", resultAsString);
 
     }
 
     [Fact, TestPriority(5)]
+    public async void ExecuteContract_WithWrongParameter_ReturnsError()
+    {
+        Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
+
+        // Arrange
+        var executeMsg = new MsgExecuteContract(
+            contractAddress: _context.ContractSnip20IbcContractAddress,
+            msg: new
+            {
+                transfer = new
+                {
+                    recipient = _context.Wallet.Address,
+                    amount = "2",
+                }
+            },
+            codeHash: _context.ContractSnip20IbcCodeHash);
+
+        // simulate would fail
+        var txOptions = new TxOptions()
+        {
+            SkipSimulate = true,
+            GasLimit = 5_000_000
+        };
+
+        // Act
+        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<string>(executeMsg, txOptions);
+
+        // Assert
+        Assert.NotNull(executeContractResult);
+        Assert.NotEqual((uint)TxResultCode.Success, executeContractResult?.Code);
+
+        Assert.Contains("failed to execute message; message index: 0", executeContractResult.RawLog);
+        Assert.Contains("insufficient funds: balance=1, required=2", executeContractResult.RawLog);
+    } 
+
+    #endregion
+
+    #region Query contract
+
+    [Fact, TestPriority(6)]
     public async void Query_GetTxWithError_ReturnsError()
     {
         Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
@@ -230,42 +278,6 @@ public class SmartContractTests : IClassFixture<TestContext>
         Assert.NotNull(getTxResult.RawLog);
         Assert.Contains("failed to execute message; message index: 0", getTxResult.RawLog);
         Assert.Contains("insufficient funds: balance=1, required=2", getTxResult.RawLog);
-    }
-
-    [Fact, TestPriority(6)]
-    public async void ExecuteContract_WithWrongParameter_ReturnsError()
-    {
-        Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
-
-        // Arrange
-        var executeMsg = new MsgExecuteContract(
-            contractAddress: _context.ContractSnip20IbcContractAddress,
-            msg: new
-            {
-                transfer = new
-                {
-                    recipient = _context.Wallet.Address,
-                    amount = "2",
-                }
-            },
-            codeHash: _context.ContractSnip20IbcCodeHash);
-
-        // simulate would fail
-        var txOptions = new TxOptions()
-        {
-            SkipSimulate = true,
-            GasLimit = 5_000_000
-        };
-
-        // Act
-        var executeContractResult = await _context.SecretClient.Tx.Compute.ExecuteContract<string>(executeMsg, txOptions);
-
-        // Assert
-        Assert.NotNull(executeContractResult);
-        Assert.NotEqual((uint)TxResultCode.Success, executeContractResult?.Code);
-
-        Assert.Contains("failed to execute message; message index: 0", executeContractResult.RawLog);
-        Assert.Contains("insufficient funds: balance=1, required=2", executeContractResult.RawLog);
     }
 
     [Fact, TestPriority(7)]
@@ -346,33 +358,6 @@ public class SmartContractTests : IClassFixture<TestContext>
     }
 
     [Fact, TestPriority(9)]
-    public async void QueryContract_WithWrongViewingKey_ReturnsError()
-    {
-        Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
-
-        // Arrange
-
-        // Act
-        var queryContractResult = await _context.SecretClient.Query.Compute
-            .QueryContract<object>(
-                contractAddress: _context.ContractSnip20IbcContractAddress,
-                queryMsg: new
-                {
-                    balance = new
-                    {
-                        address = _context.Wallet.Address,
-                        key = "wrong",
-                    }
-                },
-                codeHash: _context.ContractSnip20IbcCodeHash
-                );
-
-        // Assert
-        Assert.NotNull(queryContractResult);
-        Assert.Contains("Wrong viewing key for this address or viewing key not set", queryContractResult.RawResponse);
-    }
-
-    [Fact, TestPriority(10)]
     public async void QueryContract_WithWrongMsgType_ReturnsError()
     {
         Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
@@ -398,6 +383,223 @@ public class SmartContractTests : IClassFixture<TestContext>
         Assert.NotNull(smartContractException);
         Assert.Contains("\"parse_err\":{\"msg\":\"unknown variant `non_existent_query`", queryContractResult.RawResponse);
     }
+
+    #endregion
+
+    #region Permit / ViewingKey
+
+    [Fact, TestPriority(10)]
+    public async void QueryContract_WithViewingKey_ReturnsBalance()
+    {
+        Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
+
+        // Arrange
+
+        // Act
+        var queryContractResult = await _context.SecretClient.Query.Compute
+            .QueryContract<object>(
+                contractAddress: _context.ContractSnip20IbcContractAddress,
+                queryMsg: new
+                {
+                    balance = new
+                    {
+                        address = _context.Wallet.Address,
+                        key = _context.ViewingKey,
+                    }
+                },
+                codeHash: _context.ContractSnip20IbcCodeHash
+                );
+
+        // Assert
+        Assert.NotNull(queryContractResult);
+        Assert.Contains("{\"balance\":{\"amount\":\"1\"}}", queryContractResult.RawResponse);
+    }
+
+    [Fact, TestPriority(11)]
+    public async void QueryContract_WithWrongViewingKey_ReturnsError()
+    {
+        Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
+
+        // Arrange
+
+        // Act
+        var queryContractResult = await _context.SecretClient.Query.Compute
+            .QueryContract<object>(
+                contractAddress: _context.ContractSnip20IbcContractAddress,
+                queryMsg: new
+                {
+                    balance = new
+                    {
+                        address = _context.Wallet.Address,
+                        key = "wrong",
+                    }
+                },
+                codeHash: _context.ContractSnip20IbcCodeHash
+                );
+
+        // Assert
+        Assert.NotNull(queryContractResult);
+        Assert.Contains("Wrong viewing key for this address or viewing key not set", queryContractResult.RawResponse);
+    }    
+
+    [Fact, TestPriority(12)]
+    public async void QueryContract_WithPermit_ReturnsBalance()
+    {
+        Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
+
+        // Arrange
+        var permit = await _context.SecretClient.Permit.Sign(
+            owner: _context.Wallet.Address,
+            chainId: _context.SecretClient.ChainId,
+            permitName: "test",
+            allowedContracts: new string[] { _context.ContractSnip20IbcContractAddress },
+            permissions: new PermissionType[] {
+                PermissionType.Balance
+            });
+
+        // Act
+        var queryContractResult = await _context.SecretClient.Query.Compute
+            .QueryContract<object>(
+                contractAddress: _context.ContractSnip20IbcContractAddress,
+                queryMsg: new
+                {
+                    with_permit = new
+                    {
+                        permit = permit,
+                        query = new
+                        {
+                            balance = new
+                            {
+                                address = _context.Wallet.Address,
+                                key = _context.ViewingKey,
+                            }
+                        }
+                    }
+                },
+                codeHash: _context.ContractSnip20IbcCodeHash
+                );
+
+        // Assert
+        Assert.NotNull(queryContractResult);
+        Assert.Contains("{\"balance\":{\"amount\":\"1\"}}", queryContractResult.RawResponse);
+    }
+
+    [Fact, TestPriority(13)]
+    public async void QueryContract_WithWrongPermit_ReturnsError()
+    {
+        Assert.True(!String.IsNullOrWhiteSpace(_context.ContractSnip20IbcContractAddress));
+
+        // Arrange
+        var permit = await _context.SecretClient.Permit.Sign(
+            owner: _context.Wallet.Address,
+            chainId: _context.SecretClient.ChainId,
+            permitName: "test",
+            allowedContracts: new string[] { "secret1234567" },
+            permissions: new PermissionType[] {
+                PermissionType.Balance
+            });
+
+        // Act
+        var queryContractResult = await _context.SecretClient.Query.Compute
+            .QueryContract<object>(
+                contractAddress: _context.ContractSnip20IbcContractAddress,
+                queryMsg: new
+                {
+                    with_permit = new
+                    {
+                        permit = permit,
+                        query = new
+                        {
+                            balance = new
+                            {
+                                address = _context.Wallet.Address,
+                                key = _context.ViewingKey,
+                            }
+                        }
+                    }
+                },
+                codeHash: _context.ContractSnip20IbcCodeHash
+                );
+
+        // Assert
+        Assert.NotNull(queryContractResult);
+        Assert.Contains("{\"generic_err\":{\"msg\":\"Permit doesn't apply to token", queryContractResult.RawResponse);
+    }
+
+    [Fact, TestPriority(1)]
+    public async void Permit_VerifyPermit_ReturnsTrue()
+    {
+        // Arrange
+        var permit = await _context.SecretClient.Permit.Sign(
+            owner: _context.Wallet.Address,
+            chainId: _context.SecretClient.ChainId,
+            permitName: "test",
+            allowedContracts: new string[] { _context.ContractSnip20IbcContractAddress },
+            permissions: new PermissionType[] {
+                PermissionType.Balance
+            });
+
+        // Act
+        var verifyResult = _context.SecretClient.Permit.Verify(
+                          permit,
+                          _context.Wallet.Address,
+                          _context.ContractSnip20IbcContractAddress,
+                          new PermissionType[] { PermissionType.Balance }
+                        );
+
+        // Assert
+        Assert.True(verifyResult);
+    }
+
+    [Fact, TestPriority(1)]
+    public async void Permit_VerifyPermitWrongContractWithException_ThrowsContractNotInPermitException()
+    {
+        // Arrange
+        var permit = await _context.SecretClient.Permit.Sign(
+            owner: _context.Wallet.Address,
+            chainId: _context.SecretClient.ChainId,
+            permitName: "test",
+            allowedContracts: new string[] { _context.ContractSnip20IbcContractAddress },
+            permissions: new PermissionType[] {
+                PermissionType.Balance
+            });
+
+        // Act / Assert
+        Assert.Throws<ContractNotInPermitException>(
+            () => _context.SecretClient.Permit.Verify(
+                          permit,
+                          _context.Wallet.Address,
+                          "abcd",
+                          new PermissionType[] { PermissionType.Balance }
+                        ));
+
+    }
+
+    [Fact, TestPriority(1)]
+    public async void Permit_VerifyPermitWrongPermissionsWithException_ThrowsPermissionNotInPermitException()
+    {
+        // Arrange
+        var permit = await _context.SecretClient.Permit.Sign(
+            owner: _context.Wallet.Address,
+            chainId: _context.SecretClient.ChainId,
+            permitName: "test",
+            allowedContracts: new string[] { _context.ContractSnip20IbcContractAddress },
+            permissions: new PermissionType[] {
+                PermissionType.Balance
+            });
+
+        // Act / Assert
+        Assert.Throws<PermissionNotInPermitException>(
+            () => _context.SecretClient.Permit.Verify(
+                          permit,
+                          _context.Wallet.Address,
+                          _context.ContractSnip20IbcContractAddress,
+                          new PermissionType[] { PermissionType.Owner }
+                        ));
+
+    } 
+
+    #endregion
 
 
     // Arrange

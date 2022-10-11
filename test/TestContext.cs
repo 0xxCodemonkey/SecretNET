@@ -19,6 +19,8 @@ public class TestContext : IDisposable
     public string ContractSnip20IbcCodeHash = null;
     public string ContractSnip20IbcContractAddress = null;
 
+    public string ViewingKey = "MySuperSecureViewingKey";
+
     // proposal
     public ulong TextProposalId = 0;
     public ulong CommunityPoolSpendProposalId = 0;

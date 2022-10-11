@@ -2,6 +2,9 @@
 
 namespace SecretNET.Tx;
 
+/// <summary>
+/// Class GovTx.
+/// </summary>
 public class GovTx
 {
     private TxClient _tx;

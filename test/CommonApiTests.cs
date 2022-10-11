@@ -22,6 +22,8 @@ public class CommonApiTests : IClassFixture<TestContext>
         _context = context;
     }
 
+    #region Query.Auth / Account
+
     //TODO: query.auth.accounts() => fresh localsecret is needed for a test
 
     [Fact, TestPriority(1)]
@@ -37,8 +39,11 @@ public class CommonApiTests : IClassFixture<TestContext>
         Assert.NotNull(accountResponse as Cosmos.Auth.V1Beta1.BaseAccount);
         Assert.True(((Cosmos.Auth.V1Beta1.BaseAccount)accountResponse).AccountNumber > 0);
         Assert.True(((Cosmos.Auth.V1Beta1.BaseAccount)accountResponse).Sequence >= 0);
-    }
+    } 
 
+    #endregion
+
+    #region Bank
 
     [Fact, TestPriority(2)]
     public async void TxBank_Send_IncreaseAndDecreaseBalance()
@@ -141,7 +146,10 @@ public class CommonApiTests : IClassFixture<TestContext>
         var x2 = (int)(sendAmount + (gasLimit * 0.25f)); // estimated gas usage
 
         Assert.True(((uint)x2 - x1) < 1000); // estimated diff
-    }
+    } 
+    #endregion
+
+    #region Gov / Proposals
 
     private async Task<List<Cosmos.Gov.V1Beta1.Proposal>> GetAllProposals()
     {
@@ -377,6 +385,14 @@ public class CommonApiTests : IClassFixture<TestContext>
         var proposalsAfter = await GetAllProposals();
         Assert.True(proposalsBefore.Count() + 1 == proposalsAfter.Count());
     }
+
+    #endregion
+
+
+
+    
+
+
 
     // Arrange
 
