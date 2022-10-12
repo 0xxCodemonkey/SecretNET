@@ -130,6 +130,12 @@ public class SecretNetworkClient : ISecretNetworkClient
             this._rpcMessageInterceptor = this._grpcChannel.Intercept(grpcMessageInterceptor);
         }
 
+        // Get TxEncryptionKey
+        if (options.EncryptionSeed == null || options.EncryptionSeed.Length == 0)
+        {
+            options.EncryptionSeed = Wallet.GetTxEncryptionKey(Wallet.Address).Result;
+        }
+
         EncryptionUtils = options.EncryptionUtils ?? new SecretEncryptionUtils(ChainId, Query.Registration, options.EncryptionSeed);
     }
 

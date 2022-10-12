@@ -15,9 +15,9 @@ public class Wallet : IWallet
     /// Gets the secure storage provider.
     /// </summary>
     /// <value>The storage provider.</value>
-    public IPrivateKeyStorage StorageProvider
+    private IPrivateKeyStorage StorageProvider
     {
-        get; private set;
+        get; set;
     }
 
     /// <summary>
@@ -53,6 +53,17 @@ public class Wallet : IWallet
         options = options ?? new CreateWalletOptions();
         StorageProvider = options.KeyStorageProvider;
         KeyDerivationPath = options.KeyDerivationPath;
+    }
+
+    /// <summary>
+    /// Gets the tx encryption key from the storage.
+    /// </summary>
+    /// <param name="address">The address.</param>
+    /// <returns>System.Byte[].</returns>
+    /// <value>The key storage.</value>
+    public async Task<byte[]> GetTxEncryptionKey(string address)
+    {
+        return await StorageProvider.GetTxEncryptionKey(address);
     }
 
     /// <summary>

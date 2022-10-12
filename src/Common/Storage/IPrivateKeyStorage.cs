@@ -94,6 +94,21 @@ public interface IPrivateKeyStorage
     public Task<bool> HasMnemonic(string address = null);
 
     /// <summary>
+    /// Gets the tx encryption key. By default, this is derived from the private key. If this was set via SetTxEncryptionKey this stored TxEncryptionKey is used.
+    /// </summary>
+    /// <param name="address">The address.</param>
+    /// <returns>Task&lt;System.Byte[]&gt;.</returns>
+    public Task<byte[]> GetTxEncryptionKey(string address);
+
+    /// <summary>
+    /// Sets the tx encryption key and saves it to the storage.
+    /// </summary>
+    /// <param name="address">The address.</param>
+    /// <param name="txEncryptionKey">The tx encryption key.</param>
+    /// <returns>Task.</returns>
+    public Task SetTxEncryptionKey(string address, byte[] txEncryptionKey);
+
+    /// <summary>
     /// Removes the private key and mnemonic for the given address.
     /// </summary>
     /// <param name="address">The address.</param>

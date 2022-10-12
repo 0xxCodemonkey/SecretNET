@@ -24,6 +24,11 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
     protected string _mnemonicStoreKeyPattern = "M_{0}";
 
     /// <summary>
+    /// The TxEncryptionKey store key pattern
+    /// </summary>
+    protected string _txEncryptionKeyStoreKeyPattern = "TK_{0}";
+
+    /// <summary>
     /// The stored keys list name
     /// </summary>
     protected string _storedKeysListName = "storedKeys";
@@ -31,7 +36,7 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
     /// <summary>
     /// The stored mnemonic list name
     /// </summary>
-    protected string _storedMnemonicListName = "storedMnemonic";
+    protected string _storedMnemonicListName = "storedMnemonic";    
 
     /// <summary>
     /// The stored key adress list
@@ -340,6 +345,55 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
         var removedMnemonic = await RemoveMnemonic(address);
 
         return (removedPrivateKey, removedMnemonic);
+    }
+
+    /// <inheritdoc/>
+    public async Task<byte[]> GetTxEncryptionKey(string address)
+    {
+        string base64TxEncryptionKey = await GetFromStorage(HashStorageKey(string.Format(_txEncryptionKeyStoreKeyPattern, address)));
+        if (!String.IsNullOrWhiteSpace(base64TxEncryptionKey))
+        {
+            return Convert.FromBase64String(base64TxEncryptionKey);
+        }
+        else
+        {
+            var privateKey = await GetPrivateKey(address);
+            if (privateKey != null && privateKey.Length == 32)
+            {
+                return SecretNET.Crypto.Hashes.DoubleSHA256(privateKey).ToBytes();
+            }
+        }
+        
+        return null;
+    }
+
+    /// <inheritdoc/>
+    public async Task SetTxEncryptionKey(string address, byte[] txEncryptionKey)
+    {
+        if (String.IsNullOrWhiteSpace(address))
+            throw new ArgumentOutOfRangeException("address is null or empty!");
+
+        if (txEncryptionKey.Length < 32)
+            throw new ArgumentOutOfRangeException("tx encryption key length should have at least 32 byte!");
+
+        try
+        {
+            var keyAddressList = await GetStoredKeyAdressList();
+
+            // Check if address is in store
+            if (keyAddressList.Contains(address))
+            {
+                await SaveToStorage(HashStorageKey(string.Format(_txEncryptionKeyStoreKeyPattern, address)), Convert.ToBase64String(txEncryptionKey));
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException($"The adress '{address}' is not in the storage.");
+            }            
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     // helper methods 

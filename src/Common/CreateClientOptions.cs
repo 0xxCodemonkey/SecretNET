@@ -30,7 +30,9 @@ public class CreateClientOptions
     public string WalletAddress { get; set; }
 
     /// <summary>
-    /// Passing `encryptionSeed` will allow tx decryption at a later time. Ignored if `encryptionUtils` is supplied.
+    /// The `encryptionSeed` is used to encrypt transactions and will allow tx decryption at a later time.
+    /// If no value is set (recommended) `encryptionSeed` will be derived from the private key (IPrivateKeyStorage.GetTxEncryptionKey).
+    /// If EncryptionUtils are manually provided this value gets ignored.
     /// </summary>
     /// <value>The encryption seed.</value>
     public byte[] EncryptionSeed { get; set; }

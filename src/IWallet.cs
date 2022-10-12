@@ -32,6 +32,12 @@ public interface IWallet : IAminoSigner
     WalletSignType WalletSignType { get; }
 
     /// <summary>
+    /// Gets the tx encryption key from the storage.
+    /// </summary>
+    /// <value>The key storage.</value>
+    Task<byte[]> GetTxEncryptionKey(string address);
+
+    /// <summary>
     /// Gets the address of the wallet.
     /// </summary>
     /// <value>The address.</value>
@@ -49,7 +55,7 @@ public interface IWallet : IAminoSigner
     /// <param name="signDoc">The sign document.</param>
     /// <param name="address">The address.</param>
     /// <returns>Task&lt;StdSignature&gt;.</returns>
-    Task<StdSignature> SignDirect(SignDoc signDoc, string address = null);    
+    Task<StdSignature> SignDirect(SignDoc signDoc, string address = null);
 }
 
 /// <summary>
