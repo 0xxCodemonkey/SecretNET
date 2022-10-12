@@ -246,12 +246,12 @@ You can find a full list of all query methods below under ['All query methods'](
 #### `secretClient.Query.GetTx(string hash, bool tryToDecrypt = true)`
 Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string.
 
-If set the parameter tryToDecrypt to true (default) the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same CreateClientOptions.EncryptionSeed is used).
+If set the parameter `tryToDecrypt` to true (default = false) the client tries to decrypt the tx data which works only if the tx was created with the same ```CreateClientOptions.EncryptionSeed``` (default EncryptionSeed is derived from the private key).
 
 #### `secretClient.Query.TxsQuery(string query, bool tryToDecrypt = false)`
 Returns all transactions that match a query.
 
-If set the parameter `tryToDecrypt` to true (default = false) the client tries to decrypt the tx data (works only if the tx was created in the same session / client instance or if the same ```CreateClientOptions.EncryptionSeed``` is used).
+If set the parameter `tryToDecrypt` to true (default = false) the client tries to decrypt the tx data which works only if the tx was created with the same ```CreateClientOptions.EncryptionSeed``` (default EncryptionSeed is derived from the private key).
 
 To tell which events you want, you need to provide a query. query is a string, which has a form: `condition AND condition ...` (no OR at the moment). Condition has a form: `key operation operand`. key is a string with a restricted set of possible symbols (`\t`, `\n`, `\r`, `\`, `(`, `)`, `"`, `'`, `=`, `>`, `<` are not allowed). Operation can be `=`, `<`, `<=`, `>`, `>=`, `CONTAINS` AND `EXISTS`. Operand can be a string (escaped with single quotes), number, date or time.
 
