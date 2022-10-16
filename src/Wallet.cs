@@ -20,10 +20,7 @@ public class Wallet : IWallet
         get; set;
     }
 
-    /// <summary>
-    /// SecretNET currently only support DirectSigner (Amino signing is currently only used for permits).
-    /// </summary>
-    /// <value>The type of the wallet sign.</value>
+    /// <inheritdoc/>
     public WalletSignType WalletSignType { get; private set; } = WalletSignType.DirectSigner;
 
     /// <summary>
@@ -32,16 +29,10 @@ public class Wallet : IWallet
     /// <value>The key derivation path.</value>
     public string KeyDerivationPath { get; private set; }
 
-    /// <summary>
-    /// Gets the address.
-    /// </summary>
-    /// <value>The address.</value>
+    /// <inheritdoc/>
     public string Address { get; private set; }
 
-    /// <summary>
-    /// Gets the public key.
-    /// </summary>
-    /// <value>The public key.</value>
+    /// <inheritdoc/>
     public PubKey PublicKey { get; private set; }
 
     /// <summary>
@@ -55,15 +46,22 @@ public class Wallet : IWallet
         KeyDerivationPath = options.KeyDerivationPath;
     }
 
-    /// <summary>
-    /// Gets the tx encryption key from the storage.
-    /// </summary>
-    /// <param name="address">The address.</param>
-    /// <returns>System.Byte[].</returns>
-    /// <value>The key storage.</value>
-    public async Task<byte[]> GetTxEncryptionKey(string address)
+    /// <inheritdoc/>
+    public async Task<byte[]> GetTxEncryptionKey()
     {
-        return await StorageProvider.GetTxEncryptionKey(address);
+        return await StorageProvider.GetTxEncryptionKey(Address);
+    }
+
+    /// <inheritdoc/>
+    public async Task SetTxEncryptionKey(byte[] txEncryptionKey)
+    {
+        await StorageProvider.SetTxEncryptionKey(Address, txEncryptionKey);
+    }
+
+    /// <inheritdoc/>
+    public async Task RemoveTxEncryptionKey()
+    {
+        await StorageProvider.RemoveTxEncryptionKey(Address);
     }
 
     /// <summary>
@@ -192,12 +190,7 @@ public class Wallet : IWallet
         return subaccount;
     }
 
-    /// <summary>
-    /// Signs the transaction (direct).
-    /// </summary>
-    /// <param name="signDoc">The sign document.</param>
-    /// <param name="address">The address.</param>
-    /// <returns>Task&lt;StdSignature&gt;.</returns>
+    /// <inheritdoc/>
     public async Task<StdSignature> SignDirect(SignDoc signDoc, string address = null)
     {
         address = address ?? Address;
@@ -209,12 +202,7 @@ public class Wallet : IWallet
         return signature;
     }
 
-    /// <summary>
-    /// Signs the transaction (amino).
-    /// </summary>
-    /// <param name="signDoc">The sign document.</param>
-    /// <param name="address">The address.</param>
-    /// <returns>Task&lt;StdSignatureAmino&gt;.</returns>
+    /// <inheritdoc/>
     public async Task<StdSignatureAmino> SignAmino(StdSignDoc signDoc, string address = null)
     {
         address = address ?? Address;
@@ -229,6 +217,15 @@ public class Wallet : IWallet
         var result = new StdSignatureAmino(signature.Signature, PublicKey.ToBytes());
 
         return result;
+    }
+
+    /// <inheritdoc/>
+    public async Task<StdSignature> SignMessage(byte[] message, string address = null)
+    {
+        address = address ?? Address;
+        var privateKey = await GetPrivateKey(address);
+
+        return SignMessage(privateKey, message);
     }
 
     private StdSignature SignMessage(Key privateKey, byte[] message)

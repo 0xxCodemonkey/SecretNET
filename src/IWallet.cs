@@ -32,12 +32,6 @@ public interface IWallet : IAminoSigner
     WalletSignType WalletSignType { get; }
 
     /// <summary>
-    /// Gets the tx encryption key from the storage.
-    /// </summary>
-    /// <value>The key storage.</value>
-    Task<byte[]> GetTxEncryptionKey(string address);
-
-    /// <summary>
     /// Gets the address of the wallet.
     /// </summary>
     /// <value>The address.</value>
@@ -56,6 +50,34 @@ public interface IWallet : IAminoSigner
     /// <param name="address">The address.</param>
     /// <returns>Task&lt;StdSignature&gt;.</returns>
     Task<StdSignature> SignDirect(SignDoc signDoc, string address = null);
+
+    /// <summary>
+    /// Signs the message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="address">The address.</param>
+    /// <returns>Task&lt;StdSignature&gt;.</returns>
+    Task<StdSignature> SignMessage(byte[] message, string address = null);
+
+    /// <summary>
+    /// Gets the tx encryption key from the storage.
+    /// </summary>
+    /// <returns>Task&lt;System.Byte[]&gt;.</returns>
+    /// <value>The TxEncryptionKey.</value>
+    Task<byte[]> GetTxEncryptionKey();
+
+    /// <summary>
+    /// Sets the tx encryption key and saves it to the storage.
+    /// </summary>
+    /// <param name="txEncryptionKey">The tx encryption key.</param>
+    /// <returns>Task.</returns>
+    Task SetTxEncryptionKey(byte[] txEncryptionKey);
+
+    /// <summary>
+    /// Removes the tx encryption key from the storage.
+    /// </summary>
+    /// <returns>Task.</returns>
+    Task RemoveTxEncryptionKey();
 }
 
 /// <summary>

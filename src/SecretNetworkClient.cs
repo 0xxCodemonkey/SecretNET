@@ -110,6 +110,11 @@ public class SecretNetworkClient : ISecretNetworkClient
             throw new ArgumentNullException(nameof(options));
         }
 
+        if (string.IsNullOrWhiteSpace(options.ChainId) || string.IsNullOrWhiteSpace(options.GrpcWebUrl))
+        {
+            throw new ArgumentOutOfRangeException("ChainId and GrpcWebUrl must have a value!");
+        }
+
         _createClientOptions = options;
         AlwaysSimulateTransactions = _createClientOptions.AlwaysSimulateTransactions;
         GasEstimationMultiplier = _createClientOptions.GasEstimationMultiplier;
@@ -131,9 +136,9 @@ public class SecretNetworkClient : ISecretNetworkClient
         }
 
         // Get TxEncryptionKey
-        if (options.EncryptionSeed == null || options.EncryptionSeed.Length == 0)
+        if ((options.EncryptionSeed == null || options.EncryptionSeed.Length == 0) && Wallet != null)
         {
-            options.EncryptionSeed = Wallet.GetTxEncryptionKey(Wallet.Address).Result;
+            options.EncryptionSeed = GetTxEncryptionKey().Result;
         }
 
         EncryptionUtils = options.EncryptionUtils ?? new SecretEncryptionUtils(ChainId, Query.Registration, options.EncryptionSeed);
@@ -438,8 +443,6 @@ public class SecretNetworkClient : ISecretNetworkClient
 
     // internal
 
-    
-
     internal static StdSignature EncodeSecp256k1Signature(PubKey pubKey, byte[] signature)
     {
         if (signature.Length != 64)
@@ -555,6 +558,33 @@ public class SecretNetworkClient : ISecretNetworkClient
     }
 
     // private
+
+    private async Task<byte[]> GetTxEncryptionKey()
+    {
+        var txEncryptionKey = await Wallet.GetTxEncryptionKey();
+        if (txEncryptionKey != null && txEncryptionKey.Length > 0)
+        {
+            return txEncryptionKey;
+        }
+
+        // Keplr style TxEncryptionKey
+        var signMsg = new
+                {
+                    account_number = 0,
+                    chain_id = ChainId,
+                    fee = new object[0],
+                    memo = "Create Keplr Secret encryption key. Only approve requests by Keplr.",
+                    msgs = new object[0],
+                    sequence = 0
+                };
+        var msgBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(signMsg));
+        var signedMsg = await Wallet.SignMessage(msgBytes);
+        txEncryptionKey = Hashes.SHA256(Convert.FromBase64String(signedMsg.Signature));
+
+        await Wallet.SetTxEncryptionKey(txEncryptionKey);
+
+        return txEncryptionKey;
+    }
 
     private byte[] ExtractNonce(IMessage protoMsg)
     {       

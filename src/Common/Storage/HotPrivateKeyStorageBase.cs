@@ -354,16 +354,7 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
         if (!String.IsNullOrWhiteSpace(base64TxEncryptionKey))
         {
             return Convert.FromBase64String(base64TxEncryptionKey);
-        }
-        else
-        {
-            var privateKey = await GetPrivateKey(address);
-            if (privateKey != null && privateKey.Length == 32)
-            {
-                return SecretNET.Crypto.Hashes.DoubleSHA256(privateKey).ToBytes();
-            }
-        }
-        
+        }        
         return null;
     }
 
@@ -393,6 +384,17 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
         catch (Exception ex)
         {
             throw new Exception(ex.Message);
+        }
+    }
+
+    /// <inheritdoc/>
+    public async Task RemoveTxEncryptionKey(string address)
+    {
+        string storageKey = HashStorageKey(string.Format(_txEncryptionKeyStoreKeyPattern, address));
+        string base64TxEncryptionKey = await GetFromStorage(storageKey);
+        if (!string.IsNullOrWhiteSpace(base64TxEncryptionKey))
+        {
+            await RemoveFromStorage(storageKey);
         }
     }
 
