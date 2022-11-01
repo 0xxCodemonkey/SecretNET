@@ -183,6 +183,8 @@ public class CommonApiTests : IClassFixture<TestContext>
         _context.TextProposalId = submitProposalResponse.Response.ProposalId;
         _output.WriteLine($"TextProposalId: {_context.TextProposalId}");
 
+        await Task.Delay(1000);
+
         var proposalsAfter = await GetAllProposals();
         Assert.True(proposalsBefore.Count() + 1 == proposalsAfter.Count());
     }
@@ -279,6 +281,8 @@ public class CommonApiTests : IClassFixture<TestContext>
         _context.CommunityPoolSpendProposalId = submitProposalResponse.Response.ProposalId;
         _output.WriteLine($"ProposalId: {_context.CommunityPoolSpendProposalId}");
 
+        await Task.Delay(1000);
+
         var proposalsAfter = await GetAllProposals();
         Assert.True(proposalsBefore.Count() + 1 == proposalsAfter.Count());
     }
@@ -316,6 +320,8 @@ public class CommonApiTests : IClassFixture<TestContext>
         _context.ParameterChangeProposalId = submitProposalResponse.Response.ProposalId;
         _output.WriteLine($"ProposalId: {_context.ParameterChangeProposalId}");
 
+        await Task.Delay(1000);
+
         var proposalsAfter = await GetAllProposals();
         Assert.True(proposalsBefore.Count() + 1 == proposalsAfter.Count());
     }
@@ -352,6 +358,8 @@ public class CommonApiTests : IClassFixture<TestContext>
         _context.SoftwareUpgradeProposalId = submitProposalResponse.Response.ProposalId;
         _output.WriteLine($"ProposalId: {_context.SoftwareUpgradeProposalId}");
 
+        await Task.Delay(1000);
+
         var proposalsAfter = await GetAllProposals();
         Assert.True(proposalsBefore.Count() + 1 == proposalsAfter.Count());
     }
@@ -381,6 +389,8 @@ public class CommonApiTests : IClassFixture<TestContext>
 
         _context.CancelSoftwareUpgradeProposalId = submitProposalResponse.Response.ProposalId;
         _output.WriteLine($"ProposalId: {_context.CancelSoftwareUpgradeProposalId}");
+
+        await Task.Delay(1000);
 
         var proposalsAfter = await GetAllProposals();
         Assert.True(proposalsBefore.Count() + 1 == proposalsAfter.Count());

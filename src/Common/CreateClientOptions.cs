@@ -30,8 +30,8 @@ public class CreateClientOptions
     public string WalletAddress { get; set; }
 
     /// <summary>
-    /// The `encryptionSeed` is used to encrypt transactions and will allow tx decryption at a later time.
-    /// If no value is set (recommended) `encryptionSeed` will be derived from the private key (IPrivateKeyStorage.GetTxEncryptionKey).
+    /// The tx encryption key / seed is used to encrypt transactions and will allow tx decryption at a later time.
+    /// If no value is set a new tx encryption key / seed will be generated (Keplr style) by signing a message with the private key and deriving the key / seed from it..
     /// If EncryptionUtils are manually provided this value gets ignored.
     /// </summary>
     /// <value>The encryption seed.</value>

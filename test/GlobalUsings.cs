@@ -1,5 +1,5 @@
 global using Xunit;
-global using FakeItEasy;
+global using Moq;
 
 global using Grpc.Core;
 global using Grpc.Net.Client;

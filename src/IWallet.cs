@@ -60,21 +60,21 @@ public interface IWallet : IAminoSigner
     Task<StdSignature> SignMessage(byte[] message, string address = null);
 
     /// <summary>
-    /// Gets the tx encryption key from the storage.
+    /// Gets the tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) from the storage.
     /// </summary>
     /// <returns>Task&lt;System.Byte[]&gt;.</returns>
     /// <value>The TxEncryptionKey.</value>
     Task<byte[]> GetTxEncryptionKey();
 
     /// <summary>
-    /// Sets the tx encryption key and saves it to the storage.
+    /// Sets the tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) and saves it to the storage.
     /// </summary>
     /// <param name="txEncryptionKey">The tx encryption key.</param>
     /// <returns>Task.</returns>
     Task SetTxEncryptionKey(byte[] txEncryptionKey);
 
     /// <summary>
-    /// Removes the tx encryption key from the storage.
+    /// Removes the tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) from the storage.
     /// </summary>
     /// <returns>Task.</returns>
     Task RemoveTxEncryptionKey();

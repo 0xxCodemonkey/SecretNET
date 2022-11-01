@@ -19,9 +19,9 @@ public partial class SecretEncryptionUtils
     private byte[] _hkdfSalt = Convert.FromHexString("000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d");
     private byte[] _mainnetConsensusIoPubKey = Convert.FromHexString("083b1a03661211d5a4cc8d39a77795795862f7730645573b2bcc2c1920c53c04");
     
-    private readonly byte[] _seed = null;
-    private readonly byte[] _privateKey = null;
-    private readonly byte[] _publicKey = null;
+    private byte[] _seed = null;
+    private byte[] _privateKey = null;
+    private byte[] _publicKey = null;
 
     private byte[] _consensusIoPubKey = new byte[0];
 
@@ -31,12 +31,28 @@ public partial class SecretEncryptionUtils
     /// </summary>
     /// <param name="chainId">The chain identifier.</param>
     /// <param name="registrationQuerier">The registration querier.</param>
-    /// <param name="seed">The seed.</param>
+    /// <param name="seed">The tx encryption key / seed from which the encryption key for encrypting the transactions is generated.</param>
     public SecretEncryptionUtils(string chainId, IRegistrationQueryClient registrationQuerier, byte[] seed = null)
     {
         _chainId = chainId;
         _registrationQuerier = registrationQuerier;
 
+        if (!string.IsNullOrWhiteSpace(_chainId) && _mainnetChainIds.Contains(_chainId))
+        {
+            // Major speedup
+            // TODO: not sure if this is the best approach for detecting mainnet
+            _consensusIoPubKey = _mainnetConsensusIoPubKey;
+        }
+
+        SetEncryptionSeed(seed);
+    }
+
+    /// <summary>
+    /// Sets the tx encryption key / seed from which the encryption key for encrypting the transactions is generated.
+    /// </summary>
+    /// <param name="seed">the tx encryption key / seed</param>
+    public void SetEncryptionSeed(byte[] seed = null)
+    {
         if (seed == null)
         {
             this._seed = GenerateNewSeed();
@@ -48,14 +64,7 @@ public partial class SecretEncryptionUtils
 
         var generatedKeyPair = GenerateNewKeyPairFromSeed(this._seed);
         _privateKey = generatedKeyPair.PrivateKey;
-        _publicKey = generatedKeyPair.PublicKey;
-
-        if (!string.IsNullOrWhiteSpace(_chainId) && _mainnetChainIds.Contains(_chainId))
-        {
-            // Major speedup
-            // TODO: not sure if this is the best approach for detecting mainnet
-            _consensusIoPubKey = _mainnetConsensusIoPubKey;
-        }
+        _publicKey = generatedKeyPair.PublicKey;        
     }
 
 

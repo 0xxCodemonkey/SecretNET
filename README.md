@@ -172,7 +172,7 @@ As far as I know, .NET cannot be connected to an unencrypted port via gRPC-web u
 
 # API
 ## Creating / Initializing the wallet
-When initializing a wallet, you must pass an ```IPrivateKeyStorage``` provider where the private key and mnemonic phrase will be stored (default = MauiSecureStorage). 
+When initializing a wallet, you must pass an ```IPrivateKeyStorage``` provider where the private key and mnemonic phrase will be stored (**default = MauiSecureStorage**). 
 The following providers are available out of the box:
 
 - **MauiSecureStorage**

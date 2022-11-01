@@ -13,6 +13,9 @@ public class TestContext : IDisposable
 
     public List<Wallet> Wallets { get; set; } = new List<Wallet>();
 
+    // unit tests
+    public Dictionary<string, byte[]> WalletsTxEncryptionKey { get; private set; } = new Dictionary<string, byte[]>();
+
 
     // snip20-ibc
     public ulong ContractSnip20IbcCodeId = 0;
@@ -39,6 +42,9 @@ public class TestContext : IDisposable
 
     private async void Init()
     {
+        var gprcUrl = "https://grpc.testnet.secretsaturn.net"; // get from https://github.com/scrtlabs/api-registry
+        var chainId = "pulsar-2";
+
         var storageProvider = new InMemoryOnlyStorage();
         var createWalletOptions = new CreateWalletOptions(storageProvider);
 
@@ -51,6 +57,7 @@ public class TestContext : IDisposable
         
         Debug.WriteLine($"Mainaccount: " + wallet.Address);
         Wallets.Add(wallet);
+        WalletsTxEncryptionKey.Add(wallet.Address, await SecretNetworkClient.GetTxEncryptionKey(wallet, chainId));
 
         // Generate a bunch of accounts because tx.staking tests require creating a bunch of validators
         Debug.WriteLine("Please fund subaccouts via https://faucet.pulsar.scrttestnet.com/");
@@ -81,10 +88,8 @@ public class TestContext : IDisposable
             var subaccount = await wallet.GetSubaccount((byte)i);            
             Debug.WriteLine($"Subaccount {i}: " + subaccount.Address);
             Wallets.Add(subaccount);
-        }
-
-        var gprcUrl = "https://grpc.testnet.secretsaturn.net"; // get from https://github.com/scrtlabs/api-registry
-        var chainId = "pulsar-2";
+            WalletsTxEncryptionKey.Add(subaccount.Address, await SecretNetworkClient.GetTxEncryptionKey(subaccount, chainId));
+        }        
 
         var createClientOptions = new CreateClientOptions(gprcUrl, chainId, wallet)
         {
@@ -92,7 +97,6 @@ public class TestContext : IDisposable
         };
         SecretClient = new SecretNetworkClient(createClientOptions);
 
-        // Adjust TxOptionsDefaults if
     }
 
     public void Dispose()
