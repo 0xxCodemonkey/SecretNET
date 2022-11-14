@@ -1,4 +1,10 @@
 
+<!--  ![Nuget](https://img.shields.io/nuget/v/SecretNET?label=stable) ![GitHub](https://img.shields.io/github/license/0xxCodemonkey/SecretNET) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/0xxCodemonkey/SecretNET/Publish%20Packages?label=checks) -->
+![Nuget](https://img.shields.io/nuget/dt/SecretNET?color=%239100ff) [![NuGet version (SecretNET)](https://img.shields.io/nuget/v/SecretNET.svg?style=flat-square)](https://www.nuget.org/packages/SecretNET/)
+
+*Status: (Project is in active development)*
+<br/><br/>
+
 # Secret.NET Core Library
 **Secret.NET** (port of the [secret.js](https://github.com/scrtlabs/secret.js) Client) is a .NET Client to interact with the [Secret Network blockchain](https://scrt.network/) (L1 / Cosmos based), **the first privacy smart contract blockchain** that processes and stores data on-chain in encrypted form (SGX). 
 

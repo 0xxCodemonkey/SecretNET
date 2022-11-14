@@ -56,11 +56,12 @@ public class ComputeQueryClient : GprcBase
         }
 
         SecretQueryContractResult<R> result = null;
+        var encryptionUtils = await GetEncryptionUtils();
 
         if (!string.IsNullOrWhiteSpace(codeHash))
         {
             var queryMsgString = queryMsg is string ? queryMsg : JsonConvert.SerializeObject(queryMsg);
-            var encryptedQuery = await Encryption.Encrypt(codeHash, queryMsgString);
+            var encryptedQuery = await encryptionUtils.Encrypt(codeHash, queryMsgString);
             if (encryptedQuery != null && encryptedQuery.Length > 32)
             {
                 var nonce = new ArraySegment<byte>(encryptedQuery, 0, 32).ToArray();
@@ -75,7 +76,7 @@ public class ComputeQueryClient : GprcBase
 
                     if (queryResponse != null)
                     {
-                        var decryptedBase64Result = await Encryption.Decrypt(queryResponse.Data.ToByteArray(), nonce);
+                        var decryptedBase64Result = await encryptionUtils.Decrypt(queryResponse.Data.ToByteArray(), nonce);
                         var utf8Str = Encoding.UTF8.GetString(decryptedBase64Result);
                         var resultBytes = Convert.FromBase64String(utf8Str);
                         var resultString = Encoding.UTF8.GetString(resultBytes);
@@ -104,7 +105,7 @@ public class ComputeQueryClient : GprcBase
                             var encryptedError = Convert.FromBase64String(errorMatch.Groups["encrypted"].Value);
                             var error = errorMatch.Groups["error"].Value;
 
-                            var decryptedBase64Error = Encoding.UTF8.GetString(await Encryption.Decrypt(encryptedError, nonce));
+                            var decryptedBase64Error = Encoding.UTF8.GetString(await encryptionUtils.Decrypt(encryptedError, nonce));
 
                             try
                             {

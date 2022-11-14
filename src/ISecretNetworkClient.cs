@@ -32,12 +32,6 @@ public interface ISecretNetworkClient
     public string WalletAddress { get; }
 
     /// <summary>
-    /// Gets the encryption utils.
-    /// </summary>
-    /// <value>The encryption utils.</value>
-    public SecretEncryptionUtils EncryptionUtils { get; }
-
-    /// <summary>
     /// Transaction approval callback for a user approval of an transaction.
     /// </summary>
     /// <value>The transaction approval callback.</value>
@@ -57,6 +51,13 @@ public interface ISecretNetworkClient
     public float GasEstimationMultiplier { get; }
 
     // Signing
+
+    /// <summary>
+    /// Gets the EncryptionUtils and uses the stored tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) from the wallet or generates a new one (Keplr style) and stores it.
+    /// If the EncryptionUtils were passed in the CreateClientOptions, they will be used.
+    /// </summary>
+    /// <returns>SecretEncryptionUtils.</returns>
+    public Task<SecretEncryptionUtils> GetEncryptionUtils();
 
     /// <summary>
     /// Prepares the and signs the specified messages.

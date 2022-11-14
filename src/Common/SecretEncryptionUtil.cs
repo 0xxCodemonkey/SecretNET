@@ -81,7 +81,7 @@ public partial class SecretEncryptionUtils
             return new byte[0];
         }
 
-        var txEncryptionKey = await GetTxEncryptionKey(nonce);
+        var txEncryptionKey = await GetTxEncryptionSeed(nonce);
 
         var siv = Siv.ImportKey(txEncryptionKey);
         var plaintext = siv.Open(ciphertext);
@@ -98,7 +98,7 @@ public partial class SecretEncryptionUtils
     public async Task<byte[]> Encrypt(string contractCodeHash, object contractMsg)
     {
         var nonce = GenerateNewSeed();
-        var txEncryptionKey = await GetTxEncryptionKey(nonce);
+        var txEncryptionKey = await GetTxEncryptionSeed(nonce);
 
         var siv = Siv.ImportKey(txEncryptionKey);
         var contractMsgAsString = (contractMsg is string) ? contractMsg : JsonConvert.SerializeObject(contractMsg);
@@ -116,7 +116,7 @@ public partial class SecretEncryptionUtils
     /// </summary>
     /// <param name="nonce">The nonce.</param>
     /// <returns>System.Byte[].</returns>
-    public async Task<byte[]> GetTxEncryptionKey(byte[] nonce)
+    public async Task<byte[]> GetTxEncryptionSeed(byte[] nonce)
     {
         var consensusIoPubKey = await GetConsensusIoPubKey();
         var sharedKey = Curve25519.GetSharedSecret(_privateKey, consensusIoPubKey);

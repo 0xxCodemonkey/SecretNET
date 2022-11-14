@@ -308,6 +308,8 @@ public class Queries : GprcBase
         if (txResponses == null || txResponses.Length == 0) return null;
         var result = new ConcurrentBag<SecretTx>();
 
+        var encryptionUtils = await GetEncryptionUtils();
+
         await Parallel.ForEachAsync(txResponses, async (txResponse, cancellationToken) =>
         {
             var decodedTx = txResponse.Tx.Unpack<Cosmos.Tx.V1Beta1.Tx>();
@@ -346,7 +348,8 @@ public class Queries : GprcBase
 
                             var accountPubkey = new ArraySegment<byte>(inputMsgBytes, 32, 32).ToArray(); // unused in decryption
                             var ciphertext = new ArraySegment<byte>(inputMsgBytes, 64, inputMsgBytes.Length - 64).ToArray();
-                            var plaintext = await Encryption.Decrypt(ciphertext, nonce);
+                            var encryptionUtils = await GetEncryptionUtils();
+                            var plaintext = await encryptionUtils.Decrypt(ciphertext, nonce);
 
                             if (rawMsg.TypeUrl.IsProtoType(MsgGrantAuthorization.MsgInstantiateContract))
                             {
@@ -418,7 +421,7 @@ public class Queries : GprcBase
                                     {
                                         if (attr.Key.IsBase64String())
                                         {
-                                            attr.Key = Encoding.UTF8.GetString(await Encryption.Decrypt(Convert.FromBase64String(attr.Key), nonce));
+                                            attr.Key = Encoding.UTF8.GetString(await encryptionUtils.Decrypt(Convert.FromBase64String(attr.Key), nonce));
                                         }
                                     }
                                     catch { }
@@ -426,7 +429,7 @@ public class Queries : GprcBase
                                     {
                                         if (attr.Value.IsBase64String())
                                         {
-                                            attr.Value = Encoding.UTF8.GetString(await Encryption.Decrypt(Convert.FromBase64String(attr.Value), nonce));
+                                            attr.Value = Encoding.UTF8.GetString(await encryptionUtils.Decrypt(Convert.FromBase64String(attr.Value), nonce));
                                         }
                                     }
                                     catch { }
@@ -458,7 +461,7 @@ public class Queries : GprcBase
                         var nonce = getNounce(msgIndex);
                         if (nonce != null)
                         {
-                            var decryptedBase64Error = Encoding.UTF8.GetString(await Encryption.Decrypt(encryptedError, nonce));
+                            var decryptedBase64Error = Encoding.UTF8.GetString(await encryptionUtils.Decrypt(encryptedError, nonce));
 
                             rawLog = rawLog.Replace($"encrypted: {errorMatches.Groups["encrypted"].Value}", decryptedBase64Error);
                         }
@@ -504,7 +507,7 @@ public class Queries : GprcBase
                         if (rawMsg.TypeUrl.IsProtoType(MsgGrantAuthorization.MsgInstantiateContract))
                         {
                             var decoded = Secret.Compute.V1Beta1.MsgInstantiateContractResponse.Parser.ParseFrom(txMsgData.Data[msgIndex].Data);
-                            var decrypted = Convert.FromBase64String(Encoding.UTF8.GetString(await Encryption.Decrypt(decoded.Data.ToByteArray(), nonce)));
+                            var decrypted = Convert.FromBase64String(Encoding.UTF8.GetString(await encryptionUtils.Decrypt(decoded.Data.ToByteArray(), nonce)));
                             var decryptedMsg = new Secret.Compute.V1Beta1.MsgInstantiateContractResponse()
                             {
                                 Address = decoded.Address,
@@ -515,7 +518,7 @@ public class Queries : GprcBase
                         else if (rawMsg.TypeUrl.IsProtoType(MsgGrantAuthorization.MsgExecuteContract))
                         {
                             var decoded = Secret.Compute.V1Beta1.MsgExecuteContractResponse.Parser.ParseFrom(txMsgData.Data[msgIndex].Data);
-                            var decrypted = Convert.FromBase64String(Encoding.UTF8.GetString(await Encryption.Decrypt(decoded.Data.ToByteArray(), nonce)));
+                            var decrypted = Convert.FromBase64String(Encoding.UTF8.GetString(await encryptionUtils.Decrypt(decoded.Data.ToByteArray(), nonce)));
                             var jsonData = Encoding.UTF8.GetString(decrypted);
                             var decryptedMsg = new Secret.Compute.V1Beta1.MsgExecuteContractResponse()
                             {
