@@ -18,6 +18,7 @@ public class SecretNetworkClient : ISecretNetworkClient
     private GrpcChannel _grpcChannel;
     private CallInvoker? _rpcMessageInterceptor;
     private IWallet? _wallet;
+    private SecretEncryptionUtils _encryptionUtils;
 
     private Queries? _queries;
     private TxClient? _txClient;
@@ -45,27 +46,6 @@ public class SecretNetworkClient : ISecretNetworkClient
         get { return _wallet; } 
         set {
             _wallet = value;
-
-            // Get TxEncryptionKey
-            if ((_createClientOptions.EncryptionSeed == null || _createClientOptions.EncryptionSeed.Length == 0) && Wallet != null)
-            {
-                EncryptionSeed = GetTxEncryptionKey(Wallet, ChainId).Result;
-            }
-            else
-            {
-                EncryptionSeed = _createClientOptions.EncryptionSeed;
-            }
-            if (EncryptionUtils == null)
-            {
-                EncryptionUtils = _createClientOptions.EncryptionUtils ?? new SecretEncryptionUtils(ChainId, Query.Registration, EncryptionSeed);
-            }
-            else
-            {
-                if (_createClientOptions.EncryptionUtils == null)
-                {
-                    EncryptionUtils.SetEncryptionSeed(EncryptionSeed);
-                }
-            }            
         } 
     }
 
@@ -82,11 +62,11 @@ public class SecretNetworkClient : ISecretNetworkClient
     /// <value>The encryption seed.</value>
     public byte[] EncryptionSeed { get; private set; }
 
-    /// <summary>
-    /// Secret Network encription utils
-    /// </summary>
-    /// <value>The encryption utils.</value>
-    public SecretEncryptionUtils EncryptionUtils { get; private set; }
+    ///// <summary>
+    ///// Secret Network encription utils
+    ///// </summary>
+    ///// <value>The encryption utils.</value>
+    //public SecretEncryptionUtils EncryptionUtils { get; private set; }
 
     /// <summary>
     /// Transaction approval callback for a user approval of an transaction.
@@ -158,8 +138,18 @@ public class SecretNetworkClient : ISecretNetworkClient
         {
             this._rpcMessageInterceptor = this._grpcChannel.Intercept(grpcMessageInterceptor);
         }
+        
+        if (_createClientOptions.EncryptionUtils != null)
+        {
+            _encryptionUtils = _createClientOptions.EncryptionUtils;
+        }
+        else if ((_createClientOptions.EncryptionSeed != null && _createClientOptions.EncryptionSeed?.Length > 0))
+        {
+            EncryptionSeed = _createClientOptions.EncryptionSeed;
+            _encryptionUtils = new SecretEncryptionUtils(ChainId, Query.Registration, _createClientOptions.EncryptionSeed);
+        }
 
-        Wallet = _createClientOptions.Wallet; // sets also the EncryptionSeed and EncryptionUtils
+        Wallet = _createClientOptions.Wallet;
     }
 
     /// <summary>
@@ -316,7 +306,7 @@ public class SecretNetworkClient : ISecretNetworkClient
             var msg = messages[i];
             if (msg is MsgExecuteContractBase)
             {
-                ((MsgExecuteContractBase)msg).EncryptionUtils = EncryptionUtils;
+                ((MsgExecuteContractBase)msg).EncryptionUtils = await GetEncryptionUtils();
             }
             
             await PopulateCodeHash(msg);
@@ -363,7 +353,7 @@ public class SecretNetworkClient : ISecretNetworkClient
         {
             if (msg is MsgExecuteContractBase)
             {
-                ((MsgExecuteContractBase)msg).EncryptionUtils = EncryptionUtils;
+                ((MsgExecuteContractBase)msg).EncryptionUtils = await GetEncryptionUtils();
             }
             msgs.Add(await msg.ToAmino());
         }
@@ -379,7 +369,7 @@ public class SecretNetworkClient : ISecretNetworkClient
             var msg = messages[i];
             if (msg is MsgExecuteContractBase)
             {
-                ((MsgExecuteContractBase)msg).EncryptionUtils = EncryptionUtils;
+                ((MsgExecuteContractBase)msg).EncryptionUtils = await GetEncryptionUtils();
             }
 
             await PopulateCodeHash(msg);
@@ -403,7 +393,71 @@ public class SecretNetworkClient : ISecretNetworkClient
         return txRaw;
     }
 
+    /// <summary>
+    /// Gets the EncryptionUtils and uses the stored tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) from the wallet or generates a new one (Keplr style) and stores it.
+    /// If the EncryptionUtils were passed in the CreateClientOptions, they will be used.
+    /// </summary>
+    /// <returns>SecretEncryptionUtils.</returns>
+    public async Task<SecretEncryptionUtils> GetEncryptionUtils()
+    {
+        byte[] txEncryptionKey = null;
+        if ((_createClientOptions.EncryptionSeed != null && _createClientOptions.EncryptionSeed.Length == 32) || _createClientOptions.EncryptionUtils != null)
+        {
+            return _encryptionUtils;
+        }
+        else if (Wallet != null)
+        {
+            txEncryptionKey = await Wallet.GetTxEncryptionSeed(ChainId);
+            if (txEncryptionKey == null || txEncryptionKey.Length == 0)
+            {
+                txEncryptionKey = await GetTxEncryptionSeed(Wallet, ChainId);
+            }
+            EncryptionSeed = txEncryptionKey;
+        }
+
+        if (_encryptionUtils == null)
+        {
+            _encryptionUtils = new SecretEncryptionUtils(ChainId, Query.Registration, seed: txEncryptionKey); // if seed is NULL a new random tx encryption key / seed is generated
+        }
+
+        return _encryptionUtils;
+    }
+
     // static
+
+    /// <summary>
+    /// Gets the stored tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) or generates a new one (Keplr style) and stores it.
+    /// </summary>
+    /// <param name="wallet">The wallet.</param>
+    /// <param name="chainId">The chain identifier.</param>
+    /// <returns>System.Byte[].</returns>
+    public static async Task<byte[]> GetTxEncryptionSeed(IWallet wallet, string chainId)
+    {
+        var txEncryptionKey = await wallet.GetTxEncryptionSeed(chainId);
+        if (txEncryptionKey != null && txEncryptionKey.Length > 0)
+        {
+            return txEncryptionKey;
+        }
+
+        // Keplr style TxEncryptionKey
+        var signMsg = new
+        {
+            account_number = 0,
+            chain_id = chainId,
+            fee = new object[0],
+            memo = "Create Keplr Secret encryption key. Only approve requests by Keplr.",
+            msgs = new object[0],
+            sequence = 0
+        };
+        var msgBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(signMsg));
+        var signedMsg = await wallet.SignMessage(msgBytes);
+        txEncryptionKey = Hashes.SHA256(Convert.FromBase64String(signedMsg.Signature));
+
+        await wallet.SetTxEncryptionSeed(txEncryptionKey, chainId);
+
+        return txEncryptionKey;
+    }
+
 
     /// <summary>
     /// Converts the address to bytes.
@@ -459,38 +513,6 @@ public class SecretNetworkClient : ISecretNetworkClient
         return address;
     }
 
-    /// <summary>
-    /// Gets the stored tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) or generates a new one (Keplr style) and stores it.
-    /// </summary>
-    /// <param name="wallet">The wallet.</param>
-    /// <param name="chainId">The chain identifier.</param>
-    /// <returns>System.Byte[].</returns>
-    public static async Task<byte[]> GetTxEncryptionKey(IWallet wallet, string chainId)
-    {
-        var txEncryptionKey = await wallet.GetTxEncryptionKey();
-        if (txEncryptionKey != null && txEncryptionKey.Length > 0)
-        {
-            return txEncryptionKey;
-        }
-
-        // Keplr style TxEncryptionKey
-        var signMsg = new
-        {
-            account_number = 0,
-            chain_id = chainId,
-            fee = new object[0],
-            memo = "Create Keplr Secret encryption key. Only approve requests by Keplr.",
-            msgs = new object[0],
-            sequence = 0
-        };
-        var msgBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(signMsg));
-        var signedMsg = await wallet.SignMessage(msgBytes);
-        txEncryptionKey = Hashes.SHA256(Convert.FromBase64String(signedMsg.Signature));
-
-        await wallet.SetTxEncryptionKey(txEncryptionKey);
-
-        return txEncryptionKey;
-    }
 
     // internal
 

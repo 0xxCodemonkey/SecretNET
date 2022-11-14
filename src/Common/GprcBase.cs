@@ -12,8 +12,10 @@ public abstract class GprcBase
 
     internal string? WalletAddress { get { return secretClient.WalletAddress; } }
 
-    internal SecretEncryptionUtils Encryption { get { return secretClient.EncryptionUtils; } }
-
+    internal async Task<SecretEncryptionUtils> GetEncryptionUtils()
+    {
+        return await secretClient.GetEncryptionUtils();
+    }
 
     internal GprcBase(ISecretNetworkClient secretNetworkClient, GrpcChannel grpcChannel, CallInvoker? grpcMessageInterceptor)
     {

@@ -31,14 +31,14 @@ public class CreateClientOptions
 
     /// <summary>
     /// The tx encryption key / seed is used to encrypt transactions and will allow tx decryption at a later time.
-    /// If no value is set a new tx encryption key / seed will be generated (Keplr style) by signing a message with the private key and deriving the key / seed from it..
+    /// If no value is set (and no EncryptionUtils) a new tx encryption key / seed will be generated (Keplr style) by signing a message with the private key and deriving the key / seed from it..
     /// If EncryptionUtils are manually provided this value gets ignored.
     /// </summary>
     /// <value>The encryption seed.</value>
     public byte[] EncryptionSeed { get; set; }
 
     /// <summary>
-    /// Secret Network encription utils
+    /// Secret Network encription utils which should be created with a privatly known tx encryption key / seed which used to encrypt transactions and will allow tx decryption at a later time.
     /// </summary>
     /// <value>The encryption utils.</value>
     public SecretEncryptionUtils EncryptionUtils { get; set; }

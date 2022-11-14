@@ -14,7 +14,7 @@ public class TestContext : IDisposable
     public List<Wallet> Wallets { get; set; } = new List<Wallet>();
 
     // unit tests
-    public Dictionary<string, byte[]> WalletsTxEncryptionKey { get; private set; } = new Dictionary<string, byte[]>();
+    public Dictionary<string, byte[]> WalletsTxEncryptionSeed { get; private set; } = new Dictionary<string, byte[]>();
 
 
     // snip20-ibc
@@ -57,7 +57,7 @@ public class TestContext : IDisposable
         
         Debug.WriteLine($"Mainaccount: " + wallet.Address);
         Wallets.Add(wallet);
-        WalletsTxEncryptionKey.Add(wallet.Address, await SecretNetworkClient.GetTxEncryptionKey(wallet, chainId));
+        WalletsTxEncryptionSeed.Add(wallet.Address, await SecretNetworkClient.GetTxEncryptionSeed(wallet, chainId));
 
         // Generate a bunch of accounts because tx.staking tests require creating a bunch of validators
         Debug.WriteLine("Please fund subaccouts via https://faucet.pulsar.scrttestnet.com/");
@@ -88,7 +88,7 @@ public class TestContext : IDisposable
             var subaccount = await wallet.GetSubaccount((byte)i);            
             Debug.WriteLine($"Subaccount {i}: " + subaccount.Address);
             Wallets.Add(subaccount);
-            WalletsTxEncryptionKey.Add(subaccount.Address, await SecretNetworkClient.GetTxEncryptionKey(subaccount, chainId));
+            WalletsTxEncryptionSeed.Add(subaccount.Address, await SecretNetworkClient.GetTxEncryptionSeed(subaccount, chainId));
         }        
 
         var createClientOptions = new CreateClientOptions(gprcUrl, chainId, wallet)

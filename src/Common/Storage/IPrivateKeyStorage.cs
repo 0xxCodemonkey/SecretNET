@@ -94,26 +94,29 @@ public interface IPrivateKeyStorage
     public Task<bool> HasMnemonic(string address = null);
 
     /// <summary>
-    /// Gets the tx encryption key. By default, this is derived from a signed message (Keplr style) and gets stored. 
+    /// Gets the tx encryption seed. By default, this is derived from a signed message (Keplr style) and gets stored.
     /// </summary>
     /// <param name="address">The address.</param>
+    /// <param name="chainId">The chain identifier.</param>
     /// <returns>Task&lt;System.Byte[]&gt;.</returns>
-    public Task<byte[]> GetTxEncryptionKey(string address);
+    public Task<byte[]> GetTxEncryptionSeed(string address, string chainId);
 
     /// <summary>
-    /// Sets the tx encryption key and saves it to the storage.
+    /// Sets the tx encryption seed and saves it to the storage.
     /// </summary>
     /// <param name="address">The address.</param>
-    /// <param name="txEncryptionKey">The tx encryption key.</param>
+    /// <param name="txEncryptionSeed">The tx encryption seed.</param>
+    /// <param name="chainId">The chain identifier.</param>
     /// <returns>Task.</returns>
-    public Task SetTxEncryptionKey(string address, byte[] txEncryptionKey);
+    public Task SetTxEncryptionSeed(string address, byte[] txEncryptionSeed, string chainId);
 
     /// <summary>
-    /// Removes the tx encryption key from the storage.
+    /// Removes the tx encryption seed from the storage.
     /// </summary>
     /// <param name="address">The address.</param>
+    /// <param name="chainId">The chain identifier.</param>
     /// <returns>Task.</returns>
-    public Task RemoveTxEncryptionKey(string address);
+    public Task RemoveTxEncryptionSeed(string address, string chainId);
 
     /// <summary>
     /// Removes the private key and mnemonic for the given address.

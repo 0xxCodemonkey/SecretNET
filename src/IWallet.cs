@@ -60,24 +60,26 @@ public interface IWallet : IAminoSigner
     Task<StdSignature> SignMessage(byte[] message, string address = null);
 
     /// <summary>
-    /// Gets the tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) from the storage.
+    /// Gets the tx encryption seed (from which the encryption key for encrypting the transactions is generated) from the storage.
     /// </summary>
     /// <returns>Task&lt;System.Byte[]&gt;.</returns>
     /// <value>The TxEncryptionKey.</value>
-    Task<byte[]> GetTxEncryptionKey();
+    Task<byte[]> GetTxEncryptionSeed(string chainId);
 
     /// <summary>
-    /// Sets the tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) and saves it to the storage.
+    /// Sets the tx encryption seed (from which the encryption key for encrypting the transactions is generated) and saves it to the storage.
     /// </summary>
     /// <param name="txEncryptionKey">The tx encryption key.</param>
+    /// <param name="chainId">The chain identifier.</param>
     /// <returns>Task.</returns>
-    Task SetTxEncryptionKey(byte[] txEncryptionKey);
+    Task SetTxEncryptionSeed(byte[] txEncryptionKey, string chainId);
 
     /// <summary>
-    /// Removes the tx encryption key / seed (from which the encryption key for encrypting the transactions is generated) from the storage.
+    /// Removes the tx encryption seed (from which the encryption key for encrypting the transactions is generated) from the storage.
     /// </summary>
+    /// <param name="chainId">The chain identifier.</param>
     /// <returns>Task.</returns>
-    Task RemoveTxEncryptionKey();
+    Task RemoveTxEncryptionSeed(string chainId);
 }
 
 /// <summary>

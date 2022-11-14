@@ -26,7 +26,7 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
     /// <summary>
     /// The TxEncryptionKey store key pattern
     /// </summary>
-    protected string _txEncryptionKeyStoreKeyPattern = "TK_{0}";
+    protected string _txEncryptionSeedStoreKeyPattern = "TK_{0}_{1}";
 
     /// <summary>
     /// The stored keys list name
@@ -348,9 +348,9 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
     }
 
     /// <inheritdoc/>
-    public async Task<byte[]> GetTxEncryptionKey(string address)
+    public async Task<byte[]> GetTxEncryptionSeed(string address, string chainId)
     {
-        string base64TxEncryptionKey = await GetFromStorage(HashStorageKey(string.Format(_txEncryptionKeyStoreKeyPattern, address)));
+        string base64TxEncryptionKey = await GetFromStorage(HashStorageKey(string.Format(_txEncryptionSeedStoreKeyPattern, address, chainId)));
         if (!String.IsNullOrWhiteSpace(base64TxEncryptionKey))
         {
             return Convert.FromBase64String(base64TxEncryptionKey);
@@ -359,7 +359,7 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
     }
 
     /// <inheritdoc/>
-    public async Task SetTxEncryptionKey(string address, byte[] txEncryptionKey)
+    public async Task SetTxEncryptionSeed(string address, byte[] txEncryptionKey, string chainId)
     {
         if (String.IsNullOrWhiteSpace(address))
             throw new ArgumentOutOfRangeException("address is null or empty!");
@@ -374,7 +374,7 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
             // Check if address is in store
             if (keyAddressList.Contains(address))
             {
-                await SaveToStorage(HashStorageKey(string.Format(_txEncryptionKeyStoreKeyPattern, address)), Convert.ToBase64String(txEncryptionKey));
+                await SaveToStorage(HashStorageKey(string.Format(_txEncryptionSeedStoreKeyPattern, address, chainId)), Convert.ToBase64String(txEncryptionKey));
             }
             else
             {
@@ -388,9 +388,9 @@ public abstract class HotPrivateKeyStorageBase : IPrivateKeyStorage
     }
 
     /// <inheritdoc/>
-    public async Task RemoveTxEncryptionKey(string address)
+    public async Task RemoveTxEncryptionSeed(string address, string chainId)
     {
-        string storageKey = HashStorageKey(string.Format(_txEncryptionKeyStoreKeyPattern, address));
+        string storageKey = HashStorageKey(string.Format(_txEncryptionSeedStoreKeyPattern, address, chainId));
         string base64TxEncryptionKey = await GetFromStorage(storageKey);
         if (!string.IsNullOrWhiteSpace(base64TxEncryptionKey))
         {

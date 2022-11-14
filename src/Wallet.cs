@@ -47,21 +47,21 @@ public class Wallet : IWallet
     }
 
     /// <inheritdoc/>
-    public async Task<byte[]> GetTxEncryptionKey()
+    public async Task<byte[]> GetTxEncryptionSeed(string chainId)
     {
-        return await StorageProvider.GetTxEncryptionKey(Address);
+        return await StorageProvider.GetTxEncryptionSeed(Address, chainId);
     }
 
     /// <inheritdoc/>
-    public async Task SetTxEncryptionKey(byte[] txEncryptionKey)
+    public async Task SetTxEncryptionSeed(byte[] txEncryptionSeed, string chainId)
     {
-        await StorageProvider.SetTxEncryptionKey(Address, txEncryptionKey);
+        await StorageProvider.SetTxEncryptionSeed(Address, txEncryptionSeed, chainId);
     }
 
     /// <inheritdoc/>
-    public async Task RemoveTxEncryptionKey()
+    public async Task RemoveTxEncryptionSeed(string chainId)
     {
-        await StorageProvider.RemoveTxEncryptionKey(Address);
+        await StorageProvider.RemoveTxEncryptionSeed(Address, chainId);
     }
 
     /// <summary>
