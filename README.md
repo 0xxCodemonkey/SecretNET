@@ -35,6 +35,10 @@ In addition to the Secret.NET Core Library, the following complementary packages
 ## Full API-documentation
 You can find the **full API-documentation** here => [https://0xxcodemonkey.github.io/SecretNET](https://0xxcodemonkey.github.io/SecretNET/html/T-SecretNET.SecretNetworkClient.htm)
 
+More [code samples](https://docs.scrt.network/secret-network-documentation/development/tools-and-libraries/secret-net/snippets) can also be found on the official [Secret Network Developer documentation](https://docs.scrt.network/secret-network-documentation/).
+
+You can also ask questions in the official [Secret Network Discord](https://discord.gg/secret-network-360051864110235648) in the channel **#secret-net**.
+
 ## Informations about .NET MAUI: 
 - [What is .NET MAUI?](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui)
 - [Learn how to use .NET MAUI to build apps that run on mobile devices and on the desktop using C# and Visual Studio.](https://learn.microsoft.com/en-us/training/paths/build-apps-with-dotnet-maui/)
