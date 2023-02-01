@@ -32,17 +32,7 @@ message MsgTransfer {
   // the recipient address on the destination chain
   string receiver = 5;
   // Timeout height relative to the current block height.
-  // The timeout is disabled when undefined or set to 0.
-  // 
-  // Height is a monotonically increasing data type
-  // that can be compared against another Height for the purposes of updating and
-  // freezing clients.
-  // 
-  // Normally the RevisionHeight is incremented at each height while keeping
-  // RevisionNumber the same. However some consensus algorithms may choose to
-  // reset the height in certain conditions e.g. hard forks, state-machine
-  // breaking changes In these cases, the RevisionNumber is incremented so that
-  // height continues to be monitonically increasing even as the RevisionHeight gets reset
+  // The timeout is disabled when set to 0.
   ibc.core.client.v1.Height timeout_height = 6
       [(gogoproto.moretags) = "yaml:\"timeout_height\"", (gogoproto.nullable) = false];
   // Timeout timestamp in absolute nanoseconds since unix epoch.

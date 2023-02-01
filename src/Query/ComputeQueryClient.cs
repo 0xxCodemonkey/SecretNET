@@ -206,7 +206,7 @@ public class ComputeQueryClient : GprcBase
     /// <returns>SecretCodeInfo.</returns>
     public async Task<(SecretCodeInfo CodeInfo, byte[] WasmBytes)> Code(ulong codeId, Metadata metadata = null)
     {
-        var request = new Secret.Compute.V1Beta1.QueryByCodeIDRequest
+        var request = new Secret.Compute.V1Beta1.QueryByCodeIdRequest
         {
             CodeId = codeId
         };
@@ -249,11 +249,11 @@ public class ComputeQueryClient : GprcBase
     /// <returns>List&lt;SecretContractInfo&gt;.</returns>
     public async Task<List<SecretContractInfo>> ContractsByCode(ulong codeId, Metadata metadata = null)
     {
-        var request = new Secret.Compute.V1Beta1.QueryByCodeIDRequest
+        var request = new Secret.Compute.V1Beta1.QueryByCodeIdRequest
         {
             CodeId = codeId
         };
-        var result = await client.ContractsByCodeIDAsync(request, metadata);
+        var result = await client.ContractsByCodeIdAsync(request, metadata);
         if ((result?.ContractInfos?.Any()).GetValueOrDefault())
         {
             var resultList = new List<SecretContractInfo>();

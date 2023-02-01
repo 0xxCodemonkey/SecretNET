@@ -182,7 +182,7 @@ public partial class SecretEncryptionUtils
             throw new ArgumentNullException("Could not retrieve key used for transactions");
         }
 
-        _consensusIoPubKey = ExtractPubkey(registrationResult.Key_.ToByteArray());
+        _consensusIoPubKey = registrationResult.Key_.ToByteArray();
 
         return _consensusIoPubKey;
     }
@@ -205,89 +205,4 @@ public partial class SecretEncryptionUtils
         public byte[] isvEnclaveQuoteBody { get; set; }
     }
 
-    /// <summary>
-    /// extractPubkey ported from https://github.com/enigmampc/SecretNetwork/blob/8ab20a273570bfb3d55d67e0300ecbdc67e0e739/x/registration/remote_attestation/remote_attestation.go#L25
-    /// </summary>
-    /// <param name="cert">The cert.</param>
-    /// <returns>System.Byte[].</returns>
-    private byte[]? ExtractPubkey(byte[] cert)
-    {
-        var nsCmtOid = new byte[] { 0x06, 0x09, 0x60, 0x86, 0x48, 0x01, 0x86, 0xf8, 0x42, 0x01, 0x0d}; // Netscape Comment OID
-
-        var payload = ExtractAsn1Value(cert, nsCmtOid);
-
-        try
-        {
-            // Try HW mode
-            // Ported from https://github.com/scrtlabs/SecretNetwork/blob/8ab20a273570bfb3d55d67e0300ecbdc67e0e739/x/registration/remote_attestation/remote_attestation.go#L110
-            var jsonPayloadString = Encoding.UTF8.GetString(payload);
-            var jsonPayload = JsonConvert.DeserializeObject<RemoteAttestationPayload>(jsonPayloadString);
-
-            if (jsonPayload != null && jsonPayload.report != null)
-            {
-                var palyoadBase64Bytes = Convert.FromBase64String(Convert.ToString(jsonPayload.report));
-                var payloadString = Encoding.UTF8.GetString(palyoadBase64Bytes);
-                var payloadJson = JsonConvert.DeserializeObject<AttestationReportPayload>(payloadString);
-                if (payloadJson!= null && payloadJson.isvEnclaveQuoteBody != null)
-                {
-                    var quoteHex = (byte[])payloadJson.isvEnclaveQuoteBody;
-                    var reportData = new ArraySegment<byte>(quoteHex, 368, 32).ToArray();
-                    return reportData;
-                }
-            }
-        }
-        catch (Exception ex) 
-        {
-            //throw new Exception("Cannot extract tx io pubkey: error parsing certificate - malformed certificate");
-        }
-
-        try
-        {
-            // Try SW mode
-            var payloadString = Encoding.UTF8.GetString(payload);
-            var pubkey = Convert.FromBase64String(payloadString);
-            if (pubkey.Length == 32)
-            {
-                return pubkey;
-            }
-        }
-        catch
-        {
-            // Not SW mode
-            throw new Exception("Cannot extract tx io pubkey: error parsing certificate - malformed certificate");
-        }
-
-        return null;
-    }
-
-    private byte[] ExtractAsn1Value(byte[] cert, byte[] oid)
-    {
-        var offset = Convert.ToHexString(cert).IndexOf(Convert.ToHexString(oid)) / 2;
-
-        offset += 12; // 11 + TAG (0x04)
-
-        // we will be accessing offset + 2, so make sure it's not out-of-bounds
-        if (offset + 2 >= cert.Length)
-        {
-            throw new Exception("Error parsing certificate - malformed certificate");
-        }
-
-        int length = cert[offset];
-        if (length > 0x80)
-        {
-            length = (cert[offset + 1] * 0x100) + cert[offset + 2];
-            offset += 2;
-        }
-
-        if (offset + length + 1 >= cert.Length)
-        {
-            throw new Exception("Error parsing certificate - malformed certificate");
-        }
-
-        // Obtain Netscape Comment
-        offset += 1;
-        var payload = new ArraySegment<byte>(cert, offset, length);
-
-        return payload.ToArray();
-    }
 }
