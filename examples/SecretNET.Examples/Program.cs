@@ -97,24 +97,24 @@ var secretClient = new SecretNetworkClient(createClientOptions);
 
 // *** Get Balance (1000000 uscrt == 1 SCRT) ***
 
-writeHeadline("Get Balance");
+//writeHeadline("Get Balance");
 
-var response = await secretClient.Query.Bank.Balance(wallet.Address);
-Console.WriteLine($"Balance: {(float.Parse(response.Amount) / 1000000f)} SCRT");
+//var response = await secretClient.Query.Bank.Balance(wallet.Address);
+//Console.WriteLine($"Balance: {(float.Parse(response.Amount) / 1000000f)} SCRT");
 
 #endregion
 
 #region *** Get Subacccount and Send $SCRT ***
 
-// Send SCRT
-var subaccountWallet = await wallet.GetSubaccount(1);
-Console.WriteLine($"\r\nSubaccount.Address: {subaccountWallet.Address}");
+//// Send SCRT
+//var subaccountWallet = await wallet.GetSubaccount(1);
+//Console.WriteLine($"\r\nSubaccount.Address: {subaccountWallet.Address}");
 
-var sendResponse = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: "uscrt");
-Console.WriteLine($"BroadcastResponse: {(sendResponse.Code == 0 ? "Success" : "Error (see response log)")}");
+//var sendResponse = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: "uscrt");
+//Console.WriteLine($"BroadcastResponse: {(sendResponse.Code == 0 ? "Success" : "Error (see response log)")}");
 
-var r1 = await secretClient.Query.Bank.Balance(subaccountWallet.Address);
-Console.WriteLine($"Subaccount Balance: {(float.Parse(r1.Amount) / 1000000f)} SCRT\r\n");
+//var r1 = await secretClient.Query.Bank.Balance(subaccountWallet.Address);
+//Console.WriteLine($"Subaccount Balance: {(float.Parse(r1.Amount) / 1000000f)} SCRT\r\n");
 
 //Console.ReadLine();
 
@@ -122,33 +122,33 @@ Console.WriteLine($"Subaccount Balance: {(float.Parse(r1.Amount) / 1000000f)} SC
 
 #region *** Simulate and broadcast a complex transaction  ***
 
-var sendToAlice = new Cosmos.Bank.V1Beta1.MsgSend()
-{
-    FromAddress = wallet.Address,
-    ToAddress = subaccountWallet.Address
-};
-sendToAlice.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
+//var sendToAlice = new Cosmos.Bank.V1Beta1.MsgSend()
+//{
+//    FromAddress = wallet.Address,
+//    ToAddress = subaccountWallet.Address
+//};
+//sendToAlice.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
 
-var sendToEve = new Cosmos.Bank.V1Beta1.MsgSend()
-{
-    FromAddress = wallet.Address,
-    ToAddress = subaccountWallet.Address // use the same address for simplicity
-};
-sendToEve.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
+//var sendToEve = new Cosmos.Bank.V1Beta1.MsgSend()
+//{
+//    FromAddress = wallet.Address,
+//    ToAddress = subaccountWallet.Address // use the same address for simplicity
+//};
+//sendToEve.Amount.Add(new Cosmos.Base.V1Beta1.Coin() { Amount = "1", Denom = "uscrt" });
 
-var messages = new[] { sendToAlice, sendToEve };
+//var messages = new[] { sendToAlice, sendToEve };
 
-var simulate = await secretClient.Tx.Simulate(messages);
+//var simulate = await secretClient.Tx.Simulate(messages);
 
-Console.WriteLine($"Simulate => GasUsed {simulate.GasInfo.GasUsed} uscrt");
+//Console.WriteLine($"Simulate => GasUsed {simulate.GasInfo.GasUsed} uscrt");
 
-var tx = await secretClient.Tx.Broadcast(messages, new TxOptions
-{
-    // Adjust gasLimit up by 10% to account for gas estimation error
-    GasLimit = (ulong)Math.Ceiling(simulate.GasInfo.GasUsed * 1.1),
-});
+//var tx = await secretClient.Tx.Broadcast(messages, new TxOptions
+//{
+//    // Adjust gasLimit up by 10% to account for gas estimation error
+//    GasLimit = (ulong)Math.Ceiling(simulate.GasInfo.GasUsed * 1.1),
+//});
 
-logSecretTx("Broadcast result", tx);
+//logSecretTx("Broadcast result", tx);
 
 //Console.ReadLine();
 
@@ -156,29 +156,29 @@ logSecretTx("Broadcast result", tx);
 
 #region *** Use of TransactionApprovalCallback ***
 
-// Skip transaction
-secretClient.TransactionApprovalCallback = async (approvalData) =>
-{
-    Console.WriteLine("Approve Transaction:");
-    Console.WriteLine("TxData:\r\n" + JsonConvert.SerializeObject(approvalData, Formatting.Indented) + "\r\n");
+//// Skip transaction
+//secretClient.TransactionApprovalCallback = async (approvalData) =>
+//{
+//    Console.WriteLine("Approve Transaction:");
+//    Console.WriteLine("TxData:\r\n" + JsonConvert.SerializeObject(approvalData, Formatting.Indented) + "\r\n");
 
-    Console.WriteLine("Approve? (y/n):");
-    var approve = (Console.ReadLine()?.Equals("y", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault();
-    return new UserApprovalDecision(approve);
-};
+//    Console.WriteLine("Approve? (y/n):");
+//    var approve = (Console.ReadLine()?.Equals("y", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault();
+//    return new UserApprovalDecision(approve);
+//};
 
-var sendResponseApprove = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: "uscrt");
-if (sendResponseApprove != null)
-{
-    Console.WriteLine("Transaction was approved.");
-    Console.WriteLine($"BroadcastResponse: {(sendResponseApprove.Code == 0 ? "Success" : "Error (see response log)")}");
-}
-else
-{
-    Console.WriteLine("Transaction was not approved!");
-}
+//var sendResponseApprove = await secretClient.Tx.Bank.Send(toAddress: subaccountWallet.Address, amount: 1000000, denom: "uscrt");
+//if (sendResponseApprove != null)
+//{
+//    Console.WriteLine("Transaction was approved.");
+//    Console.WriteLine($"BroadcastResponse: {(sendResponseApprove.Code == 0 ? "Success" : "Error (see response log)")}");
+//}
+//else
+//{
+//    Console.WriteLine("Transaction was not approved!");
+//}
 
-secretClient.TransactionApprovalCallback = null;
+//secretClient.TransactionApprovalCallback = null;
 
 #endregion
 
@@ -186,12 +186,12 @@ secretClient.TransactionApprovalCallback = null;
 
 // *** Get Account ***
 
-writeHeadline("Get Account");
+//writeHeadline("Get Account");
 
-var accountResponse = await secretClient.Query.Auth.Account(wallet.Address);
-Console.WriteLine("AccountResponse:\r\n" + JsonConvert.SerializeObject(accountResponse, Formatting.Indented) + "\r\n");
+//var accountResponse = await secretClient.Query.Auth.Account(wallet.Address);
+//Console.WriteLine("AccountResponse:\r\n" + JsonConvert.SerializeObject(accountResponse, Formatting.Indented) + "\r\n");
 
-//Console.ReadLine();
+////Console.ReadLine();
 
 #endregion
 
@@ -199,13 +199,13 @@ Console.WriteLine("AccountResponse:\r\n" + JsonConvert.SerializeObject(accountRe
 
 // *** Get Codes with source ***
 
-writeHeadline("Get my Codes with source");
+//writeHeadline("Get my Codes with source");
 
-var codesResponse = await secretClient.Query.Compute.Codes();
-var withSource = codesResponse.Where(c => !string.IsNullOrWhiteSpace(c.Source) && c.CreatorAddress == wallet.Address).ToList();
-Console.WriteLine($"My Codes with source (Count: {withSource.Count} ):\r\n" + JsonConvert.SerializeObject(withSource, Formatting.Indented) + "\r\n");
+//var codesResponse = await secretClient.Query.Compute.Codes();
+//var withSource = codesResponse.Where(c => !string.IsNullOrWhiteSpace(c.Source) && c.CreatorAddress == wallet.Address).ToList();
+//Console.WriteLine($"My Codes with source (Count: {withSource.Count} ):\r\n" + JsonConvert.SerializeObject(withSource, Formatting.Indented) + "\r\n");
 
-//Console.ReadLine();
+////Console.ReadLine();
 
 #endregion
 
