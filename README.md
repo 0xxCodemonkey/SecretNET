@@ -114,7 +114,7 @@ Install-Package SecretNET.NFT
 Install-Package SecretNET.UI (coming soon)
 ```
 # Usage Examples
-Note: Public gRPC-web endpoints can be found in https://github.com/scrtlabs/api-registry for both mainnet and testnet.
+Note: Public gRPC-web endpoints can be found in [API-Registry](https://docs.scrt.network/secret-network-documentation/development/queries-and-connecting-to-the-network/connecting-to-the-network) for both mainnet and testnet.
 
 For a lot more usage examples refer to the tests.
 
